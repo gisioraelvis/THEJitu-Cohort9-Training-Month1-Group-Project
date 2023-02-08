@@ -16,26 +16,7 @@ body {
   background-color: var(--background);
 }
 
-/* 
-<header>
-        <div class="nav">
-            <div class="logo">
-                <h1>Shop</h1>
-            </div>
-            <div class="search">
-                <input type="text" placeholder="Search for a product...">
-                <button type="submit"><span class="material-icons" title="search product">search</span></button>
-            </div>
-            <div class="cart">
-                <button class="cart-btn" type="button"><span class="material-icons" title="cart">add_shopping_cart</span></button>
-            </div>
-            <div class="sign">
-                <button class="sign-btn" type="button"><span class="material-icons">person</span></button>
-            </div>
-        </div>
-    </header>
-*/
-
+/* Nav bar */
 .nav {
   display: flex;
   justify-content: space-between;
@@ -131,7 +112,7 @@ body {
   border: none;
   outline: none;
   background-color: var(--primary);
-  color: var(--background);
+  color: #fff;
   cursor: pointer;
 }
 
@@ -175,46 +156,13 @@ body {
   }
 }
 
-/* 
- <!-- Carousel -->
-    <!-- Carousel -->
-    <div class="carousel-container">
-        <div class="carousel">
-            <div class="left-arrow">
-                <span class="material-icons" title="left">navigate_before</span>
-            </div>
-            <div class="product-container">
-                <div class="product">
-                    <div class="title">
-                        <h2>Play Station 4</h2>
-                    </div>
-                    <div class="image">
-                        <img src="./assests/images/playstation.jpg" alt="product image">
-                    </div>
-                    <div class="price">
-                        <p>Price: ksh 40,000</p>
-                    </div>
-                </div>
-            </div>
-            <div class="right-arrow">
-                <span class="material-icons" title="right">navigate_next</span>
-            </div>
-        </div>
-        <div class="dots">
-            <span class="material-icons" title="dot">radio_button_checked</span>
-            <span class="material-icons" title="dot">radio_button_unchecked</span>
-            <span class="material-icons" title="dot">radio_button_unchecked</span>
-        </div>
-    </div>
-*/
-
-/* Raised card with box shadow and bg all around */
+/* Carousel */
 .carousel-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   width: 90%;
-  height: 50vh;
+  height: 80vh;
   margin: 2rem auto 0;
   border-radius: 1rem;
   background-color: var(--primary);
@@ -239,7 +187,7 @@ body {
 
 .carousel-container .left-arrow .material-icons {
   font-size: 4rem;
-  color: var(--background);
+  color: #fff;
 }
 
 .carousel-container .left-arrow .material-icons:hover {
@@ -259,7 +207,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 50%;
+  width: 60%;
   height: 80%;
   background-color: var(--background);
   border-radius: 0.5rem;
@@ -270,8 +218,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
   height: 20%;
+  width: 100%;
 }
 
 .carousel-container .product .title h2 {
@@ -284,23 +232,22 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
   height: 80%;
-  object-fit: contain;
+  width: 100%;
 }
 
 .carousel-container .product .image img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .carousel-container .product .price {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
   height: 20%;
+  width: 100%;
 }
 
 .carousel-container .product .price p {
@@ -338,8 +285,227 @@ body {
 .carousel-container .dots .material-icons {
   font-size: 2rem;
   color: var(--background);
+  cursor: pointer;
+  margin: 0.5rem;
 }
 
 .carousel-container .dots .material-icons:hover {
   transform: scale(1.3);
+}
+
+.carousel-container .dots .material-icons.active {
+  transform: scale(1.2);
+  color: var(--active);
+}
+
+/* Carousel mobile styles */
+@media screen and (max-width: 768px) {
+  .carousel-container {
+    height: 60vh;
+  }
+
+  .carousel-container .product {
+    width: 80%;
+  }
+
+  .carousel-container .product .title {
+    height: 10%;
+  }
+
+  .carousel-container .product .title h2 {
+    font-size: 1.5rem;
+  }
+
+  .carousel-container .product .image {
+    height: 70%;
+  }
+
+  .carousel-container .product .price {
+    height: 10%;
+  }
+
+  .carousel-container .product .price p {
+    font-size: 1rem;
+  }
+}
+
+/* Products */
+.products-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  margin: 2rem auto;
+}
+
+.products-container .products-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 2rem;
+}
+
+.products-container .products-title h2 {
+  font-size: 3rem;
+  font-weight: 600;
+}
+
+.products-container .products {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+}
+
+.products-container .product {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: space-between;
+  width: 30%;
+  margin: 2rem;
+  background-color: var(--background);
+  border-radius: 0.5rem;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.products-container .product .image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 60%;
+}
+
+.products-container .product .image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.products-container .product .title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 1rem 0;
+}
+
+.products-container .product .title h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.products-container .product .price {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.products-container .product .price p {
+  font-size: 1.5rem;
+}
+
+.products-container .product .add-to-cart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.products-container .product .add-to-cart button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: 60%;
+  background-color: grey;
+  border: none;
+  border-radius: 1rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  padding: 1rem 2rem;
+  margin: 1rem;
+}
+
+.products-container .product:hover {
+  outline: 0.2rem solid var(--active);
+}
+
+.products-container .product .add-to-cart button:hover {
+  background-color: var(--primary);
+}
+
+/* Products mobile styles */
+@media screen and (max-width: 768px) {
+  .products-container {
+    height: 100%;
+  }
+
+  .products-container .products-title {
+    margin: 1rem;
+  }
+
+  .products-container .products-title h2 {
+    font-size: 2rem;
+  }
+
+  .products-container .products {
+    width: 90%;
+  }
+
+  .products-container .product {
+    width: 90%;
+    margin: 1rem;
+  }
+
+  .products-container .product .image {
+    height: 50%;
+  }
+
+  .products-container .product .title {
+    margin: 0.5rem 0;
+  }
+
+  .products-container .product .title h3 {
+    font-size: 1.5rem;
+  }
+
+  .products-container .product .price {
+    margin: 0.5rem 0;
+  }
+
+  .products-container .product .price p {
+    font-size: 1.2rem;
+  }
+
+  .products-container .product .add-to-cart button {
+    width: 50%;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    margin: 0.5rem 0.5rem 1.5rem 0.5rem;
+  }
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 10vh;
+  background-color: var(--primary);
+  color: #fff;
+}
+
+footer p {
+  font-size: 1.5rem;
+  font-weight: 600;
 }
