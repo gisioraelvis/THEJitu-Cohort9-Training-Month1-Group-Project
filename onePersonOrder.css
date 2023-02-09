@@ -3,6 +3,13 @@
      --primary: #1a0b41;
      --background: #fafafa;
      --button: #D9D9D9;
+     --active: #00ce75;
+}
+.close{
+    color: var(--primary);
+}
+.check{
+    color:var(--active)
 }
 body{
     background-color: var(--background);
@@ -65,9 +72,9 @@ body{
     color: #D9D9D9;
     
 }
-.table thead th:nth-child(7){
+/* .table thead th:nth-child(7){
     display: none;
-}
+} */
 .table tbody tr{
     background-color: #D9D9D9;
 }
