@@ -459,18 +459,94 @@ body {
   background-color: var(--primary);
 }
 
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20%;
+  margin: 2rem auto;
+}
+
+.pagination-container .pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.pagination-container .pagination .prev {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 10%;
+}
+
+.pagination-container .pagination .prev span {
+  font-size: 3rem;
+  color: var(--primary);
+  cursor: pointer;
+}
+
+.pagination-container .pagination .prev:hover {
+  transform: scale(1.2);
+}
+
+.pagination-container .pagination .pages {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+}
+
+.pagination-container .pagination .pages .page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 10%;
+  padding: 0.5rem;
+  margin: 0 0.5rem;
+  background-color: grey;
+  border-radius: 0.5rem;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  cursor: pointer;
+}
+
+.pagination-container .pagination .pages .page.active {
+  background-color: var(--primary);
+}
+
+.pagination-container .pagination .pages .page p {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.pagination-container .pagination .pages .page:hover {
+  transform: scale(1.1);
+}
+
+.pagination-container .pagination .next {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 10%;
+  height: 100%;
+}
+
+.pagination-container .pagination .next span {
+  font-size: 3rem;
+  color: var(--primary);
+  cursor: pointer;
+}
+
+.pagination-container .pagination .next:hover {
+  transform: scale(1.2);
+}
+
 /* Products mobile styles */
 @media screen and (max-width: 768px) {
   .products-container {
     height: 100%;
-  }
-
-  .products-container .products-title {
-    margin: 1rem;
-  }
-
-  .products-container .products-title h2 {
-    font-size: 2rem;
   }
 
   .products-container .products {
@@ -486,27 +562,8 @@ body {
     height: 50%;
   }
 
-  .products-container .product .title {
-    margin: 0.5rem 0;
-  }
-
-  .products-container .product .title h3 {
-    font-size: 1.5rem;
-  }
-
-  .products-container .product .price {
-    margin: 0.5rem 0;
-  }
-
-  .products-container .product .price p {
-    font-size: 1.2rem;
-  }
-
-  .products-container .product .add-to-cart button {
+  .pagination-container {
     width: 50%;
-    font-size: 1rem;
-    padding: 0.5rem 1rem;
-    margin: 0.5rem 0.5rem 1.5rem 0.5rem;
   }
 }
 
@@ -545,12 +602,6 @@ footer p {
   width: 100%;
   height: 100%;
 }
-
-/*    <button class="back-btn" type="button">
-                <a href="/">
-                    <span class="material-icons" title="back">arrow_back</span>Go Back
-                </a>
-            </button> */
 
 .product-page-container .back-btn-container {
   display: flex;
