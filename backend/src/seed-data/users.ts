@@ -34,10 +34,10 @@ const seedData = async () => {
   const _db = new DatabaseHelper();
 
   try {
-    await _db.exec("DeleteAllUsers", {});
+    await _db.exec("usp_DeleteAllUsers", {});
 
     for (const user of users) {
-      await _db.exec("RegisterUser", {
+      await _db.exec("usp_RegisterUser", {
         name: user.name,
         email: user.email,
         password: user.password,

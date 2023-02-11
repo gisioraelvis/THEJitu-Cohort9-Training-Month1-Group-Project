@@ -11,6 +11,7 @@ import { DatabaseHelper } from "../utils/database-helpers";
 import { JWTPayload } from "../interfaces/jwt-payload.interface";
 import dotenv from "dotenv";
 import { generateJWT } from "../utils/generate-jwt";
+import { CreateLog } from "../utils/logger";
 dotenv.config({ path: __dirname + "../../.env" });
 
 const _db = new DatabaseHelper();
@@ -116,13 +117,11 @@ export const authUser = async (req: Request, res: Response) => {
   try {
     const user = await _db.exec("FindUserByEmail", { email });
 
-    console.log(user);
-
     if (user.recordset.length === 0) {
       return res.status(404).json({ message: "User does not exist" });
     }
 
-    const isMatch = await Bcrypt.compare(password, user.recordset[0].Password);
+    const isMatch = await Bcrypt.compare(password, user.recordset[0].password);
 
     if (isMatch) {
       const { id, name, email, isAdmin } = user.recordset[0];
@@ -134,13 +133,13 @@ export const authUser = async (req: Request, res: Response) => {
         isAdmin,
       });
 
-      res.status(200).json({ id, name, email, isAdmin, JWT });
+      return res.status(200).json({ id, name, email, isAdmin, JWT });
     } else {
-      res.status(401);
-      throw new Error("Invalid email or password");
+      return res.status(401).json({ message: "Invalid email or password" });
     }
   } catch (error: any) {
     res.status(500).json(error.message);
+    CreateLog.error(error);
   }
 };
 

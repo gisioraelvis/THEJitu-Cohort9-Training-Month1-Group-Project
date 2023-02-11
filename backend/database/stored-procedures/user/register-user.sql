@@ -1,4 +1,4 @@
-CREATE PROCEDURE RegisterUser(
+CREATE PROCEDURE usp_RegisterUser(
     @name VARCHAR(255),
     @email VARCHAR(255),
     @password VARCHAR(255),
