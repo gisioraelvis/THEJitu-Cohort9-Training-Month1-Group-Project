@@ -3,7 +3,7 @@ import {
   registerUser,
   loginUser,
   getUserProfile,
-  // updateUserProfile,
+  updateUserProfile,
   // getUsers,
   // deleteUser,
   // getUserById,
@@ -25,13 +25,9 @@ userRoutes.route("/signup").post(registerUser);
 
 userRoutes.post("/signin", loginUser);
 
-// User profile
 userRoutes.route("/profile").get(authenticateUser, getUserProfile);
 
-// userRoutes
-//   .route("/profile")
-//   .get(authenticateUser, getUserProfile)
-//   .put(authenticateUser, updateUserProfile);
+userRoutes.route("/profile").put(authenticateUser, updateUserProfile);
 
 // // Admin only - delete, update, get user by id
 // userRoutes

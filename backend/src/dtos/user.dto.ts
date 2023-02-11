@@ -77,7 +77,7 @@ export const UserUpdatePasswordDto = Joi.object({
 // update user profile dto
 export const UserUpdateProfileDto = Joi.object({
   name: Joi.string().required(),
-  Email: Joi.string().required().email().messages({
+  email: Joi.string().required().email().messages({
     "string.empty": "Please provide an email",
     "string.email": "Invalid email",
   }),

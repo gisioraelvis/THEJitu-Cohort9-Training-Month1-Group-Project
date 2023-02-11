@@ -4,6 +4,7 @@ import {
   UserPasswordResetDto,
   UserSignInDto,
   UserSignUpDto,
+  UserUpdateProfileDto,
 } from "../dtos/user.dto";
 import { User } from "../interfaces/user.interface";
 import Bcrypt from "bcrypt";
@@ -220,35 +221,67 @@ export const getUserProfile = async (req: RequestWithUser, res: Response) => {
   }
 };
 
-// /**
-//  * @desc    Update user profile
-//  * @route   PUT /api/users/profile
-//  * @access  Private
-//  */
-// const updateUserProfile = asyncHandler(async (req, res) => {
-//   const user = await User.findById(req.user._id);
+/**
+ * @desc    Update user profile
+ * @route   PUT /api/users/profile
+ * @access  Private
+ */
+export const updateUserProfile = async (
+  req: RequestWithUser,
+  res: Response
+) => {
+  const userId = req.user?.id as string;
 
-//   if (user) {
-//     user.name = req.body.name || user.name;
-//     user.email = req.body.email || user.email;
-//     if (req.body.password) {
-//       user.password = req.body.password;
-//     }
+  const { name, email, password } = req.body;
 
-//     const updatedUser = await user.save();
+  const { error } = UserUpdateProfileDto.validate(req.body);
 
-//     res.json({
-//       _id: updatedUser._id,
-//       name: updatedUser.name,
-//       email: updatedUser.email,
-//       isAdmin: updatedUser.isAdmin,
-//       token: generateToken(updatedUser._id),
-//     });
-//   } else {
-//     res.status(404);
-//     throw new Error("User not found");
-//   }
-// });
+  if (error) {
+    return res.status(422).json(error.details[0].message);
+  }
+
+  try {
+    // If user tries to update email that already exists in the database
+    // i.e another user exists with the same email that's not the current user
+    const otherUser = await _db.exec("usp_FindUserByEmail", { email });
+
+    // check if otherUser is not the current user
+    if (otherUser.recordset.length > 0) {
+      if (otherUser.recordset[0].id !== userId) {
+        return res.status(400).json({
+          message:
+            "Another user with a similar email already exists, please try another email",
+        });
+      }
+    }
+
+    const user = await _db.exec("usp_FindUserById", { id: userId });
+
+    if (user.recordset.length > 0) {
+      const passwordHash = await Bcrypt.hash(password, 10);
+
+      const updatedUser = await _db.exec("usp_UpdateUser", {
+        id: userId,
+        name,
+        email,
+        password: passwordHash,
+      });
+
+      if (updatedUser.recordset.length > 0) {
+        const { id, name, email, isAdmin } = updatedUser.recordset[0];
+
+        return res.status(200).json({ id, name, email, isAdmin });
+      } else {
+        return res.status(400).json({ message: "User profile update failed" });
+      }
+    } else {
+      return res.status(404).json({ message: "User not found" });
+    }
+  } catch (error: any) {
+    res.status(500).json(error.message);
+    CreateLog.error(error);
+  }
+};
 
 // /**
 //  * @desc    Get all users
