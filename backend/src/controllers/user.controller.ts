@@ -143,40 +143,57 @@ export const authUser = async (req: Request, res: Response) => {
   }
 };
 
-// /**
-//  * @desc    Register a new user
-//  * @route   POST /api/users
-//  * @access  Public
-//  */
-// const registerUser = asyncHandler(async (req, res) => {
-//   const { name, email, password } = req.body;
+/**
+ * @desc    Register a new user
+ * @route   POST /api/users/signup
+ * @access  Public
+ */
+export const registerUser = async (req: Request, res: Response) => {
+  const { name, email, password } = req.body;
 
-//   const userExists = await User.findOne({ email });
+  const { error } = UserSignUpDto.validate(req.body);
 
-//   if (userExists) {
-//     res.status(400);
-//     throw new Error("User already exists");
-//   }
+  if (error) {
+    return res.status(422).json(error.details[0].message);
+  }
 
-//   const user = await User.create({
-//     name,
-//     email,
-//     password,
-//   });
+  try {
+    const user = await _db.exec("usp_FindUserByEmail", { email });
 
-//   if (user) {
-//     res.status(201).json({
-//       _id: user._id,
-//       name: user.name,
-//       email: user.email,
-//       isAdmin: user.isAdmin,
-//       token: generateToken(user._id),
-//     });
-//   } else {
-//     res.status(400);
-//     throw new Error("Invalid user data");
-//   }
-// });
+    if (user.recordset.length > 0) {
+      return res.status(400).json({
+        message:
+          "User with similar email already exists, please try another email",
+      });
+    }
+
+    const passwordHash = await Bcrypt.hash(password, 10);
+
+    const newUser = await _db.exec("usp_RegisterUser", {
+      name,
+      email,
+      password: passwordHash,
+    });
+
+    if (newUser.recordset.length > 0) {
+      const { id, name, email, isAdmin } = newUser.recordset[0];
+
+      const JWT = generateJWT({
+        id,
+        name,
+        email,
+        isAdmin,
+      });
+
+      return res.status(201).json({ id, name, email, isAdmin, JWT });
+    } else {
+      return res.status(400).json({ message: "User registration failed" });
+    }
+  } catch (error: any) {
+    res.status(500).json(error.message);
+    CreateLog.error(error);
+  }
+};
 
 // /**
 //  * @desc    Get user profile

@@ -4,10 +4,10 @@ import Joi, { ref } from "joi";
 export const UserSignUpDto = Joi.object({
   name: Joi.string().required(),
   email: Joi.string().required().email().messages({
-    "string.empty": "Please add an Email",
-    "string.email": "Not a Valid Email",
+    "string.empty": "Please provide email",
+    "string.email": "Invalid email",
   }),
-  Password: Joi.string()
+  password: Joi.string()
     .required()
     .pattern(
       new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}$")
@@ -17,7 +17,7 @@ export const UserSignUpDto = Joi.object({
         "Password must contain at least 8 characters, one uppercase, one lowercase, one number and one special case character",
     }),
 
-  ConfirmPassword: Joi.equal(ref("Password")).required().messages({
+  confirmPassword: Joi.equal(ref("password")).required().messages({
     "any.only": "Passwords do not match",
   }),
 });
@@ -25,17 +25,17 @@ export const UserSignUpDto = Joi.object({
 // signin dto
 export const UserSignInDto = Joi.object({
   email: Joi.string().required().email().messages({
-    "string.empty": "Please add an Email",
-    "string.email": "Not a Valid Email",
+    "string.empty": "Please provide an email",
+    "string.email": "Invalid email",
   }),
   password: Joi.string().required().messages({
-    "string.empty": "Please add a Password",
+    "string.empty": "Please provide a password",
   }),
 });
 
 // reset password dto
 export const UserPasswordResetDto = Joi.object({
-  Password: Joi.string()
+  password: Joi.string()
     .required()
     .pattern(
       new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}$")
@@ -44,23 +44,23 @@ export const UserPasswordResetDto = Joi.object({
       "string.pattern.base":
         "Password must contain at least 8 characters, one uppercase, one lowercase, one number and one special case character",
     }),
-  ConfirmPassword: Joi.equal(ref("Password")).required().messages({
+  confirmPassword: Joi.equal(ref("password")).required().messages({
     "any.only": "Passwords do not match",
   }),
 });
 
 // update user dto
 export const UserUpdateDto = Joi.object({
-  Name: Joi.string().required(),
-  Email: Joi.string().required().email().messages({
-    "string.empty": "Please add an Email",
-    "string.email": "Not a Valid Email",
+  name: Joi.string().required(),
+  email: Joi.string().required().email().messages({
+    "string.empty": "Please provide an email",
+    "string.email": "Invalid email",
   }),
 });
 
 // update user password dto
 export const UserUpdatePasswordDto = Joi.object({
-  Password: Joi.string()
+  password: Joi.string()
     .required()
     .pattern(
       new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}$")
@@ -69,19 +69,19 @@ export const UserUpdatePasswordDto = Joi.object({
       "string.pattern.base":
         "Password must contain at least 8 characters, one uppercase, one lowercase, one number and one special case character",
     }),
-  ConfirmPassword: Joi.equal(ref("Password")).required().messages({
+  confirmPassword: Joi.equal(ref("password")).required().messages({
     "any.only": "Passwords do not match",
   }),
 });
 
 // update user profile dto
 export const UserUpdateProfileDto = Joi.object({
-  Name: Joi.string().required(),
+  name: Joi.string().required(),
   Email: Joi.string().required().email().messages({
-    "string.empty": "Please add an Email",
-    "string.email": "Not a Valid Email",
+    "string.empty": "Please provide an email",
+    "string.email": "Invalid email",
   }),
-  Password: Joi.string()
+  password: Joi.string()
     .required()
     .pattern(
       new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}$")
@@ -90,7 +90,7 @@ export const UserUpdateProfileDto = Joi.object({
       "string.pattern.base":
         "Password must contain at least 8 characters, one uppercase, one lowercase, one number and one special case character",
     }),
-  ConfirmPassword: Joi.equal(ref("Password"))
+  confirmPassword: Joi.equal(ref("password"))
     .required()
     .messages({ "any.only": "Passwords do not match" }),
 });

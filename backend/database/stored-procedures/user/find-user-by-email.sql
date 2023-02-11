@@ -1,4 +1,4 @@
-CREATE PROCEDURE FindUserByEmail
+CREATE PROCEDURE usp_FindUserByEmail
     (@email VARCHAR(255))
 AS
 BEGIN

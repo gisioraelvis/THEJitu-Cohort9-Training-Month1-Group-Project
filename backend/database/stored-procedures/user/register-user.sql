@@ -9,5 +9,9 @@ BEGIN
     INSERT INTO users
         (name, email, password, isAdmin)
     VALUES
-        (@name, @email, @password, @isAdmin)
+        (@name, @email, @password, @isAdmin);
+
+    SELECT *
+    FROM users
+    WHERE email = @email;
 END

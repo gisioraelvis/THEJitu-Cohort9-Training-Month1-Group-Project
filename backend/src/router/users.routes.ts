@@ -1,7 +1,7 @@
 import express, { Request, Response, NextFunction } from "express";
 import {
   authUser,
-  // registerUser,
+  registerUser,
   // getUserProfile,
   // updateUserProfile,
   // getUsers,
@@ -16,13 +16,13 @@ import {
 
 const userRoutes = express.Router();
 
-// // Fetch all users - admin only
+// Fetch all users - admin only
 // userRoutes
 //   .route("/")
-//   .post(registerUser)
 //   .get(authenticateUser, authorizeAdmin, getUsers);
 
-// User sign in
+userRoutes.route("/signup").post(registerUser);
+
 userRoutes.post("/signin", authUser);
 
 // // User profile
