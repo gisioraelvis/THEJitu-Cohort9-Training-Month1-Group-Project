@@ -10,24 +10,6 @@ const users: User[] = [
     password: bcrypt.hashSync("123456", 10),
     isAdmin: true,
   },
-  {
-    name: "Customer User",
-    email: "customer@example.com",
-    password: bcrypt.hashSync("123456", 10),
-    isAdmin: false,
-  },
-  {
-    name: "John Doe",
-    email: "john@example.com",
-    password: bcrypt.hashSync("123456", 10),
-    isAdmin: false,
-  },
-  {
-    name: "Jane Doe",
-    email: "jane@example.com",
-    password: bcrypt.hashSync("123456", 10),
-    isAdmin: false,
-  },
 ];
 
 const seedData = async () => {

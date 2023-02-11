@@ -4,7 +4,7 @@ import {
   loginUser,
   getUserProfile,
   updateUserProfile,
-  // getUsers,
+  getAllUsers,
   // deleteUser,
   // getUserById,
   // updateUser,
@@ -17,9 +17,7 @@ import {
 const userRoutes = express.Router();
 
 // Fetch all users - admin only
-// userRoutes
-//   .route("/")
-//   .get(authenticateUser, authorizeAdmin, getUsers);
+userRoutes.route("/").get(authenticateUser, authorizeAdmin, getAllUsers);
 
 userRoutes.route("/signup").post(registerUser);
 
@@ -29,7 +27,7 @@ userRoutes.route("/profile").get(authenticateUser, getUserProfile);
 
 userRoutes.route("/profile").put(authenticateUser, updateUserProfile);
 
-// // Admin only - delete, update, get user by id
+// Admin only - delete, update, get user by id
 // userRoutes
 //   .route("/:id")
 //   .delete(authenticateUser, authorizeAdmin, deleteUser)

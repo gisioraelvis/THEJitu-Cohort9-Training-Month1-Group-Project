@@ -283,15 +283,22 @@ export const updateUserProfile = async (
   }
 };
 
-// /**
-//  * @desc    Get all users
-//  * @route   GET /api/users
-//  * @access  Private/Admin
-//  */
-// const getUsers = asyncHandler(async (req, res) => {
-//   const users = await User.find({});
-//   res.json(users);
-// });
+/**
+ * @desc    Get all users
+ * @route   GET /api/users
+ * @access  Private - Admin only
+ */
+export const getAllUsers = async (req: Request, res: Response) => {
+  try {
+    const users = await _db.exec("usp_GetAllUsers");
+
+    // returns the users else if ther's none yet an empty array is returned
+    return res.status(200).json(users.recordset);
+  } catch (error: any) {
+    res.status(500).json(error.message);
+    CreateLog.error(error);
+  }
+};
 
 // /**
 //  * @desc    Delete user
