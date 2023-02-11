@@ -1,7 +1,0 @@
-CREATE PROCEDURE FindUserById(@id VARCHAR(100))
-AS
-BEGIN
-    SELECT *
-    FROM users
-    WHERE Id = @id
-END

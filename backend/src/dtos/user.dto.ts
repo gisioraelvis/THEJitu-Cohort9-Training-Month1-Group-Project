@@ -1,6 +1,6 @@
 import Joi, { ref } from "joi";
 
-export const RegistrationSchema = Joi.object({
+export const UserSignUpDto = Joi.object({
   Name: Joi.string().required(),
   Email: Joi.string().required().email().messages({
     "string.empty": " Please add an Email",
@@ -15,7 +15,7 @@ export const RegistrationSchema = Joi.object({
   ConfirmPassword: Joi.equal(ref("Password")),
 });
 
-export const ResetPasswordSchema = Joi.object({
+export const UserPasswordResetDto = Joi.object({
   Email: Joi.string().required().email().messages({
     "string.empty": "Please add an Email",
     "string.email": "Not a Valid Email",

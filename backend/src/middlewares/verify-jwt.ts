@@ -1,7 +1,7 @@
 import { RequestHandler, Request, Response, NextFunction } from "express";
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
-import { DecodedData } from "../models/user";
+import { DecodedData } from "../interfaces/user.interface";
 dotenv.config({ path: __dirname + "/../../.env" });
 
 interface ExtendedRequest extends Request {

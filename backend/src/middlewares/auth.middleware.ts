@@ -1,20 +1,9 @@
-import { Request, Response, NextFunction } from "express";
+import { Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
-import { User } from "../models/user";
+import { RequestWithUser } from "../interfaces/request-with-user.interface";
+import { JWTPayload } from "../interfaces/jwt-payload.interface";
+import { User } from "../interfaces/user.interface";
 import { DatabaseHelper } from "../utils/database-helpers";
-
-export interface TokenPayload {
-  Id: string;
-  Name: string;
-  Email: string;
-  isAdmin: boolean;
-  iat: number;
-  exp: number;
-}
-
-export interface RequestWithUser extends Request {
-  user?: User;
-}
 
 const _db = new DatabaseHelper();
 
@@ -39,7 +28,7 @@ export const authenticateUser = async (
       const jwtSecret = process.env.JWT_SECRET as string;
 
       // Verify token
-      const decoded = jwt.verify(token, jwtSecret) as TokenPayload;
+      const decoded = jwt.verify(token, jwtSecret) as JWTPayload;
 
       // Check if user still exists
       const user = (await _db.exec("FindUserById", { id: decoded.Id }))
