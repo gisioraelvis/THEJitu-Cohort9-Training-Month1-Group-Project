@@ -18,7 +18,7 @@ app.get("/", (req, res) => {
 });
 app.use("/auth", authroute);
 
-// Error handling middlewares
+// Global error handling middlewares
 app.use(notFound);
 app.use(errorHandler);
 
