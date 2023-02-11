@@ -1,11 +1,11 @@
 import { RequestHandler, Request, Response, NextFunction } from "express";
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
-import { DecodedData } from "../interfaces/user.interface";
+import { JWTPayload } from "../interfaces/jwt-payload.interface";
 dotenv.config({ path: __dirname + "/../../.env" });
 
 interface ExtendedRequest extends Request {
-  info?: DecodedData;
+  info?: JWTPayload;
 }
 
 export function VerifyToken(
@@ -21,7 +21,7 @@ export function VerifyToken(
     const Payloadata = jwt.verify(
       token,
       process.env.JWT_SECRET as string
-    ) as DecodedData;
+    ) as JWTPayload;
     req.info = Payloadata;
   } catch (error: any) {
     res.status(403).json(error.message);

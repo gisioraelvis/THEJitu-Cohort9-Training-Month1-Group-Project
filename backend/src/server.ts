@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import { notFound, errorHandler } from "./middlewares/global-error.middleware";
 import userRoutes from "./router/users.routes";
+import { CreateLog } from "./utils/logger";
 dotenv.config({ path: __dirname + "/../.env" });
 
 dotenv.config();
@@ -26,5 +27,5 @@ const HOST = process.env.HOST || "localhost";
 const PORT = process.env.PORT || 5500;
 
 app.listen(PORT, () => {
-  console.log(`Server running on http://${HOST}:${PORT}`);
+  CreateLog.info(`Server running on http://${HOST}:${PORT}`);
 });

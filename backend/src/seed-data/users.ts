@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
 import { User } from "../interfaces/user.interface";
 import { DatabaseHelper } from "../utils/database-helpers";
+import { CreateLog } from "../utils/logger";
 
 const users: User[] = [
   {
@@ -44,11 +45,11 @@ const seedData = async () => {
       });
     }
 
-    console.log(`${users.length} users seeded`);
+    CreateLog.info(`${users.length} users seeded`);
 
     process.exit();
   } catch (error) {
-    console.error(error);
+    CreateLog.error(error);
     process.exit(1);
   }
 };
