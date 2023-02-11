@@ -12,6 +12,7 @@ import { JWTPayload } from "../interfaces/jwt-payload.interface";
 import dotenv from "dotenv";
 import { generateJWT } from "../utils/generate-jwt";
 import { CreateLog } from "../utils/logger";
+import { RequestWithUser } from "../interfaces/request-with-user.interface";
 dotenv.config({ path: __dirname + "../../.env" });
 
 const _db = new DatabaseHelper();
@@ -60,13 +61,13 @@ export async function RegisterUser(req: ExtendedRequest, res: Response) {
 export async function ResetPassword(req: ExtendedRequest, res: Response) {
   try {
     const { Password } = req.body;
-    const { Id } = req.info as JWTPayload;
+    const { id } = req.info as JWTPayload;
     const { error } = UserPasswordResetDto.validate(req.body);
     if (error) {
       return res.status(422).json(error.details[0].message);
     }
     const passwordHash = await Bcrypt.hash(Password, 10);
-    await _db.exec("ResetPassword", { id: Id, password: passwordHash });
+    await _db.exec("ResetPassword", { id, password: passwordHash });
     return res.status(200).json({ message: "Password Reset Successful!" });
   } catch (error) {
     console.log(error);
@@ -105,7 +106,7 @@ export async function SearchUser(req: ExtendedRequest, res: Response) {
  * @route   POST /api/users/signin
  * @access  Public
  */
-export const authUser = async (req: Request, res: Response) => {
+export const loginUser = async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
   const { error } = UserSignInDto.validate(req.body);
@@ -115,7 +116,7 @@ export const authUser = async (req: Request, res: Response) => {
   }
 
   try {
-    const user = await _db.exec("FindUserByEmail", { email });
+    const user = await _db.exec("usp_FindUserByEmail", { email });
 
     if (user.recordset.length === 0) {
       return res.status(404).json({ message: "User does not exist" });
@@ -195,26 +196,29 @@ export const registerUser = async (req: Request, res: Response) => {
   }
 };
 
-// /**
-//  * @desc    Get user profile
-//  * @route   GET /api/users/profile
-//  * @access  Private
-//  */
-// const getUserProfile = asyncHandler(async (req, res) => {
-//   const user = await User.findById(req.user._id);
+/**
+ * @desc    Get user profile
+ * @route   GET /api/users/profile
+ * @access  Private
+ */
+export const getUserProfile = async (req: RequestWithUser, res: Response) => {
+  const userId = req.user?.id as string;
 
-//   if (user) {
-//     res.json({
-//       _id: user._id,
-//       name: user.name,
-//       email: user.email,
-//       isAdmin: user.isAdmin,
-//     });
-//   } else {
-//     res.status(404);
-//     throw new Error("User not found");
-//   }
-// });
+  try {
+    const user = await _db.exec("usp_FindUserById", { id: userId });
+
+    if (user.recordset.length > 0) {
+      const { id, name, email, isAdmin } = user.recordset[0];
+
+      return res.status(200).json({ id, name, email, isAdmin });
+    } else {
+      return res.status(404).json({ message: "User not found" });
+    }
+  } catch (error: any) {
+    res.status(500).json(error.message);
+    CreateLog.error(error);
+  }
+};
 
 // /**
 //  * @desc    Update user profile
