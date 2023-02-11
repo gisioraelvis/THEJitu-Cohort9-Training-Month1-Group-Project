@@ -1,11 +1,13 @@
-CREATE PROCEDURE RegisterUser
-    (@Name NVARCHAR(255),
-    @Email NVARCHAR(255),
-    @Password NVARCHAR(255))
+CREATE PROCEDURE RegisterUser(
+    @name VARCHAR(255),
+    @email VARCHAR(255),
+    @password VARCHAR(255),
+    @isAdmin BIT = 0
+)
 AS
 BEGIN
     INSERT INTO users
-        (Name, Email, Password)
+        (name, email, password, isAdmin)
     VALUES
-        (@Name, @Email, @Password)
+        (@name, @email, @password, @isAdmin)
 END

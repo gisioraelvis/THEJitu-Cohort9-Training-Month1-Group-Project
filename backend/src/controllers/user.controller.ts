@@ -84,7 +84,7 @@ export async function SearchUser(req: ExtendedRequest, res: Response) {
       return res.status(404).json({ error: "User Not found" });
     }
     const payload = user.map((item) => {
-      const { Password, ...rest } = item;
+      const { password, ...rest } = item;
       return rest;
     });
     return res.status(200).json({ message: "User found!", payload });
@@ -100,7 +100,7 @@ export async function SearchUser(req: ExtendedRequest, res: Response) {
 // comment out the code where necessary/applicable.
 
 /**
- * @desc    Auth user & get JWT token
+ * @desc    Auth user & generate JWT token
  * @route   POST /api/users/signin
  * @access  Public
  */
@@ -116,9 +116,10 @@ export const authUser = async (req: Request, res: Response) => {
   try {
     const user = await _db.exec("FindUserByEmail", { email });
 
+    console.log(user);
+
     if (user.recordset.length === 0) {
-      res.status(404);
-      throw new Error("User does not exist");
+      return res.status(404).json({ message: "User does not exist" });
     }
 
     const isMatch = await Bcrypt.compare(password, user.recordset[0].Password);

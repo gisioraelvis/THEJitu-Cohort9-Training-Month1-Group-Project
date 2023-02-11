@@ -1,0 +1,6 @@
+CREATE PROCEDURE DeleteAllUsers
+AS
+BEGIN
+    SET NOCOUNT ON;
+    DELETE FROM users;
+END

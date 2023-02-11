@@ -14,9 +14,15 @@ export class DatabaseHelper {
     return request;
   }
 
-  async exec(storedProcedure: string, data: { [x: string]: string } = {}) {
+  async exec(
+    storedProcedure: string,
+    data: { [x: string]: string | boolean } = {}
+  ) {
     let emptyRequest = await (await this.pool).request();
-    let request = this.createRequest(emptyRequest, data);
+    let request = this.createRequest(
+      emptyRequest,
+      data as { [x: string]: string }
+    );
     let result = await request.execute(storedProcedure);
     return result;
   }

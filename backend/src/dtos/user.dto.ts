@@ -1,6 +1,6 @@
 import Joi, { ref } from "joi";
 
-// signup validation
+// signup dto
 export const UserSignUpDto = Joi.object({
   name: Joi.string().required(),
   email: Joi.string().required().email().messages({
@@ -22,7 +22,7 @@ export const UserSignUpDto = Joi.object({
   }),
 });
 
-// signin validation
+// signin dto
 export const UserSignInDto = Joi.object({
   email: Joi.string().required().email().messages({
     "string.empty": "Please add an Email",
@@ -33,7 +33,7 @@ export const UserSignInDto = Joi.object({
   }),
 });
 
-// reset password validation
+// reset password dto
 export const UserPasswordResetDto = Joi.object({
   Password: Joi.string()
     .required()
@@ -49,7 +49,7 @@ export const UserPasswordResetDto = Joi.object({
   }),
 });
 
-// update user validation
+// update user dto
 export const UserUpdateDto = Joi.object({
   Name: Joi.string().required(),
   Email: Joi.string().required().email().messages({
@@ -58,7 +58,7 @@ export const UserUpdateDto = Joi.object({
   }),
 });
 
-// update user password validation
+// update user password dto
 export const UserUpdatePasswordDto = Joi.object({
   Password: Joi.string()
     .required()
@@ -74,7 +74,7 @@ export const UserUpdatePasswordDto = Joi.object({
   }),
 });
 
-// update user profile validation
+// update user profile dto
 export const UserUpdateProfileDto = Joi.object({
   Name: Joi.string().required(),
   Email: Joi.string().required().email().messages({
