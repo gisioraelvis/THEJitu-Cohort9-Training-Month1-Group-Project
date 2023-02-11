@@ -1,7 +1,7 @@
 import express, { json } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import authroute from "./router/auth-routes";
+import authroute from "./router/users.router";
 import { notFound, errorHandler } from "./middlewares/global-error.middleware";
 dotenv.config({ path: __dirname + "/../.env" });
 
@@ -16,7 +16,7 @@ app.use(json());
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
-app.use("/auth", authroute);
+app.use("/api/users", userRoutes);
 
 // Global error handling middlewares
 app.use(notFound);
