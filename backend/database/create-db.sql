@@ -1,4 +1,4 @@
--- Create a new database called 'NodeJS_Assessment'
+-- Create a new database called 'GadgetHub'
 -- Connect to the 'master' database to run this snippet
 USE master
 GO
@@ -6,7 +6,7 @@ GO
 IF NOT EXISTS (
     SELECT name
 FROM sys.databases
-WHERE name = N'NodeJS_Assessment'
+WHERE name = N'GadgetHub'
 )
-CREATE DATABASE NodeJS_Assessment
+CREATE DATABASE GadgetHub
 GO
