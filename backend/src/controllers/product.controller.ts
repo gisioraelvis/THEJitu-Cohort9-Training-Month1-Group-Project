@@ -533,11 +533,11 @@ export const getAllProducts = async (req: Request, res: Response) => {
   }
 };
 
-// /**
-//  * @desc    Fetch single product
-//  * @route   GET /api/products/:id
-//  * @access  Public
-//  */
+/**
+ * @desc    Fetch single product
+ * @route   GET /api/products/:id
+ * @access  Public
+ */
 // export const getProductById = async (req, res) => {
 //   const product = await Product.findById(req.params.id);
 
@@ -548,6 +548,33 @@ export const getAllProducts = async (req: Request, res: Response) => {
 //     throw new Error("Product not found");
 //   }
 // };
+
+/**
+ * @desc    Fetch single product
+ * @route   GET /api/products/:id
+ * @access  Public
+ */
+export const getProductById = async (req: Request, res: Response) => {
+  const productId = req.params.id as string;
+
+  try {
+    const product = await dbUtils.exec(
+      "usp_GetProductByIdWithCategoriesAndBrands",
+      {
+        productId,
+      }
+    );
+
+    if (product.recordset.length > 0) {
+      return res.status(200).json(product.recordset[0]);
+    } else {
+      return res.status(404).json({ message: "Product not found" });
+    }
+  } catch (error: any) {
+    res.status(500).json(error.message);
+    CreateLog.error(error);
+  }
+};
 
 // /**
 //  * @desc    Delete a product

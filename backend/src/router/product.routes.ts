@@ -1,7 +1,7 @@
 import express from "express";
 import {
   getAllProducts,
-  // getProductById,
+  getProductById,
   // deleteProduct,
   // createProduct,
   // updateProduct,
@@ -26,6 +26,8 @@ productRoutes.route("/").get(getAllProducts);
 // productRoutes.route("/:id/reviews").post(authenticateUser, createProductReview);
 
 // productRoutes.get("/top", getTopProducts);
+
+productRoutes.route("/:id").get(getProductById);
 
 // productRoutes
 //   .route("/:id")
