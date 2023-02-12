@@ -151,12 +151,119 @@ export const seedProducts = async () => {
     }
 
     CreateLog.info(`${products.length} products seeded`);
-
-    process.exit();
   } catch (error) {
     CreateLog.error(error);
     process.exit(1);
   }
 };
 
-seedProducts();
+interface ICategorySeed {
+  name: string;
+}
+
+const categories: ICategorySeed[] = [
+  {
+    name: "Smartphones",
+  },
+  {
+    name: "Laptops",
+  },
+  {
+    name: "Tablets",
+  },
+  {
+    name: "Televisions",
+  },
+  {
+    name: "Smartwatches",
+  },
+  {
+    name: "Audio Devices",
+  },
+  {
+    name: "Gaming Consoles",
+  },
+  {
+    name: "Accessories",
+  },
+];
+
+export const seedCategories = async () => {
+  const dbUtils = new DatabaseUtils();
+
+  try {
+    await dbUtils.exec("usp_DeleteAllCategories", {});
+    for (const category of categories) {
+      await dbUtils.exec("usp_CreateCategory", {
+        name: category.name,
+      });
+    }
+
+    CreateLog.info(`${categories.length} categories seeded`);
+  } catch (error) {
+    CreateLog.error(error);
+    process.exit(1);
+  }
+};
+
+interface IBrandSeed {
+  name: string;
+}
+
+const brands: IBrandSeed[] = [
+  {
+    name: "Apple",
+  },
+  {
+    name: "Microsoft",
+  },
+  {
+    name: "Samsung",
+  },
+  {
+    name: "Google",
+  },
+  {
+    name: "Huawei",
+  },
+  {
+    name: "LG",
+  },
+  {
+    name: "Sony",
+  },
+  {
+    name: "Nokia",
+  },
+  {
+    name: "Motorola",
+  },
+  {
+    name: "Xioami",
+  },
+];
+
+export const seedBrands = async () => {
+  const dbUtils = new DatabaseUtils();
+
+  try {
+    await dbUtils.exec("usp_DeleteAllBrands", {});
+    for (const brand of brands) {
+      await dbUtils.exec("usp_CreateBrand", {
+        name: brand.name,
+      });
+    }
+    CreateLog.info(`${brands.length} brands seeded`);
+  } catch (error) {
+    CreateLog.error(error);
+    process.exit(1);
+  }
+};
+
+// Seed the database, sequentially
+(async () => {
+  await seedBrands();
+  await seedCategories();
+  await seedProducts();
+  process.exit();
+})();
