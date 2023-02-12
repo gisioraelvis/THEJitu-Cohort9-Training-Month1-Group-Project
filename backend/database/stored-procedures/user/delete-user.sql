@@ -1,8 +1,8 @@
-CREATE PROCEDURE DeleteUser
-    (@Id INT)
+CREATE PROCEDURE usp_DeleteUser
+    (@id INT)
 AS
 BEGIN
     DELETE 
     FROM users
-    WHERE Id = @Id
+    WHERE id = @id
 END

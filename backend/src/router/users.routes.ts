@@ -5,8 +5,8 @@ import {
   getUserProfile,
   updateUserProfile,
   getAllUsers,
-  // deleteUser,
-  // getUserById,
+  getUserById,
+  deleteUser,
   // updateUser,
 } from "../controllers/user.controller";
 import {
@@ -27,7 +27,10 @@ userRoutes.route("/profile").get(authenticateUser, getUserProfile);
 
 userRoutes.route("/profile").put(authenticateUser, updateUserProfile);
 
-// Admin only - delete, update, get user by id
+userRoutes.route("/:id").get(authenticateUser, authorizeAdmin, getUserById);
+
+userRoutes.route("/:id").delete(authenticateUser, authorizeAdmin, deleteUser);
+
 // userRoutes
 //   .route("/:id")
 //   .delete(authenticateUser, authorizeAdmin, deleteUser)

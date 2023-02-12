@@ -1,5 +1,6 @@
 import mssql from "mssql";
 import * as dotenv from "dotenv";
+import { CreateLog } from "../utils/logger";
 dotenv.config({ path: __dirname + "/../../.env" });
 
 // MSSQL config
@@ -24,9 +25,9 @@ export const connectToMSSQL = async () => {
   try {
     const c = await mssql.connect(sqlConfig);
     if (c.connected) {
-      console.log("Connected to MSSQL database!");
+      CreateLog.info("Connected to MSSQL database!");
     }
   } catch (error) {
-    console.log(error);
+    CreateLog.error(error);
   }
 };
