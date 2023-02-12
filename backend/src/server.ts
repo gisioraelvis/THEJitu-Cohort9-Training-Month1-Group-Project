@@ -2,8 +2,9 @@ import express, { json } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import { notFound, errorHandler } from "./middlewares/global-error.middleware";
-import userRoutes from "./router/users.routes";
+import userRoutes from "./router/user.routes";
 import { CreateLog } from "./utils/logger.util";
+import productRoutes from "./router/product.routes";
 dotenv.config({ path: __dirname + "/../.env" });
 
 dotenv.config();
@@ -18,6 +19,7 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 app.use("/api/users", userRoutes);
+app.use("/api/products", productRoutes);
 
 // Global error handling middlewares
 app.use(notFound);
