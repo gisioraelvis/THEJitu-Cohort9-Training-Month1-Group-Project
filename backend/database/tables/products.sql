@@ -1,12 +1,14 @@
-CREATE TABLE Review
+CREATE TABLE Reviews
 (
     id INT IDENTITY(1,1) PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    rating INT NOT NULL,
-    comment VARCHAR(500) NOT NULL,
+    productId INT NOT NULL,
     userId INT NOT NULL,
+    rating DECIMAL(10, 2) NOT NULL,
+    numberOfReviews INT NOT NULL,
     createdAt DATETIME DEFAULT GETDATE(),
-    updatedAt DATETIME DEFAULT GETDATE()
+    updatedAt DATETIME DEFAULT GETDATE(),
+    FOREIGN KEY (productId) REFERENCES Products(id),
+    FOREIGN KEY (userId) REFERENCES Users(id)
 );
 
 CREATE TABLE Brands
@@ -33,8 +35,8 @@ CREATE TABLE Products
     name VARCHAR(100) NOT NULL,
     image VARCHAR(500) NOT NULL,
     description VARCHAR(1000) NOT NULL,
-    rating INT NOT NULL,
-    numReviews INT NOT NULL,
+    rating DECIMAL(10, 2) NOT NULL,
+    numberOfReviews INT NOT NULL,
     price DECIMAL(10, 2) NOT NULL,
     countInStock INT NOT NULL,
     createdAt DATETIME DEFAULT GETDATE(),
@@ -58,3 +60,14 @@ CREATE TABLE ProductCategory
     FOREIGN KEY (productId) REFERENCES Products(id),
     FOREIGN KEY (categoryId) REFERENCES Categories(id)
 );
+
+CREATE TABLE ProductReview
+(
+    productId INT NOT NULL,
+    reviewId INT NOT NULL,
+    PRIMARY KEY (productId, reviewId),
+    FOREIGN KEY (productId) REFERENCES Products(id),
+    FOREIGN KEY (reviewId) REFERENCES Reviews(id)
+);
+
+

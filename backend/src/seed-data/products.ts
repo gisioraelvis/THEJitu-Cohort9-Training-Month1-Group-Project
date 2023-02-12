@@ -8,7 +8,7 @@ interface IProductSeed {
   brandId: string;
   categoryId: string;
   rating: number;
-  numReviews: number;
+  numberOfReviews: number;
   price: number;
   countInStock: number;
 }
@@ -21,7 +21,7 @@ const products: IProductSeed[] = [
     brandId: "1",
     categoryId: "1",
     rating: 4.5,
-    numReviews: 120,
+    numberOfReviews: 120,
     price: 799,
     countInStock: 100,
   },
@@ -32,7 +32,7 @@ const products: IProductSeed[] = [
     brandId: "1",
     categoryId: "1",
     rating: 4.5,
-    numReviews: 120,
+    numberOfReviews: 120,
     price: 799,
     countInStock: 100,
   },
@@ -44,7 +44,7 @@ const products: IProductSeed[] = [
     brandId: "2",
     categoryId: "1",
     rating: 4.7,
-    numReviews: 150,
+    numberOfReviews: 150,
     price: 999,
     countInStock: 80,
   },
@@ -56,7 +56,7 @@ const products: IProductSeed[] = [
     brandId: "3",
     categoryId: "1",
     rating: 4.9,
-    numReviews: 200,
+    numberOfReviews: 200,
     price: 899,
     countInStock: 50,
   },
@@ -68,7 +68,7 @@ const products: IProductSeed[] = [
     brandId: "4",
     categoryId: "2",
     rating: 4.8,
-    numReviews: 180,
+    numberOfReviews: 180,
     price: 1999,
     countInStock: 30,
   },
@@ -79,7 +79,7 @@ const products: IProductSeed[] = [
     brandId: "5",
     categoryId: "2",
     rating: 4.6,
-    numReviews: 140,
+    numberOfReviews: 140,
     price: 1399,
     countInStock: 60,
   },
@@ -91,7 +91,7 @@ const products: IProductSeed[] = [
     brandId: "6",
     categoryId: "2",
     rating: 4.7,
-    numReviews: 160,
+    numberOfReviews: 160,
     price: 1599,
     countInStock: 40,
   },
@@ -103,7 +103,7 @@ const products: IProductSeed[] = [
     brandId: "7",
     categoryId: "3",
     rating: 4.9,
-    numReviews: 220,
+    numberOfReviews: 220,
     price: 999,
     countInStock: 70,
   },
@@ -114,7 +114,7 @@ const products: IProductSeed[] = [
     brandId: "8",
     categoryId: "3",
     rating: 4.6,
-    numReviews: 170,
+    numberOfReviews: 170,
     price: 699,
     countInStock: 50,
   },
@@ -126,7 +126,7 @@ const products: IProductSeed[] = [
     brandId: "9",
     categoryId: "3",
     rating: 4.8,
-    numReviews: 210,
+    numberOfReviews: 210,
     price: 349,
     countInStock: 30,
   },
@@ -144,7 +144,7 @@ export const seedProducts = async () => {
         image: product.image,
         description: product.description,
         rating: product.rating,
-        numReviews: product.numReviews,
+        numberOfReviews: product.numberOfReviews,
         price: product.price,
         countInStock: product.countInStock,
       });

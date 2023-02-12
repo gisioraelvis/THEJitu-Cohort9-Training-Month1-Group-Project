@@ -7,14 +7,14 @@ CREATE PROCEDURE usp_CreateProduct
     @image VARCHAR(500),
     @description VARCHAR(1000),
     @rating INT,
-    @numReviews INT,
+    @numberOfReviews INT,
     @price DECIMAL(10, 2),
     @countInStock INT
 )
 AS
 BEGIN
     INSERT INTO Products
-        (userId, name, image, description, rating, numReviews, price, countInStock)
+        (userId, name, image, description, rating, numberOfReviews, price, countInStock)
     VALUES
-        (@userId, @name, @image, @description, @rating, @numReviews, @price, @countInStock);
+        (@userId, @name, @image, @description, @rating, @numberOfReviews, @price, @countInStock);
 END

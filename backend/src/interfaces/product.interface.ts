@@ -30,7 +30,7 @@ export interface Product {
   categories: Category[];
   reviews: Review[];
   rating: number;
-  numReviews: number;
+  numberOfReviews: number;
   price: number;
   countInStock: number;
   createdAt?: string;

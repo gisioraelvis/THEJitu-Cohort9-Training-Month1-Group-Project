@@ -6,7 +6,7 @@ import {
   // createProduct,
   // updateProduct,
   // createProductReview,
-  // getTopProducts,
+  getTopProductsByRating,
 } from "../controllers/product.controller";
 
 import {
@@ -25,7 +25,7 @@ productRoutes.route("/").get(getAllProducts);
 
 // productRoutes.route("/:id/reviews").post(authenticateUser, createProductReview);
 
-// productRoutes.get("/top", getTopProducts);
+productRoutes.get("/top-rated", getTopProductsByRating);
 
 productRoutes.route("/:id").get(getProductById);
 

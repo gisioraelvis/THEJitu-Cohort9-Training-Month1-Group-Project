@@ -703,3 +703,29 @@ export const deleteProduct = async (req: Request, res: Response) => {
 
 //   res.json(products);
 // };
+
+/**
+ * @desc    Get top rated products
+ * @route   GET /api/products/top
+ * @access  Public
+ */
+export const getTopProductsByRating = async (req: Request, res: Response) => {
+  try {
+    const products = await dbUtils.exec(
+      "usp_TopRatedProductsWeightedRating",
+      {}
+    );
+    CreateLog.debug(products);
+
+    // TODO: Implement pagination
+
+    if (products.recordset.length > 0) {
+      return res.status(200).json(products.recordset);
+    } else {
+      return res.status(404).json({ message: "No products found" });
+    }
+  } catch (error: any) {
+    res.status(500).json(error.message);
+    CreateLog.error(error);
+  }
+};
