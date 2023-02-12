@@ -2,7 +2,7 @@ import express from "express";
 import {
   getAllProducts,
   getProductById,
-  // deleteProduct,
+  deleteProduct,
   // createProduct,
   // updateProduct,
   // createProductReview,
@@ -28,6 +28,10 @@ productRoutes.route("/").get(getAllProducts);
 // productRoutes.get("/top", getTopProducts);
 
 productRoutes.route("/:id").get(getProductById);
+
+productRoutes
+  .route("/:id")
+  .delete(authenticateUser, authorizeAdmin, deleteProduct);
 
 // productRoutes
 //   .route("/:id")

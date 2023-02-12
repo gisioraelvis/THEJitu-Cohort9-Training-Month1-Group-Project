@@ -78,7 +78,7 @@ const users: IUserSeed[] = [
   },
 ];
 
-const seedData = async () => {
+const seedUserData = async () => {
   const dbUtils = new DatabaseUtils();
 
   try {
@@ -102,4 +102,4 @@ const seedData = async () => {
   }
 };
 
-seedData();
+seedUserData();

@@ -577,6 +577,46 @@ export const getProductById = async (req: Request, res: Response) => {
 //   }
 // };
 
+/**
+ * @desc    Delete a product
+ * @route   DELETE /api/products/:id
+ * @access  Private/Admin
+ */
+export const deleteProduct = async (req: Request, res: Response) => {
+  const productId = req.params.id as string;
+
+  try {
+    const product = await dbUtils.exec("usp_FindProductById", { productId });
+
+    CreateLog.debug(product);
+
+    if (product.recordset.length > 0) {
+      const deletedProduct = await dbUtils.exec("usp_DeleteProductById", {
+        productId,
+      });
+
+      if (
+        deletedProduct.rowsAffected[0] > 0 ||
+        deletedProduct.rowsAffected[1] > 0 ||
+        deletedProduct.rowsAffected[2] > 0
+      ) {
+        return res.status(200).json({
+          message: "Product deleted",
+        });
+      } else {
+        return res.status(400).json({ message: "Product delete failed" });
+      }
+    } else {
+      return res
+        .status(404)
+        .json({ message: "Product with the given id does not exist" });
+    }
+  } catch (error: any) {
+    res.status(500).json(error.message);
+    CreateLog.error(error);
+  }
+};
+
 // /**
 //  * @desc    Create a product
 //  * @route   POST /api/products
