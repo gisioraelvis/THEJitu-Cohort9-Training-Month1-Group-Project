@@ -4,6 +4,7 @@ import {
   UserPasswordResetDto,
   UserSignInDto,
   UserSignUpDto,
+  UserUpdateProfileByAdminDto,
   UserUpdateProfileDto,
 } from "../dtos/user.dto";
 import { User } from "../interfaces/user.interface";
@@ -232,9 +233,9 @@ export const updateUserProfile = async (
 ) => {
   const userId = req.user?.id as string;
 
-  const { name, email, password } = req.body;
-
   const { error } = UserUpdateProfileDto.validate(req.body);
+
+  const { name, email, password } = req.body;
 
   if (error) {
     return res.status(422).json(error.details[0].message);
@@ -356,29 +357,118 @@ export const deleteUser = async (req: Request, res: Response) => {
   }
 };
 
-// /**
-//  * @desc    Update user
-//  * @route   PUT /api/users/:id
-//  * @access  Private/Admin
-//  */
-// const updateUser = asyncHandler(async (req, res) => {
-//   const user = await User.findById(req.params.id);
+/**
+ * @desc    Upgrade user to an admin
+ * @route   PATCH /api/users/:id
+ * @access  Private - Admin only
+ */
+export const upgradeUserToAdmin = async (req: Request, res: Response) => {
+  const userId = req.params.id as string;
 
-//   if (user) {
-//     user.name = req.body.name || user.name;
-//     user.email = req.body.email || user.email;
-//     user.isAdmin = req.body.isAdmin;
+  try {
+    const user = await _db.exec("usp_FindUserById", { id: userId });
 
-//     const updatedUser = await user.save();
+    if (user.recordset.length > 0) {
+      const upgradedUser = await _db.exec("usp_UpgradeUserToAdmin", {
+        id: userId,
+      });
 
-//     res.json({
-//       _id: updatedUser._id,
-//       name: updatedUser.name,
-//       email: updatedUser.email,
-//       isAdmin: updatedUser.isAdmin,
-//     });
-//   } else {
-//     res.status(404);
-//     throw new Error("User not found");
-//   }
-// });
+      if (upgradedUser.rowsAffected[0] > 0) {
+        return res.status(200).json({ message: "User upgraded to admin" });
+      } else {
+        return res.status(400).json({ message: "User upgrade failed" });
+      }
+    } else {
+      return res
+        .status(404)
+        .json({ message: "User with the given id does not exist" });
+    }
+  } catch (error: any) {
+    res.status(500).json(error.message);
+    CreateLog.error(error);
+  }
+};
+
+/**
+ * @desc    Update user profile by admin
+ * i.e all fields including upgrading to admin except password
+ * @route   PUT /api/users/:id
+ * @access  Private - Admin only
+ */
+export const updateUserProfileByAdmin = async (
+  req: RequestWithUser,
+  res: Response
+) => {
+  const userId = req.params.id as string;
+
+  const { error } = UserUpdateProfileByAdminDto.validate(req.body);
+
+  if (error) {
+    return res.status(422).json(error.details[0].message);
+  }
+
+  const { name, email, isAdmin } = req.body;
+
+  try {
+    const user = await _db.exec("usp_FindUserById", { id: userId });
+
+    if (user.recordset.length > 0) {
+      // check if the email is already taken by another user that's not the current user
+      const emailExists = await _db.exec("usp_FindUserByEmail", { email });
+      if (
+        emailExists.recordset.length > 0 &&
+        emailExists.recordset[0].id !== +userId
+      ) {
+        return res.status(400).json({ message: "Email already taken" });
+      }
+
+      // email field is unique, so if user doesn't change the email/mantains same email,
+      // the update it will throw an error(Violation of UNIQUE KEY constraint)
+      // So we need to check if the email is the same as the one in the db before updating
+      // if same email exclude it from the update else update everything
+      if (email === user.recordset[0].email) {
+        const updatedUser = await _db.exec("usp_UpdateUserProfileByAdmin", {
+          id: userId,
+          name,
+          isAdmin,
+        });
+
+        if (updatedUser.rowsAffected[0] > 0) {
+          return res.status(200).json({
+            message: "User profile updated",
+            updatedUser: updatedUser.recordset[0],
+          });
+        } else {
+          return res
+            .status(400)
+            .json({ message: "User profile update failed" });
+        }
+      } else {
+        const updatedUser = await _db.exec("usp_UpdateUserProfileByAdmin", {
+          id: userId,
+          name,
+          email,
+          isAdmin,
+        });
+
+        if (updatedUser.rowsAffected[0] > 0) {
+          return res.status(200).json({
+            message: "User profile updated",
+            updatedUser: updatedUser.recordset[0],
+          });
+        } else {
+          return res
+            .status(400)
+            .json({ message: "User profile update failed" });
+        }
+      }
+    } else {
+      return res
+        .status(404)
+        .json({ message: "User with the given id does not exist" });
+    }
+  } catch (error: any) {
+    res.status(500).json(error.message);
+    CreateLog.error(error);
+  }
+};

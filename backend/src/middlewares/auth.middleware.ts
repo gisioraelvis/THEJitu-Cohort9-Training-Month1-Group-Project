@@ -39,20 +39,20 @@ export const authenticateUser = async (
       if (!user) {
         return res
           .status(401)
-          .json({ message: "Not authorized, user no longer exists" });
+          .json({ message: "Unauthorized, user no longer exists" });
       }
 
       req.user = user;
 
       next();
     } catch (error) {
-      res.status(401).json({ message: "Not authorized, token failed" });
+      res.status(401).json({ message: "Unauthorized, JWT failed" });
       CreateLog.error(error);
     }
   }
 
   if (!token) {
-    return res.status(401).json({ message: "Not authorized, no token" });
+    return res.status(401).json({ message: "Unauthorized, no JWT }" });
   }
 };
 
@@ -65,6 +65,8 @@ export const authorizeAdmin = (
   if (req.user && req.user.isAdmin) {
     next();
   } else {
-    return res.status(401).json({ message: "Not authorized as an admin" });
+    return res
+      .status(403)
+      .json({ message: "Forbidden, not authorized to perform action" });
   }
 };

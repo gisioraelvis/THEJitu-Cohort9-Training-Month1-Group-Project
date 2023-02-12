@@ -7,8 +7,68 @@ const users: User[] = [
   {
     name: "Admin User",
     email: "admin@example.com",
-    password: bcrypt.hashSync("123456", 10),
+    password: "123456",
     isAdmin: true,
+  },
+  {
+    name: "John Doe",
+    email: "johndoe@example.com",
+    password: "password1",
+    isAdmin: false,
+  },
+  {
+    name: "Jane Doe",
+    email: "janedoe@example.com",
+    password: "password2",
+    isAdmin: false,
+  },
+  {
+    name: "Bob Smith",
+    email: "bobsmith@example.com",
+    password: "password3",
+    isAdmin: false,
+  },
+  {
+    name: "Emma Watson",
+    email: "emmawatson@example.com",
+    password: "password4",
+    isAdmin: false,
+  },
+  {
+    name: "Tom Cruise",
+    email: "tomcruise@example.com",
+    password: "password5",
+    isAdmin: false,
+  },
+  {
+    name: "Michael Jordan",
+    email: "michaeljordan@example.com",
+    password: "password6",
+    isAdmin: false,
+  },
+  {
+    name: "Tiger Woods",
+    email: "tigerwoods@example.com",
+    password: "password7",
+    isAdmin: false,
+  },
+  {
+    name: "LeBron James",
+    email: "lebronjames@example.com",
+    password: "password8",
+    isAdmin: false,
+  },
+  {
+    name: "Kobe Bryant",
+    email: "kobebryant@example.com",
+    password: "password9",
+    isAdmin: false,
+  },
+  {
+    name: "Dwayne Johnson",
+    email: "dwaynejohnson@example.com",
+    password: "password10",
+    isAdmin: false,
   },
 ];
 
@@ -22,7 +82,7 @@ const seedData = async () => {
       await _db.exec("usp_RegisterUser", {
         name: user.name,
         email: user.email,
-        password: user.password,
+        password: bcrypt.hashSync(user.password, 10),
         isAdmin: user.isAdmin,
       });
     }

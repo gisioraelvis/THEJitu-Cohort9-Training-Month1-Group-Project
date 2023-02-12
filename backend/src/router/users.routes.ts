@@ -7,7 +7,8 @@ import {
   getAllUsers,
   getUserById,
   deleteUser,
-  // updateUser,
+  upgradeUserToAdmin,
+  updateUserProfileByAdmin,
 } from "../controllers/user.controller";
 import {
   authenticateUser,
@@ -31,10 +32,12 @@ userRoutes.route("/:id").get(authenticateUser, authorizeAdmin, getUserById);
 
 userRoutes.route("/:id").delete(authenticateUser, authorizeAdmin, deleteUser);
 
-// userRoutes
-//   .route("/:id")
-//   .delete(authenticateUser, authorizeAdmin, deleteUser)
-//   .get(authenticateUser, authorizeAdmin, getUserById)
-//   .put(authenticateUser, authorizeAdmin, updateUser);
+userRoutes
+  .route("/:id")
+  .patch(authenticateUser, authorizeAdmin, upgradeUserToAdmin);
+
+userRoutes
+  .route("/:id")
+  .put(authenticateUser, authorizeAdmin, updateUserProfileByAdmin);
 
 export default userRoutes;
