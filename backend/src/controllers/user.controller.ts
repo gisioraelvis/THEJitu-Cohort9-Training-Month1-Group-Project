@@ -303,7 +303,7 @@ export const getAllUsers = async (req: Request, res: Response) => {
 /**
  * @desc    Get user by ID
  * @route   GET /api/users/:id
- * @access  Private/Admin
+ * @access  Private - Admin only
  */
 export const getUserById = async (req: Request, res: Response) => {
   const userId = req.params.id;
@@ -329,7 +329,7 @@ export const getUserById = async (req: Request, res: Response) => {
 /**
  * @desc    Delete user
  * @route   DELETE /api/users/:id
- * @access  Private/Admin
+ * @access  Private - Admin only
  */
 export const deleteUser = async (req: Request, res: Response) => {
   const userId = req.params.id as string;
