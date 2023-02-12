@@ -1,7 +1,7 @@
 import * as mssql from "mssql";
 import { sqlConfig } from "../config/db";
 
-export class DatabaseHelper {
+export class DatabaseUtils {
   private pool: Promise<mssql.ConnectionPool>;
   constructor() {
     this.pool = mssql.connect(sqlConfig);

@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import { DatabaseHelper } from "../utils/db.util";
+import { DatabaseUtils } from "../utils/db.util";
 import { CreateLog } from "../utils/logger.util";
 
 interface IUserSeed {
@@ -79,13 +79,13 @@ const users: IUserSeed[] = [
 ];
 
 const seedData = async () => {
-  const _db = new DatabaseHelper();
+  const dbUtils = new DatabaseUtils();
 
   try {
-    await _db.exec("usp_DeleteAllUsers", {});
+    await dbUtils.exec("usp_DeleteAllUsers", {});
 
     for (const user of users) {
-      await _db.exec("usp_RegisterUser", {
+      await dbUtils.exec("usp_RegisterUser", {
         name: user.name,
         email: user.email,
         password: bcrypt.hashSync(user.password, 10),

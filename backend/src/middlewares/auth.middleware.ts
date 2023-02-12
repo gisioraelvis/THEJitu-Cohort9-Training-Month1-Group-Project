@@ -3,12 +3,12 @@ import jwt from "jsonwebtoken";
 import { IRequestWithUser } from "../interfaces/request-with-user.interface";
 import { IJWTPayload } from "../interfaces/jwt-payload.interface";
 import { IUser } from "../interfaces/user.interface";
-import { DatabaseHelper } from "../utils/db.util";
+import { DatabaseUtils } from "../utils/db.util";
 import dotenv from "dotenv";
 import { CreateLog } from "../utils/logger.util";
 dotenv.config({ path: __dirname + "../../.env" });
 
-const _db = new DatabaseHelper();
+const dbUtils = new DatabaseUtils();
 
 /**
  * @description - Middleware to protect routes that require authentication
@@ -34,7 +34,7 @@ export const authenticateUser = async (
       const decoded = jwt.verify(token, jwtSecret) as IJWTPayload;
 
       // Check if user still exists
-      const user = (await _db.exec("usp_FindUserById", { id: decoded.id }))
+      const user = (await dbUtils.exec("usp_FindUserById", { id: decoded.id }))
         .recordset[0] as IUser;
       if (!user) {
         return res
@@ -89,7 +89,7 @@ export const verifyPasswordResetToken = async (
     }
 
     const decoded = jwt.verify(token, jwtSecret) as IJWTPayload;
-    const user = (await _db.exec("usp_FindUserById", { id: decoded.id }))
+    const user = (await dbUtils.exec("usp_FindUserById", { id: decoded.id }))
       .recordset[0] as IUser;
     if (!user) {
       return res

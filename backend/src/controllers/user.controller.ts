@@ -1,5 +1,5 @@
-import { RequestHandler, Request, Response } from "express";
-import { v4 as uid } from "uuid";
+import Bcrypt from "bcrypt";
+import { Request, Response } from "express";
 import {
   UserForgotPasswordDto,
   UserPasswordResetDto,
@@ -9,16 +9,15 @@ import {
   UserUpdateProfileDto,
 } from "../dtos/user.dto";
 import { IUser } from "../interfaces/user.interface";
-import Bcrypt from "bcrypt";
-import { DatabaseHelper } from "../utils/db.util";
+import { DatabaseUtils } from "../utils/db.util";
 import { IJWTPayload } from "../interfaces/jwt-payload.interface";
-import dotenv from "dotenv";
 import { generateJWT } from "../utils/generate-jwt.util";
 import { CreateLog } from "../utils/logger.util";
 import { IRequestWithUser } from "../interfaces/request-with-user.interface";
-dotenv.config({ path: __dirname + "../../.env" });
+import dotenv from "dotenv";
+dotenv.config({ path: __dirname + "/../../.env" });
 
-const _db = new DatabaseHelper();
+const dbUtils = new DatabaseUtils();
 
 /**
  * @desc    Auth user & generate JWT token
@@ -35,7 +34,7 @@ export const loginUser = async (req: Request, res: Response) => {
   }
 
   try {
-    const user = await _db.exec("usp_FindUserByEmail", { email });
+    const user = await dbUtils.exec("usp_FindUserByEmail", { email });
 
     if (user.recordset.length === 0) {
       return res.status(404).json({ message: "User does not exist" });
@@ -81,7 +80,7 @@ export const registerUser = async (req: Request, res: Response) => {
   }
 
   try {
-    const user = await _db.exec("usp_FindUserByEmail", { email });
+    const user = await dbUtils.exec("usp_FindUserByEmail", { email });
 
     if (user.recordset.length > 0) {
       return res.status(400).json({
@@ -92,7 +91,7 @@ export const registerUser = async (req: Request, res: Response) => {
 
     const passwordHash = await Bcrypt.hash(password, 10);
 
-    const newUser = await _db.exec("usp_RegisterUser", {
+    const newUser = await dbUtils.exec("usp_RegisterUser", {
       name,
       email,
       password: passwordHash,
@@ -136,7 +135,9 @@ export const forgotPassword = async (req: Request, res: Response) => {
   const userEmail = req.body.email;
 
   try {
-    const user = await _db.exec("usp_FindUserByEmail", { email: userEmail });
+    const user = await dbUtils.exec("usp_FindUserByEmail", {
+      email: userEmail,
+    });
 
     if (user.recordset.length === 0) {
       return res
@@ -199,7 +200,7 @@ export const resetPassword = async (req: IRequestWithUser, res: Response) => {
 
     const passwordHash = await Bcrypt.hash(password, 10);
 
-    const updatedUser = await _db.exec("usp_UpdateUser", {
+    const updatedUser = await dbUtils.exec("usp_UpdateUser", {
       id,
       name,
       email,
@@ -241,7 +242,7 @@ export const getUserProfile = async (req: IRequestWithUser, res: Response) => {
   const userId = req.user?.id as string;
 
   try {
-    const user = await _db.exec("usp_FindUserById", { id: userId });
+    const user = await dbUtils.exec("usp_FindUserById", { id: userId });
 
     if (user.recordset.length > 0) {
       const { id, name, email, isAdmin } = user.recordset[0];
@@ -278,7 +279,7 @@ export const updateUserProfile = async (
   try {
     // If user tries to update email that already exists in the database
     // i.e another user exists with the same email that's not the current user
-    const otherUser = await _db.exec("usp_FindUserByEmail", { email });
+    const otherUser = await dbUtils.exec("usp_FindUserByEmail", { email });
 
     // check if otherUser is not the current user
     if (otherUser.recordset.length > 0) {
@@ -290,12 +291,12 @@ export const updateUserProfile = async (
       }
     }
 
-    const user = await _db.exec("usp_FindUserById", { id: userId });
+    const user = await dbUtils.exec("usp_FindUserById", { id: userId });
 
     if (user.recordset.length > 0) {
       const passwordHash = await Bcrypt.hash(password, 10);
 
-      const updatedUser = await _db.exec("usp_UpdateUser", {
+      const updatedUser = await dbUtils.exec("usp_UpdateUser", {
         id: userId,
         name,
         email,
@@ -325,7 +326,7 @@ export const updateUserProfile = async (
  */
 export const getAllUsers = async (req: Request, res: Response) => {
   try {
-    const users = await _db.exec("usp_GetAllUsers");
+    const users = await dbUtils.exec("usp_GetAllUsers");
 
     // returns the users else if ther's none yet an empty array is returned
     return res.status(200).json(users.recordset);
@@ -344,7 +345,7 @@ export const getUserById = async (req: Request, res: Response) => {
   const userId = req.params.id;
 
   try {
-    const user = await _db.exec("usp_FindUserById", { id: userId });
+    const user = await dbUtils.exec("usp_FindUserById", { id: userId });
 
     if (user.recordset.length > 0) {
       const { id, name, email, isAdmin } = user.recordset[0];
@@ -370,10 +371,10 @@ export const deleteUser = async (req: Request, res: Response) => {
   const userId = req.params.id as string;
 
   try {
-    const user = await _db.exec("usp_FindUserById", { id: userId });
+    const user = await dbUtils.exec("usp_FindUserById", { id: userId });
 
     if (user.recordset.length > 0) {
-      const deletedUser = await _db.exec("usp_DeleteUser", { id: userId });
+      const deletedUser = await dbUtils.exec("usp_DeleteUser", { id: userId });
 
       if (deletedUser.rowsAffected[0] > 0) {
         return res.status(200).json({ message: "User deleted" });
@@ -400,10 +401,10 @@ export const upgradeUserToAdmin = async (req: Request, res: Response) => {
   const userId = req.params.id as string;
 
   try {
-    const user = await _db.exec("usp_FindUserById", { id: userId });
+    const user = await dbUtils.exec("usp_FindUserById", { id: userId });
 
     if (user.recordset.length > 0) {
-      const upgradedUser = await _db.exec("usp_UpgradeUserToAdmin", {
+      const upgradedUser = await dbUtils.exec("usp_UpgradeUserToAdmin", {
         id: userId,
       });
 
@@ -444,11 +445,11 @@ export const updateUserProfileByAdmin = async (
   const { name, email, isAdmin } = req.body;
 
   try {
-    const user = await _db.exec("usp_FindUserById", { id: userId });
+    const user = await dbUtils.exec("usp_FindUserById", { id: userId });
 
     if (user.recordset.length > 0) {
       // check if the email is already taken by another user that's not the current user
-      const emailExists = await _db.exec("usp_FindUserByEmail", { email });
+      const emailExists = await dbUtils.exec("usp_FindUserByEmail", { email });
       if (
         emailExists.recordset.length > 0 &&
         emailExists.recordset[0].id !== +userId
@@ -461,7 +462,7 @@ export const updateUserProfileByAdmin = async (
       // So we need to check if the email is the same as the one in the db before updating
       // if same email exclude it from the update else update everything
       if (email === user.recordset[0].email) {
-        const updatedUser = await _db.exec("usp_UpdateUserProfileByAdmin", {
+        const updatedUser = await dbUtils.exec("usp_UpdateUserProfileByAdmin", {
           id: userId,
           name,
           isAdmin,
@@ -478,7 +479,7 @@ export const updateUserProfileByAdmin = async (
             .json({ message: "User profile update failed" });
         }
       } else {
-        const updatedUser = await _db.exec("usp_UpdateUserProfileByAdmin", {
+        const updatedUser = await dbUtils.exec("usp_UpdateUserProfileByAdmin", {
           id: userId,
           name,
           email,
