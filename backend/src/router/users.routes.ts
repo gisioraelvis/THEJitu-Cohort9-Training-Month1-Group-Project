@@ -9,10 +9,13 @@ import {
   deleteUser,
   upgradeUserToAdmin,
   updateUserProfileByAdmin,
+  forgotPassword,
+  resetPassword,
 } from "../controllers/user.controller";
 import {
   authenticateUser,
   authorizeAdmin,
+  verifyPasswordResetToken,
 } from "../middlewares/auth.middleware.js";
 
 const userRoutes = express.Router();
@@ -23,6 +26,12 @@ userRoutes.route("/").get(authenticateUser, authorizeAdmin, getAllUsers);
 userRoutes.route("/signup").post(registerUser);
 
 userRoutes.post("/signin", loginUser);
+
+userRoutes.post("/forgot-password", forgotPassword);
+
+userRoutes
+  .route("/reset-password")
+  .put(verifyPasswordResetToken, resetPassword);
 
 userRoutes.route("/profile").get(authenticateUser, getUserProfile);
 

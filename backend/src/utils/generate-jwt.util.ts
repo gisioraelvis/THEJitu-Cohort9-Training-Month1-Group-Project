@@ -5,8 +5,8 @@ dotenv.config({ path: __dirname + "/../.env" });
 const jwtSecret = process.env.JWT_SECRET as string;
 
 // Generate JWT token
-export const generateJWT = (payload: any) => {
+export const generateJWT = (payload: any, expiresIn: string) => {
   return jwt.sign(payload, jwtSecret, {
-    expiresIn: "1d",
+    expiresIn,
   });
 };

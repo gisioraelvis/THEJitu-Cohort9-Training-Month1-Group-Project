@@ -1,8 +1,8 @@
 import { Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
-import { RequestWithUser } from "../interfaces/request-with-user.interface";
-import { JWTPayload } from "../interfaces/jwt-payload.interface";
-import { User } from "../interfaces/user.interface";
+import { IRequestWithUser } from "../interfaces/request-with-user.interface";
+import { IJWTPayload } from "../interfaces/jwt-payload.interface";
+import { IUser } from "../interfaces/user.interface";
 import { DatabaseHelper } from "../utils/db.util";
 import dotenv from "dotenv";
 import { CreateLog } from "../utils/logger.util";
@@ -15,7 +15,7 @@ const _db = new DatabaseHelper();
  * Validates JWT token and checks if user exist and is logged in
  */
 export const authenticateUser = async (
-  req: RequestWithUser,
+  req: IRequestWithUser,
   res: Response,
   next: NextFunction
 ): Promise<any> => {
@@ -31,11 +31,11 @@ export const authenticateUser = async (
       const jwtSecret = process.env.JWT_SECRET as string;
 
       // Verify token
-      const decoded = jwt.verify(token, jwtSecret) as JWTPayload;
+      const decoded = jwt.verify(token, jwtSecret) as IJWTPayload;
 
       // Check if user still exists
       const user = (await _db.exec("usp_FindUserById", { id: decoded.id }))
-        .recordset[0] as User;
+        .recordset[0] as IUser;
       if (!user) {
         return res
           .status(401)
@@ -58,7 +58,7 @@ export const authenticateUser = async (
 
 // Check if user is admin - protects admin routes
 export const authorizeAdmin = (
-  req: RequestWithUser,
+  req: IRequestWithUser,
   res: Response,
   next: NextFunction
 ): any => {
@@ -68,5 +68,48 @@ export const authorizeAdmin = (
     return res
       .status(403)
       .json({ message: "Forbidden, not authorized to perform action" });
+  }
+};
+
+// Check if token is valid and not expired
+export const verifyPasswordResetToken = async (
+  req: IRequestWithUser,
+  res: Response,
+  next: NextFunction
+): Promise<any> => {
+  const jwtSecret = process.env.JWT_SECRET as string;
+
+  try {
+    const token = req.query.resetToken as string;
+
+    if (!token) {
+      return res
+        .status(400)
+        .json({ message: "Password reset failed, no token found" });
+    }
+
+    const decoded = jwt.verify(token, jwtSecret) as IJWTPayload;
+    const user = (await _db.exec("usp_FindUserById", { id: decoded.id }))
+      .recordset[0] as IUser;
+    if (!user) {
+      return res
+        .status(400)
+        .json({ message: "Invalid token, user no longer exists" });
+    }
+
+    // Check if token has expired
+    const currentTime = Date.now() / 1000;
+    if (decoded.exp < currentTime) {
+      return res.status(400).json({
+        message: "Link has expired, please request a new password reset",
+      });
+    }
+
+    req.user = user;
+
+    next();
+  } catch (error: any) {
+    res.status(400).json({ message: error.message });
+    CreateLog.error(error);
   }
 };

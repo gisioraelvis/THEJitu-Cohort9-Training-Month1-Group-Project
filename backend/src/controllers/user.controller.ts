@@ -1,6 +1,7 @@
 import { RequestHandler, Request, Response } from "express";
 import { v4 as uid } from "uuid";
 import {
+  UserForgotPasswordDto,
   UserPasswordResetDto,
   UserSignInDto,
   UserSignUpDto,
@@ -45,12 +46,15 @@ export const loginUser = async (req: Request, res: Response) => {
     if (isMatch) {
       const { id, name, email, isAdmin } = user.recordset[0];
 
-      const JWT = generateJWT({
-        id,
-        name,
-        email,
-        isAdmin,
-      });
+      const JWT = generateJWT(
+        {
+          id,
+          name,
+          email,
+          isAdmin,
+        } as IJWTPayload,
+        "1d"
+      );
 
       return res.status(200).json({ id, name, email, isAdmin, JWT });
     } else {
@@ -97,16 +101,130 @@ export const registerUser = async (req: Request, res: Response) => {
     if (newUser.recordset.length > 0) {
       const { id, name, email, isAdmin } = newUser.recordset[0];
 
-      const JWT = generateJWT({
-        id,
-        name,
-        email,
-        isAdmin,
-      });
+      const JWT = generateJWT(
+        {
+          id,
+          name,
+          email,
+          isAdmin,
+        } as IJWTPayload,
+        "1d"
+      );
 
       return res.status(201).json({ id, name, email, isAdmin, JWT });
     } else {
       return res.status(400).json({ message: "User registration failed" });
+    }
+  } catch (error: any) {
+    res.status(500).json(error.message);
+    CreateLog.error(error);
+  }
+};
+
+/**
+ * @desc    Forgot password
+ * @route   POST /api/users/forgot-password
+ * @access  Public
+ */
+export const forgotPassword = async (req: Request, res: Response) => {
+  const { error } = UserForgotPasswordDto.validate(req.body);
+
+  if (error) {
+    return res.status(422).json(error.details[0].message);
+  }
+
+  const userEmail = req.body.email;
+
+  try {
+    const user = await _db.exec("usp_FindUserByEmail", { email: userEmail });
+
+    if (user.recordset.length === 0) {
+      return res
+        .status(404)
+        .json({ message: "User with provided email does not exist" });
+    }
+
+    const { id, name, email, isAdmin } = user.recordset[0];
+
+    const JWT = generateJWT({ id, name, email, isAdmin } as IJWTPayload, "1h");
+
+    const resetUrl = `${process.env.CLIENT_URL}/reset-password/?resetToken=${JWT}`;
+
+    const passwordResetMsg = `
+      <h1>You have requested a password reset</h1>
+      <p>Please go to this link to reset your password</p>
+      <a href=${resetUrl} clicktracking=off>${resetUrl}</a>
+    `;
+
+    // TODO: Implement email sending
+    /*   try {
+      await sendEmail({
+        to: email,
+        subject: "Password reset request",
+        text: passwordResetMsg,
+      });
+
+      return res.status(200).json({ message: "We have sent a link to reset your password to your email" });
+    } catch (error: any) {
+      CreateLog.error(error);
+      return res.status(500).json({ message: "Email could not be sent" });
+    } */
+
+    return res.status(200).json({
+      message: "A link to reset your password has been sent to your email",
+      passwordResetMsg,
+    });
+  } catch (error: any) {
+    res.status(500).json(error.message);
+    CreateLog.error(error);
+  }
+};
+
+/**
+ * @desc    Reset password
+ * @route   POST /api/users/reset-password
+ * @access  Public
+ */
+export const resetPassword = async (req: IRequestWithUser, res: Response) => {
+  const { error } = UserPasswordResetDto.validate(req.body);
+
+  if (error) {
+    return res.status(422).json(error.details[0].message);
+  }
+
+  const password = req.body.password as string;
+
+  try {
+    const { id, name, email, isAdmin } = req.user as IUser;
+
+    const passwordHash = await Bcrypt.hash(password, 10);
+
+    const updatedUser = await _db.exec("usp_UpdateUser", {
+      id,
+      name,
+      email,
+      password: passwordHash,
+      isAdmin,
+    });
+
+    if (updatedUser.recordset.length > 0) {
+      const { id, name, email, isAdmin } = updatedUser.recordset[0];
+
+      const JWT = generateJWT(
+        {
+          id,
+          name,
+          email,
+          isAdmin,
+        } as IJWTPayload,
+        "1d"
+      );
+
+      return res.status(200).json({ id, name, email, isAdmin, JWT });
+    } else {
+      return res.status(400).json({
+        message: "Password reset failed, please request a new password reset",
+      });
     }
   } catch (error: any) {
     res.status(500).json(error.message);

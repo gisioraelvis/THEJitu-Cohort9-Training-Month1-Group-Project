@@ -33,6 +33,14 @@ export const UserSignInDto = Joi.object({
   }),
 });
 
+// forgot password dto
+export const UserForgotPasswordDto = Joi.object({
+  email: Joi.string().required().email().messages({
+    "string.empty": "Please provide an email",
+    "string.email": "Invalid email",
+  }),
+});
+
 // reset password dto
 export const UserPasswordResetDto = Joi.object({
   password: Joi.string()
