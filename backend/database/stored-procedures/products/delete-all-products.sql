@@ -6,3 +6,6 @@ BEGIN
     DELETE FROM Products
     DBCC CHECKIDENT ('Products', RESEED, 0);
 END
+
+-- EXEC usp_DeleteAllProducts;
+

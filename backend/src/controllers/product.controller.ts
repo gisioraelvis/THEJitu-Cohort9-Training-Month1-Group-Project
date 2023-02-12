@@ -545,8 +545,11 @@ export const getAllProducts = async (req: Request, res: Response) => {
 
     if (products.recordset.length > 0) {
       return res.status(200).json(products.recordset);
-    } else {
-      return res.status(404).json({ message: "No products found" });
+    }
+
+    // if no products found return empty array
+    if (products.recordset.length === 0) {
+      return res.status(200).json(products.recordset);
     }
   } catch (error: any) {
     res.status(500).json(error.message);

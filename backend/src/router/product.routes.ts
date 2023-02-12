@@ -1,12 +1,12 @@
 import express from "express";
 import {
-  getProducts,
-  getProductById,
-  deleteProduct,
-  createProduct,
-  updateProduct,
-  createProductReview,
-  getTopProducts,
+  getAllProducts,
+  // getProductById,
+  // deleteProduct,
+  // createProduct,
+  // updateProduct,
+  // createProductReview,
+  // getTopProducts,
 } from "../controllers/product.controller";
 
 import {
@@ -14,18 +14,23 @@ import {
   authorizeAdmin,
 } from "../middlewares/auth.middleware.js";
 
-const router = express.Router();
+const productRoutes = express.Router();
 
-router
-  .route("/")
-  .get(getProducts)
-  .post(authenticateUser, authorizeAdmin, createProduct);
-router.route("/:id/reviews").post(authenticateUser, createProductReview);
-router.get("/top", getTopProducts);
-router
-  .route("/:id")
-  .get(getProductById)
-  .delete(authenticateUser, authorizeAdmin, deleteProduct)
-  .put(authenticateUser, authorizeAdmin, updateProduct);
+productRoutes.route("/").get(getAllProducts);
 
-export default router;
+// productRoutes
+//   .route("/")
+//   .get(getProducts)
+//   .post(authenticateUser, authorizeAdmin, createProduct);
+
+// productRoutes.route("/:id/reviews").post(authenticateUser, createProductReview);
+
+// productRoutes.get("/top", getTopProducts);
+
+// productRoutes
+//   .route("/:id")
+//   .get(getProductById)
+//   .delete(authenticateUser, authorizeAdmin, deleteProduct)
+//   .put(authenticateUser, authorizeAdmin, updateProduct);
+
+export default productRoutes;
