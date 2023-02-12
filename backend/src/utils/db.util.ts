@@ -21,7 +21,7 @@ export class DatabaseUtils {
 
   async exec(
     storedProcedure: string,
-    data: { [x: string]: string | boolean } = {}
+    data: { [x: string]: any } = {}
   ): Promise<mssql.IResult<any>> {
     let emptyRequest = (await this.pool).request();
 

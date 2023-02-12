@@ -7,7 +7,7 @@ import {
   updateProduct,
   createProductReview,
   getTopProducts,
-} from "../controllers/productController.js";
+} from "../controllers/product.controller";
 
 import {
   authenticateUser,
