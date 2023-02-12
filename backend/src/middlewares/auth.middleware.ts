@@ -3,9 +3,9 @@ import jwt from "jsonwebtoken";
 import { RequestWithUser } from "../interfaces/request-with-user.interface";
 import { JWTPayload } from "../interfaces/jwt-payload.interface";
 import { User } from "../interfaces/user.interface";
-import { DatabaseHelper } from "../utils/database-helpers";
+import { DatabaseHelper } from "../utils/db.util";
 import dotenv from "dotenv";
-import { CreateLog } from "../utils/logger";
+import { CreateLog } from "../utils/logger.util";
 dotenv.config({ path: __dirname + "../../.env" });
 
 const _db = new DatabaseHelper();

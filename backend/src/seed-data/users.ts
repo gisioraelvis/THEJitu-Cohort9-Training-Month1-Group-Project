@@ -1,9 +1,9 @@
 import bcrypt from "bcrypt";
-import { User } from "../interfaces/user.interface";
-import { DatabaseHelper } from "../utils/database-helpers";
-import { CreateLog } from "../utils/logger";
+import { IUser } from "../interfaces/user.interface";
+import { DatabaseHelper } from "../utils/db.util";
+import { CreateLog } from "../utils/logger.util";
 
-const users: User[] = [
+const users: IUser[] = [
   {
     name: "Admin User",
     email: "admin@example.com",

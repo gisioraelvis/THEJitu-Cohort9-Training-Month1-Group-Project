@@ -1,4 +1,6 @@
 import { Request, Response, NextFunction } from "express";
+import dotenv from "dotenv";
+dotenv.config({ path: __dirname + "/../../.env" });
 
 /**
  * Globaly handle unknown routes, return 404

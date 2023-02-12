@@ -1,10 +1,11 @@
 import mssql from "mssql";
 import * as dotenv from "dotenv";
-import { CreateLog } from "../utils/logger";
+import { CreateLog } from "../utils/logger.util";
+import { ImssqlConfig } from "../interfaces/mssqlconfig.interface";
 dotenv.config({ path: __dirname + "/../../.env" });
 
 // MSSQL config
-export const sqlConfig = {
+export const sqlConfig: ImssqlConfig = {
   user: process.env.DB_USER,
   password: process.env.DB_PWD,
   database: process.env.DB_NAME,

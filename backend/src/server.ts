@@ -3,7 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import { notFound, errorHandler } from "./middlewares/global-error.middleware";
 import userRoutes from "./router/users.routes";
-import { CreateLog } from "./utils/logger";
+import { CreateLog } from "./utils/logger.util";
 dotenv.config({ path: __dirname + "/../.env" });
 
 dotenv.config();

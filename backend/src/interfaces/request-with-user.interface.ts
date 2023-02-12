@@ -1,6 +1,6 @@
 import { Request } from "express";
-import { User } from "./user.interface";
+import { IUser } from "./user.interface";
 
-export interface RequestWithUser extends Request {
-  user?: User;
+export interface IRequestWithUser extends Request {
+  user?: IUser;
 }
