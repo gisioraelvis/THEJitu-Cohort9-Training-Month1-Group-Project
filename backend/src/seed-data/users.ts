@@ -1,9 +1,15 @@
 import bcrypt from "bcrypt";
-import { IUser } from "../interfaces/user.interface";
 import { DatabaseHelper } from "../utils/db.util";
 import { CreateLog } from "../utils/logger.util";
 
-const users: IUser[] = [
+interface IUserSeed {
+  name: string;
+  email: string;
+  password: string;
+  isAdmin: boolean;
+}
+
+const users: IUserSeed[] = [
   {
     name: "Admin User",
     email: "admin@example.com",
