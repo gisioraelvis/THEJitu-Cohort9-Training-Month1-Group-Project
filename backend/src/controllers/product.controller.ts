@@ -538,22 +538,6 @@ export const getAllProducts = async (req: Request, res: Response) => {
  * @route   GET /api/products/:id
  * @access  Public
  */
-// export const getProductById = async (req, res) => {
-//   const product = await Product.findById(req.params.id);
-
-//   if (product) {
-//     res.json(product);
-//   } else {
-//     res.status(404);
-//     throw new Error("Product not found");
-//   }
-// };
-
-/**
- * @desc    Fetch single product
- * @route   GET /api/products/:id
- * @access  Public
- */
 export const getProductById = async (req: Request, res: Response) => {
   const productId = req.params.id as string;
 
