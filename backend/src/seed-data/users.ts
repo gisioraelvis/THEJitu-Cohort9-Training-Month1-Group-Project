@@ -85,6 +85,8 @@ const seedUserData = async () => {
     await dbUtils.exec("usp_DeleteAllUsers", {});
 
     for (const user of users) {
+      CreateLog.debug(bcrypt.hashSync(user.password, 10));
+      
       await dbUtils.exec("usp_RegisterUser", {
         name: user.name,
         email: user.email,

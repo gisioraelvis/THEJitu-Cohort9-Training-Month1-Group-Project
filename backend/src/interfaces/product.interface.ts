@@ -1,8 +1,14 @@
-export interface Review {
+export interface Product {
+  id: string;
+  userId: string;
   name: string;
-  rating: number;
-  comment: string;
-  user: string;
+  image: string;
+  description: string;
+  brands: Brand[];
+  categories: Category[];
+  reviews: Review[];
+  price: number;
+  countInStock: number;
   createdAt?: string;
   updatedAt?: string;
 }
@@ -21,18 +27,11 @@ export interface Category {
   updatedAt?: string;
 }
 
-export interface Product {
-  user: string;
-  name: string;
-  image: string;
-  description: string;
-  brands: Brand[];
-  categories: Category[];
-  reviews: Review[];
+export interface Review {
+  id: string;
+  userId: string;
   rating: number;
-  numberOfReviews: number;
-  price: number;
-  countInStock: number;
+  comment: string;
   createdAt?: string;
   updatedAt?: string;
 }

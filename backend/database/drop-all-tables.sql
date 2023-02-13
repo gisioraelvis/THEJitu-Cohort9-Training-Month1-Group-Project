@@ -2,13 +2,13 @@ USE GadgetHub;
 
 -- -- -- Drop all tables, run twice to drop all dependencies i.e. foreign keys
 
--- DECLARE @SQL NVARCHAR(MAX) = '';
+DECLARE @SQL NVARCHAR(MAX) = '';
 
--- SELECT @SQL = @SQL + 'DROP TABLE ' + QUOTENAME(TABLE_SCHEMA) + '.' + QUOTENAME(TABLE_NAME) + ';'
--- FROM INFORMATION_SCHEMA.TABLES
--- WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_CATALOG = 'GadgetHub';
+SELECT @SQL = @SQL + 'DROP TABLE ' + QUOTENAME(TABLE_SCHEMA) + '.' + QUOTENAME(TABLE_NAME) + ';'
+FROM INFORMATION_SCHEMA.TABLES
+WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_CATALOG = 'GadgetHub';
 
--- EXEC sp_executesql @SQL, N'@SQL NVARCHAR(MAX)', @SQL = @SQL;
+EXEC sp_executesql @SQL, N'@SQL NVARCHAR(MAX)', @SQL = @SQL;
 
 -- -- -- Drop all stored procedures
 -- DECLARE @SQL NVARCHAR(MAX) = '';

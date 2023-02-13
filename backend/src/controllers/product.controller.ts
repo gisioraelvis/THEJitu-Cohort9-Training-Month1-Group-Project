@@ -515,9 +515,9 @@ export const updateUserProfileByAdmin = async (
  */
 export const getAllProducts = async (req: Request, res: Response) => {
   try {
-    const products = await dbUtils.exec(
-      "usp_GetAllProductsWithCategoriesAndBrands"
-    );
+    const products = await dbUtils.exec("usp_GetAllProducts");
+
+    CreateLog.debug(products);
 
     if (products.recordset.length > 0) {
       return res.status(200).json(products.recordset);

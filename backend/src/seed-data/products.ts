@@ -7,8 +7,6 @@ interface IProductSeed {
   description: string;
   brandId: string;
   categoryId: string;
-  rating: number;
-  numberOfReviews: number;
   price: number;
   countInStock: number;
 }
@@ -143,8 +141,6 @@ export const seedProducts = async () => {
         name: product.name,
         image: product.image,
         description: product.description,
-        rating: product.rating,
-        numberOfReviews: product.numberOfReviews,
         price: product.price,
         countInStock: product.countInStock,
       });
