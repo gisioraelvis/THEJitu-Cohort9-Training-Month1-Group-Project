@@ -15,6 +15,7 @@ import { generateJWT } from "../utils/generate-jwt.util";
 import { CreateLog } from "../utils/logger.util";
 import { IRequestWithUser } from "../interfaces/request-with-user.interface";
 import dotenv from "dotenv";
+import { sendEmail } from "../utils/email.util";
 dotenv.config({ path: __dirname + "/../../.env" });
 
 const dbUtils = new DatabaseUtils();
@@ -100,6 +101,17 @@ export const registerUser = async (req: Request, res: Response) => {
     if (newUser.recordset.length > 0) {
       const { id, name, email, isAdmin } = newUser.recordset[0];
 
+      // Send email to welcome new user to the system(GadgetHub)
+      const subject = "Welcome to GadgetHub";
+      const html = `<h1>Welcome to GadgetHub</h1>
+      <p>Dear ${name},</p>
+      <p>Thank you for registering an account with GadgetHub.</p>
+      <P>We are happy to have you on board and ready to serve you.</P>
+      <P>Happy <a href=${process.env.CLIENT_URL}>Shopping</a> 🎉</P>
+      <p>Regards,<br/>GadgetHub Team</p>`;
+
+      sendEmail(subject, email, html);
+
       const JWT = generateJWT(
         {
           id,
@@ -152,29 +164,22 @@ export const forgotPassword = async (req: Request, res: Response) => {
     const resetUrl = `${process.env.CLIENT_URL}/reset-password/?resetToken=${JWT}`;
 
     const passwordResetMsg = `
-      <h1>You have requested a password reset</h1>
+      <h1>You requested a password reset</h1>
       <p>Please go to this link to reset your password</p>
       <a href=${resetUrl} clicktracking=off>${resetUrl}</a>
+      <p>If you did not request this, please ignore this email</p>
     `;
 
-    // TODO: Implement email sending
-    /*   try {
-      await sendEmail({
-        to: email,
-        subject: "Password reset request",
-        text: passwordResetMsg,
-      });
+    try {
+      await sendEmail("Password Reset Request", email, passwordResetMsg);
 
-      return res.status(200).json({ message: "We have sent a link to reset your password to your email" });
+      return res.status(200).json({
+        message: "We have sent a link to reset your password to your email",
+      });
     } catch (error: any) {
       CreateLog.error(error);
       return res.status(500).json({ message: "Email could not be sent" });
-    } */
-
-    return res.status(200).json({
-      message: "A link to reset your password has been sent to your email",
-      passwordResetMsg,
-    });
+    }
   } catch (error: any) {
     res.status(500).json(error.message);
     CreateLog.error(error);
