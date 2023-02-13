@@ -1,19 +1,33 @@
--- DROP PROCEDURE IF EXISTS usp_GetAllProducts
-
+-- DROP PROCEDURE IF EXISTS usp_GetAllProducts;
 CREATE PROCEDURE usp_GetAllProducts
 AS
 BEGIN
-        SELECT
-                p.id, p.userId, p.name, p.image, p.description, p.price, p.countInStock,
-                b.id AS brandId, b.name AS brandName,
-                c.id AS categoryId, c.name AS categoryName,
-                r.id AS reviewId, r.userId AS reviewUserId, r.rating, r.comment
-        FROM
-                products p
-                INNER JOIN product_brand pb ON p.id = pb.productId
-                INNER JOIN brands b ON pb.brandId = b.id
-                INNER JOIN product_category pc ON p.id = pc.productId
-                INNER JOIN categories c ON pc.categoryId = c.id
-                LEFT JOIN product_review pr ON p.id = pr.productId
-                LEFT JOIN reviews r ON pr.reviewId = r.id
-END;
+    SELECT
+        products.id,
+        products.userId,
+        products.name,
+        products.image,
+        products.description,
+        products.price,
+        products.countInStock,
+        products.createdAt,
+        products.updatedAt,
+        brands.id AS brandId,
+        brands.name AS brandName,
+        categories.id AS categoryId,
+        categories.name AS categoryName,
+        reviews.id AS reviewId,
+        reviews.name AS reviewName,
+        reviews.rating,
+        reviews.comment
+    FROM
+        products
+        LEFT JOIN product_brand ON products.id = product_brand.productId
+        LEFT JOIN product_category ON products.id = product_category.productId
+        LEFT JOIN product_review ON products.id = product_review.productId
+        LEFT JOIN brands ON product_brand.brandId = brands.id
+        LEFT JOIN categories ON product_category.categoryId = categories.id
+        LEFT JOIN reviews ON product_review.reviewId = reviews.id
+END
+
+

@@ -43,12 +43,10 @@ export interface Product {
 
 // Create a new product
 export const ProductCreateDto = Joi.object({
-  user: Joi.string().required(),
+  userId: Joi.number().required(),
   name: Joi.string().required(),
   image: Joi.string().required(),
   description: Joi.string().required(),
-  brand: Joi.string().required(),
-  category: Joi.string().required(),
   price: Joi.number().required(),
   countInStock: Joi.number().required(),
 });
@@ -60,13 +58,9 @@ export const ProductGetDto = Joi.object({
 
 // Update a product by id
 export const ProductUpdateDto = Joi.object({
-  id: Joi.string().required(),
-  user: Joi.string().required(),
   name: Joi.string().required(),
   image: Joi.string().required(),
   description: Joi.string().required(),
-  brand: Joi.string().required(),
-  category: Joi.string().required(),
   price: Joi.number().required(),
   countInStock: Joi.number().required(),
 });

@@ -92,32 +92,66 @@ VALUES
     (7, 2),
     (8, 3),
     (9, 4),
-    (10, 5);
+    (10, 5),
+    (1, 2),
+    (2, 3),
+    (3, 4),
+    (4, 5),
+    (5, 1),
+    (6, 2),
+    (7, 3),
+    (8, 4),
+    (9, 5),
+    (10, 1);
 
 -- product_category
--- DELETE FROM product_category;
--- INSERT INTO product_category
---     (productId, categoryId)
--- VALUES
---     (1, 1),
---     (2, 2),
---     (3, 3),
---     (4, 4),
---     (5, 5),
---     (6, 1),
---     (7, 2),
---     (8, 3),
---     (9, 4),
---     (10, 5);
+DELETE FROM product_category;
+INSERT INTO product_category
+    (productId, categoryId)
+VALUES
+    (1, 1),
+    (2, 2),
+    (3, 3),
+    (4, 4),
+    (5, 5),
+    (6, 1),
+    (7, 2),
+    (8, 3),
+    (9, 4),
+    (10, 5),
+    (1, 2),
+    (2, 3),
+    (3, 4),
+    (4, 5),
+    (5, 1),
+    (6, 2),
+    (7, 3),
+    (8, 4),
+    (9, 5),
+    (10, 1);
 
-
--- -- -- product_review
--- DELETE FROM product_review;
--- INSERT INTO product_review
---     (productId, reviewId)
--- VALUES
---     (1, 1),
---     (2, 2),
---     (3, 3),
---     (4, 4),
---     (5, 5);
+-- product_review
+DELETE FROM product_review;
+INSERT INTO product_review
+    (productId, reviewId)
+VALUES
+    (1, 1),
+    (2, 2),
+    (3, 3),
+    (4, 4),
+    (5, 5),
+    (6, 1),
+    (7, 2),
+    (8, 3),
+    (9, 4),
+    (10, 5),
+    (1, 2),
+    (2, 3),
+    (3, 4),
+    (4, 5),
+    (5, 1),
+    (6, 2),
+    (7, 3),
+    (8, 4),
+    (9, 5),
+    (10, 1);
