@@ -17,10 +17,3 @@ BEGIN
                 LEFT JOIN product_review pr ON p.id = pr.productId
                 LEFT JOIN reviews r ON pr.reviewId = r.id
 END;
-
--- CREATE PROCEDURE usp_GetAllProducts
--- AS
--- BEGIN
---         SELECT*
---         FROM products
--- END;
