@@ -2,7 +2,7 @@ USE GadgetHub;
 
 -- users
 DELETE FROM users;
-DBCC CHECKIDENT('users', RESEED, 1);
+-- DBCC CHECKIDENT('users', RESEED, 1);
 
 INSERT INTO users
     (name, email, password, isAdmin)
@@ -16,7 +16,7 @@ VALUES
 
 -- products
 DELETE FROM products;
-DBCC CHECKIDENT('products', RESEED, 1);
+-- DBCC CHECKIDENT('products', RESEED, 1);
 
 INSERT INTO products
     (userId, name, image, description, price, countInStock)
@@ -29,7 +29,7 @@ VALUES
 
 -- brands
 DELETE FROM brands;
-DBCC CHECKIDENT('brands', RESEED, 1);
+-- DBCC CHECKIDENT('brands', RESEED, 1);
 
 INSERT INTO brands
     (name)
@@ -42,7 +42,7 @@ VALUES
 
 -- product_brand
 DELETE FROM product_brand;
-DBCC CHECKIDENT('product_brand', RESEED, 1);
+-- DBCC CHECKIDENT('product_brand', RESEED, 1);
 
 INSERT INTO product_brand
     (productId, brandId)
@@ -55,7 +55,7 @@ VALUES
 
 -- categories
 DELETE FROM categories;
-DBCC CHECKIDENT('categories', RESEED, 1);
+-- DBCC CHECKIDENT('categories', RESEED, 1);
 
 INSERT INTO categories
     (name)
@@ -68,7 +68,7 @@ VALUES
 
 -- product_category
 DELETE FROM product_category;
-DBCC CHECKIDENT('product_category', RESEED, 1);
+-- DBCC CHECKIDENT('product_category', RESEED, 1);
 
 INSERT INTO product_category
     (productId, categoryId)
@@ -81,7 +81,7 @@ VALUES
 
 -- reviews
 DELETE FROM reviews;
-DBCC CHECKIDENT('reviews', RESEED, 1);
+-- DBCC CHECKIDENT('reviews', RESEED, 1);
 
 INSERT INTO reviews
     (userId, name, rating, comment)
@@ -94,7 +94,7 @@ VALUES
 
 -- product_review
 DELETE FROM product_review;
-DBCC CHECKIDENT('product_review', RESEED, 1);
+-- DBCC CHECKIDENT('product_review', RESEED, 1);
 
 INSERT INTO product_review
     (productId, reviewId)
