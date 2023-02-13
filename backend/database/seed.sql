@@ -155,3 +155,37 @@ VALUES
     (8, 4),
     (9, 5),
     (10, 1);
+
+
+-- -- -- -- -- To be run after users, products, brands, categories , reviews, product_brand, product_category, product_review -- -- -- -- -- --
+
+-- orders
+DELETE FROM orders;
+DBCC CHECKIDENT('orders', RESEED, 1);
+
+INSERT INTO orders
+    (userId, shippingAddress, paymentMethod, paymentResultId, paymentResultStatus, paymentResultUpdateTime, paymentResultEmailAddress, taxPrice, shippingPrice, totalPrice, isPaid, paidAt, isDelivered, deliveredAt)
+VALUES
+    (1, 'Address 1', 'M-Pesa Xpress', '1', '1', '1', '1', 10.99, 10.99, 10.99, 1, '2021-01-01 00:00:00', 1, '2021-01-01 00:00:00'),
+    (2, 'Address 2', 'M-Pesa Xpress', '2', '2', '2', '2', 20.99, 20.99, 20.99, 1, '2021-01-01 00:00:00', 1, '2021-01-01 00:00:00'),
+    (3, 'Address 3', 'PayPal', '3', '3', '3', '3', 30.99, 30.99, 30.99, 1, '2021-01-01 00:00:00', 1, '2021-01-01 00:00:00'),
+    (4, 'Address 4', 'PayPal', '4', '4', '4', '4', 40.99, 40.99, 40.99, 1, '2021-01-01 00:00:00', 1, '2021-01-01 00:00:00'),
+    (5, 'Address 5', 'M-Pesa Xpress', '5', '5', '5', '5', 50.99, 50.99, 50.99, 1, '2021-01-01 00:00:00', 1, '2021-01-01 00:00:00');
+
+-- order_items
+DELETE FROM order_items;
+DBCC CHECKIDENT('order_items', RESEED, 1);
+
+INSERT INTO order_items
+    (orderId, productId, name, qty, image, price)
+VALUES
+    (1, 1, 'Product 1', 1, 'https://example.com/product1.jpg', 9.99),
+    (2, 2, 'Product 2', 2, 'https://example.com/product2.jpg', 19.99),
+    (3, 3, 'Product 3', 3, 'https://example.com/product3.jpg', 29.99),
+    (4, 4, 'Product 4', 4, 'https://example.com/product4.jpg', 39.99),
+    (5, 5, 'Product 5', 5, 'https://example.com/product5.jpg', 49.99),
+    (1, 2, 'Product 2', 2, 'https://example.com/product2.jpg', 19.99),
+    (2, 3, 'Product 3', 3, 'https://example.com/product3.jpg', 29.99),
+    (3, 4, 'Product 4', 4, 'https://example.com/product4.jpg', 39.99),
+    (4, 5, 'Product 5', 5, 'https://example.com/product5.jpg', 49.99),
+    (5, 1, 'Product 1', 1, 'https://example.com/product1.jpg', 9.99);

@@ -6,6 +6,8 @@ DROP TABLE IF EXISTS categories;
 DROP TABLE IF EXISTS product_review;
 DROP TABLE IF EXISTS product_brand;
 DROP TABLE IF EXISTS product_category;
+DROP TABLE IF EXISTS orders;
+DROP TABLE IF EXISTS order_items;
 
 CREATE TABLE users
 (
@@ -90,4 +92,41 @@ CREATE TABLE product_review
     PRIMARY KEY (productId, reviewId),
     FOREIGN KEY (productId) REFERENCES products(id),
     FOREIGN KEY (reviewId) REFERENCES reviews(id)
+);
+
+CREATE TABLE orders
+(
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    userId INT NOT NULL,
+    shippingAddress VARCHAR(500) NOT NULL,
+    paymentMethod VARCHAR(100) NOT NULL,
+    paymentResultId VARCHAR(100) NOT NULL,
+    paymentResultStatus VARCHAR(100) NOT NULL,
+    paymentResultUpdateTime VARCHAR(100) NOT NULL,
+    paymentResultEmailAddress VARCHAR(100) NOT NULL,
+    taxPrice DECIMAL(10, 2) NOT NULL,
+    shippingPrice DECIMAL(10, 2) NOT NULL,
+    totalPrice DECIMAL(10, 2) NOT NULL,
+    isPaid BIT NOT NULL DEFAULT 0,
+    paidAt DATETIME,
+    isDelivered BIT NOT NULL DEFAULT 0,
+    deliveredAt DATETIME,
+    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (userId) REFERENCES users(id)
+);
+
+CREATE TABLE order_items
+(
+    orderId INT NOT NULL,
+    productId INT NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    qty INT NOT NULL,
+    image VARCHAR(500) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (orderId, productId),
+    FOREIGN KEY (orderId) REFERENCES orders(id),
+    FOREIGN KEY (productId) REFERENCES products(id)
 );
