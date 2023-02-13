@@ -216,6 +216,17 @@ export const resetPassword = async (req: IRequestWithUser, res: Response) => {
     if (updatedUser.recordset.length > 0) {
       const { id, name, email, isAdmin } = updatedUser.recordset[0];
 
+      //password reset was successful email
+      const subject = "Password Reset Successful";
+      const html = `<h1>Password Reset Successful</h1>
+      <p>Dear ${name},</p>
+      <p>Your password has been reset successfully.</p>
+      <P>Happy <a href=${process.env.CLIENT_URL}>Shopping</a> 🎉</P>
+      <p>If you did not request this, please contact us immediately.</p>
+      <p>Regards,<br/>GadgetHub Team</p>`;
+
+      sendEmail(subject, email, html);
+
       const JWT = generateJWT(
         {
           id,
