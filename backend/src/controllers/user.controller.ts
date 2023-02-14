@@ -26,13 +26,13 @@ const dbUtils = new DatabaseUtils();
  * @access  Public
  */
 export const loginUser = async (req: Request, res: Response) => {
-  const { email, password } = req.body;
-
   const { error } = UserSignInDto.validate(req.body);
 
   if (error) {
     return res.status(422).json(error.details[0].message);
   }
+
+  const { email, password } = req.body;
 
   try {
     const user = await dbUtils.exec("usp_FindUserByEmail", { email });
@@ -72,13 +72,13 @@ export const loginUser = async (req: Request, res: Response) => {
  * @access  Public
  */
 export const registerUser = async (req: Request, res: Response) => {
-  const { name, email, password } = req.body;
-
   const { error } = UserSignUpDto.validate(req.body);
 
   if (error) {
     return res.status(422).json(error.details[0].message);
   }
+
+  const { name, email, password } = req.body;
 
   try {
     const user = await dbUtils.exec("usp_FindUserByEmail", { email });
@@ -175,6 +175,7 @@ export const forgotPassword = async (req: Request, res: Response) => {
 
       return res.status(200).json({
         message: "We have sent a link to reset your password to your email",
+        resetUrl,
       });
     } catch (error: any) {
       CreateLog.error(error);
@@ -282,15 +283,14 @@ export const updateUserProfile = async (
   req: IRequestWithUser,
   res: Response
 ) => {
-  const userId = req.user?.id as string;
-
   const { error } = UserUpdateProfileDto.validate(req.body);
-
-  const { name, email, password } = req.body;
 
   if (error) {
     return res.status(422).json(error.details[0].message);
   }
+
+  const userId = req.user?.id as string;
+  const { name, email, password } = req.body;
 
   try {
     // If user tries to update email that already exists in the database

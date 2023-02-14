@@ -3,7 +3,7 @@ USE GadgetHub;
 -- -- -- -- Run users, products, brands, categories, reviews first & -- -- -- -- -- -- -- -- -- --
 -- -- -- -- then run product_brand, product_category, product_review aftwards to prevent errors --
 
--- -- users
+-- users
 -- DELETE FROM users;
 -- DBCC CHECKIDENT('users', RESEED, 1);
 
@@ -75,117 +75,113 @@ USE GadgetHub;
 --     ('Category 5');
 
 
-
 -- -- -- -- -- To be run after users, products, brands, categories , reviews -- -- -- -- -- --
 
--- product_brand
-DELETE FROM product_brand;
-INSERT INTO product_brand
-    (productId, brandId)
-VALUES
-    (1, 1),
-    (2, 2),
-    (3, 3),
-    (4, 4),
-    (5, 5),
-    (6, 1),
-    (7, 2),
-    (8, 3),
-    (9, 4),
-    (10, 5),
-    (1, 2),
-    (2, 3),
-    (3, 4),
-    (4, 5),
-    (5, 1),
-    (6, 2),
-    (7, 3),
-    (8, 4),
-    (9, 5),
-    (10, 1);
+-- -- product_brand
+-- DELETE FROM product_brand;
+-- INSERT INTO product_brand
+--     (productId, brandId)
+-- VALUES
+--     (1, 1),
+--     (2, 2),
+--     (3, 3),
+--     (4, 4),
+--     (5, 5),
+--     (6, 1),
+--     (7, 2),
+--     (8, 3),
+--     (9, 4),
+--     (10, 5),
+--     (1, 2),
+--     (2, 3),
+--     (3, 4),
+--     (4, 5),
+--     (5, 1),
+--     (6, 2),
+--     (7, 3),
+--     (8, 4),
+--     (9, 5),
+--     (10, 1);
 
--- product_category
-DELETE FROM product_category;
-INSERT INTO product_category
-    (productId, categoryId)
-VALUES
-    (1, 1),
-    (2, 2),
-    (3, 3),
-    (4, 4),
-    (5, 5),
-    (6, 1),
-    (7, 2),
-    (8, 3),
-    (9, 4),
-    (10, 5),
-    (1, 2),
-    (2, 3),
-    (3, 4),
-    (4, 5),
-    (5, 1),
-    (6, 2),
-    (7, 3),
-    (8, 4),
-    (9, 5),
-    (10, 1);
+-- -- product_category
+-- DELETE FROM product_category;
+-- INSERT INTO product_category
+--     (productId, categoryId)
+-- VALUES
+--     (1, 1),
+--     (2, 2),
+--     (3, 3),
+--     (4, 4),
+--     (5, 5),
+--     (6, 1),
+--     (7, 2),
+--     (8, 3),
+--     (9, 4),
+--     (10, 5),
+--     (1, 2),
+--     (2, 3),
+--     (3, 4),
+--     (4, 5),
+--     (5, 1),
+--     (6, 2),
+--     (7, 3),
+--     (8, 4),
+--     (9, 5),
+--     (10, 1);
 
--- product_review
-DELETE FROM product_review;
-INSERT INTO product_review
-    (productId, reviewId)
-VALUES
-    (1, 1),
-    (2, 2),
-    (3, 3),
-    (4, 4),
-    (5, 5),
-    (6, 1),
-    (7, 2),
-    (8, 3),
-    (9, 4),
-    (10, 5),
-    (1, 2),
-    (2, 3),
-    (3, 4),
-    (4, 5),
-    (5, 1),
-    (6, 2),
-    (7, 3),
-    (8, 4),
-    (9, 5),
-    (10, 1);
+-- -- product_review
+-- DELETE FROM product_review;
+-- INSERT INTO product_review
+--     (productId, reviewId)
+-- VALUES
+--     (1, 1),
+--     (2, 2),
+--     (3, 3),
+--     (4, 4),
+--     (5, 5),
+--     (6, 1),
+--     (7, 2),
+--     (8, 3),
+--     (9, 4),
+--     (10, 5),
+--     (1, 2),
+--     (2, 3),
+--     (3, 4),
+--     (4, 5),
+--     (5, 1),
+--     (6, 2),
+--     (7, 3),
+--     (8, 4),
+--     (9, 5),
+--     (10, 1);
 
 
 -- -- -- -- -- To be run after users, products, brands, categories , reviews, product_brand, product_category, product_review -- -- -- -- -- --
 
--- orders
-DELETE FROM orders;
-DBCC CHECKIDENT('orders', RESEED, 1);
+-- -- --  Orders 
+-- DELETE FROM orders;
+-- DBCC CHECKIDENT('orders', RESEED, 1);
+-- INSERT INTO orders
+--     (userId, shippingAddress, paymentMethod, paymentResultId, paymentResultStatus, taxPrice, shippingPrice, totalPrice, isPaid, paidAt, isDelivered, deliveredAt)
+-- VALUES
+--     (1, 'Address 1', 'M-Pesa Xpress', '123', 'Success', 10.00, 20.00, 100.00, 1, '2020-01-01 00:00:00', 1, '2020-01-01 00:00:00'),
+--     (2, 'Address 2', 'M-Pesa Xpress', '123', 'Success', 10.00, 20.00, 100.00, 1, '2020-01-01 00:00:00', 1, '2020-01-01 00:00:00'),
+--     (3, 'Address 3', 'M-Pesa Xpress', '123', 'Success', 10.00, 20.00, 100.00, 1, '2020-01-01 00:00:00', 1, '2020-01-01 00:00:00'),
+--     (4, 'Address 4', 'M-Pesa Xpress', '123', 'Success', 10.00, 20.00, 100.00, 1, '2020-01-01 00:00:00', 1, '2020-01-01 00:00:00'),
+--     (5, 'Address 5', 'M-Pesa Xpress', '123', 'Success', 10.00, 20.00, 100.00, 1, '2020-01-01 00:00:00', 1, '2020-01-01 00:00:00');
 
-INSERT INTO orders
-    (userId, shippingAddress, paymentMethod, paymentResultId, paymentResultStatus, paymentResultUpdateTime, paymentResultEmailAddress, taxPrice, shippingPrice, totalPrice, isPaid, paidAt, isDelivered, deliveredAt)
-VALUES
-    (1, 'Address 1', 'M-Pesa Xpress', '1', '1', '1', '1', 10.99, 10.99, 10.99, 1, '2021-01-01 00:00:00', 1, '2021-01-01 00:00:00'),
-    (2, 'Address 2', 'M-Pesa Xpress', '2', '2', '2', '2', 20.99, 20.99, 20.99, 1, '2021-01-01 00:00:00', 1, '2021-01-01 00:00:00'),
-    (3, 'Address 3', 'PayPal', '3', '3', '3', '3', 30.99, 30.99, 30.99, 1, '2021-01-01 00:00:00', 1, '2021-01-01 00:00:00'),
-    (4, 'Address 4', 'PayPal', '4', '4', '4', '4', 40.99, 40.99, 40.99, 1, '2021-01-01 00:00:00', 1, '2021-01-01 00:00:00'),
-    (5, 'Address 5', 'M-Pesa Xpress', '5', '5', '5', '5', 50.99, 50.99, 50.99, 1, '2021-01-01 00:00:00', 1, '2021-01-01 00:00:00');
-
--- order_items
-DELETE FROM order_items;
-DBCC CHECKIDENT('order_items', RESEED, 1);
-
-INSERT INTO order_items
-    (orderId, productId, name, qty, image, price)
-VALUES
-    (1, 1, 'Product 1', 1, 'https://example.com/product1.jpg', 9.99),
-    (2, 2, 'Product 2', 2, 'https://example.com/product2.jpg', 19.99),
-    (3, 3, 'Product 3', 3, 'https://example.com/product3.jpg', 29.99),
-    (4, 4, 'Product 4', 4, 'https://example.com/product4.jpg', 39.99),
-    (5, 5, 'Product 5', 5, 'https://example.com/product5.jpg', 49.99),
-    (1, 2, 'Product 2', 2, 'https://example.com/product2.jpg', 19.99),
-    (2, 3, 'Product 3', 3, 'https://example.com/product3.jpg', 29.99),
-    (3, 4, 'Product 4', 4, 'https://example.com/product4.jpg', 39.99),
-    (4, 5, 'Product 5', 5, 'https://example.com/product5.jpg', 49.99),
-    (5, 1, 'Product 1', 1, 'https://example.com/product1.jpg', 9.99);
+-- --  Order Items
+-- DELETE FROM order_items;
+-- INSERT INTO order_items
+--     (orderId, productId, qty)
+-- VALUES
+--     (1, 1, 5),
+--     (2, 2, 3),
+--     (3, 3, 1),
+--     (4, 4, 2),
+--     (5, 5, 1),
+--     (1, 2, 1),
+--     (2, 3, 7),
+--     (3, 4, 1),
+--     (4, 5, 6),
+--     (5, 1, 1);

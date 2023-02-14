@@ -1,45 +1,4 @@
-import Joi, { ref } from "joi";
-
-/* 
-export interface Review {
-  name: string;
-  rating: number;
-  comment: string;
-  user: string;
-  createdAt?: string;
-  updatedAt?: string;
-}
-
-export interface Brand {
-  id: string;
-  name: string;
-  createdAt?: string;
-  updatedAt?: string;
-}
-
-export interface Category {
-  id: string;
-  name: string;
-  createdAt?: string;
-  updatedAt?: string;
-}
-
-export interface Product {
-  user: string;
-  name: string;
-  image: string;
-  description: string;
-  brands: Brand[];
-  categories: Category[];
-  reviews: Review[];
-  rating: number;
-  numReviews: number;
-  price: number;
-  countInStock: number;
-  createdAt?: string;
-  updatedAt?: string;
-}
-*/
+import Joi from "joi";
 
 // Create a new product
 export const ProductCreateDto = Joi.object({

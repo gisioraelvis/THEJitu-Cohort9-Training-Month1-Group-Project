@@ -1,3 +1,5 @@
+USE GadgetHub;
+
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS products;
 DROP TABLE IF EXISTS reviews;
@@ -99,13 +101,11 @@ CREATE TABLE orders
     id INT IDENTITY(1,1) PRIMARY KEY,
     userId INT NOT NULL,
     shippingAddress VARCHAR(500) NOT NULL,
-    paymentMethod VARCHAR(100) NOT NULL,
-    paymentResultId VARCHAR(100) NOT NULL,
-    paymentResultStatus VARCHAR(100) NOT NULL,
-    paymentResultUpdateTime VARCHAR(100) NOT NULL,
-    paymentResultEmailAddress VARCHAR(100) NOT NULL,
-    taxPrice DECIMAL(10, 2) NOT NULL,
-    shippingPrice DECIMAL(10, 2) NOT NULL,
+    paymentMethod VARCHAR(100),
+    paymentResultId VARCHAR(100),
+    paymentResultStatus VARCHAR(100) DEFAULT 'Pending',
+    taxPrice DECIMAL(10, 2),
+    shippingPrice DECIMAL(10, 2),
     totalPrice DECIMAL(10, 2) NOT NULL,
     isPaid BIT NOT NULL DEFAULT 0,
     paidAt DATETIME,
@@ -116,17 +116,28 @@ CREATE TABLE orders
     FOREIGN KEY (userId) REFERENCES users(id)
 );
 
+-- order_items table is used to store the products that are in the order
+-- i.e m:m mapping between orders and products
 CREATE TABLE order_items
 (
     orderId INT NOT NULL,
     productId INT NOT NULL,
-    name VARCHAR(100) NOT NULL,
     qty INT NOT NULL,
-    image VARCHAR(500) NOT NULL,
-    price DECIMAL(10, 2) NOT NULL,
     createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
     updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (orderId, productId),
     FOREIGN KEY (orderId) REFERENCES orders(id),
+    FOREIGN KEY (productId) REFERENCES products(id)
+);
+
+CREATE TABLE cart
+(
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    userId INT NOT NULL,
+    productId INT NOT NULL,
+    qty INT NOT NULL,
+    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (userId) REFERENCES users(id),
     FOREIGN KEY (productId) REFERENCES products(id)
 );
