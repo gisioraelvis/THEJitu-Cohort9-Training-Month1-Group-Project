@@ -3,7 +3,7 @@ USE GadgetHub;
 -- -- -- -- Run users, products, brands, categories, reviews first & -- -- -- -- -- -- -- -- -- --
 -- -- -- -- then run product_brand, product_category, product_review aftwards to prevent errors --
 
--- users
+-- -- -- users
 -- DELETE FROM users;
 -- DBCC CHECKIDENT('users', RESEED, 1);
 
@@ -158,7 +158,7 @@ USE GadgetHub;
 
 -- -- -- -- -- To be run after users, products, brands, categories , reviews, product_brand, product_category, product_review -- -- -- -- -- --
 
--- -- --  Orders 
+-- --  Orders 
 -- DELETE FROM orders;
 -- DBCC CHECKIDENT('orders', RESEED, 1);
 -- INSERT INTO orders

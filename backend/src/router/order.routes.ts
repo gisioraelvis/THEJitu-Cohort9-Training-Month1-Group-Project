@@ -24,7 +24,7 @@ orderRoutes.route("/myorders").get(authenticateUser, getMyOrders);
 
 orderRoutes.route("/:id").get(authenticateUser, getOrderById);
 
-orderRoutes.route("/:id").put(authenticateUser, authorizeAdmin, updateOrder);
+orderRoutes.route("/:id").patch(authenticateUser, authorizeAdmin, updateOrder);
 
 // TODO: Properly implement the following routes
 // orderRoutes.route("/:id/pay").put(authenticateUser, paymentGatewayUpdateOrderToPaid);

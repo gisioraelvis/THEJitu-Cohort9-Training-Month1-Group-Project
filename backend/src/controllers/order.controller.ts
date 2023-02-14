@@ -101,10 +101,10 @@ export const getOrderById = async (req: IRequestWithUser, res: Response) => {
  * @access  Private/Admin
  */
 export const updateOrder = async (req: Request, res: Response) => {
-  const { error } = UpdateOrderDTO.validate(req.body);
-  if (error) {
-    return res.status(422).json({ message: error.details[0].message });
-  }
+  // const { error } = UpdateOrderDTO.validate(req.body);
+  // if (error) {
+  //   return res.status(422).json({ message: error.details[0].message });
+  // }
 
   const { id } = req.params;
   const { isPaid, isDelivered } = req.body;
@@ -137,7 +137,7 @@ export const updateOrder = async (req: Request, res: Response) => {
       return res.status(404).json({ message: "Order not found" });
     }
   } catch (error: any) {
-    CreateLog.error(error);
+    // CreateLog.error(error);
     return res.status(500).json({ message: error.message });
   }
 };
