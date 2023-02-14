@@ -45,12 +45,10 @@ export const createOrder = async (req: IRequestWithUser, res: Response) => {
         // TODO:handle exceptions if any of the order items fail to insert e.g FK constraint fails i.e product id does not exist
       });
 
-      return res
-        .status(201)
-        .json({
-          message: "Order created successfully",
-          order: order.recordset[0],
-        });
+      return res.status(201).json({
+        message: "Order created successfully",
+        order: order.recordset[0],
+      });
     }
 
     return res.status(500).json({ message: "Order creation failed" });
@@ -65,10 +63,25 @@ export const createOrder = async (req: IRequestWithUser, res: Response) => {
  * @route   GET /api/orders/:id
  * @access  Private
  */
-export const getOrderById = async (req: Request, res: Response) => {
+export const getOrderById = async (req: IRequestWithUser, res: Response) => {
   const { id } = req.params;
+  const { isAdmin, id: userId } = req.user as IUser;
 
   try {
+    //check if order belongs to user if not admin
+    if (!isAdmin) {
+      const order = await dbUtils.query(
+        `SELECT * FROM orders WHERE id=${id} AND userId=${userId}`
+      );
+
+      if (order.recordset.length > 0) {
+        return res.status(200).json(order.recordset[0]);
+      } else {
+        return res.status(404).json({ message: "Order not found" });
+      }
+    }
+
+    // if admin return order
     const order = await dbUtils.query(`SELECT * FROM orders WHERE id=${id}`);
 
     if (order.recordset.length > 0) {
