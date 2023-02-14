@@ -4,8 +4,8 @@ import Joi from "joi";
 export const CreateOrderDTO = Joi.object({
   orderItems: Joi.array().items(
     Joi.object({
-      qty: Joi.number().required(),
       productId: Joi.string().required(),
+      qty: Joi.number().required(),
     })
   ),
   shippingAddress: Joi.string().required(),

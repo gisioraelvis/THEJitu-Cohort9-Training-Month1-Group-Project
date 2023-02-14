@@ -24,28 +24,39 @@ export const createOrder = async (req: IRequestWithUser, res: Response) => {
 
   const { orderItems, shippingAddress, paymentMethod, totalPrice } = req.body;
 
-  // create order
-  const order = await dbUtils.exec("usp_CreateOrder", {
-    userId,
-    shippingAddress,
-    paymentMethod,
-    totalPrice,
-  });
-
-  if (order.recordset.length > 0) {
-    const { id: orderId } = order.recordset[0];
-    // create order item
-    orderItems.forEach(async (item: any) => {
-      await dbUtils.exec("usp_CreateOrderItem", {
-        orderId,
-        productId: item.product,
-        qty: item.qty,
-      });
+  try {
+    // insert order
+    const order = await dbUtils.exec("usp_CreateOrder", {
+      userId,
+      shippingAddress,
+      paymentMethod,
+      totalPrice,
     });
 
-    return res.status(201).json({ message: "Order created successfully" });
-  } else {
-    return res.status(500).json({ message: "Unable to create order" });
+    if (order.recordset.length > 0) {
+      const { id: orderId } = order.recordset[0];
+      // insert order items
+      orderItems.forEach(async (item: any) => {
+        await dbUtils.exec("usp_CreateOrderItem", {
+          orderId,
+          productId: item.productId,
+          qty: item.qty,
+        });
+        // TODO:handle exceptions if any of the order items fail to insert e.g FK constraint fails i.e product id does not exist
+      });
+
+      return res
+        .status(201)
+        .json({
+          message: "Order created successfully",
+          order: order.recordset[0],
+        });
+    }
+
+    return res.status(500).json({ message: "Order creation failed" });
+  } catch (error: any) {
+    CreateLog.error(error);
+    return res.status(500).json({ message: error.message });
   }
 };
 

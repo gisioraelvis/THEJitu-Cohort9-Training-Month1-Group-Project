@@ -139,6 +139,7 @@ export const updateProduct = async (req: IRequestWithUser, res: Response) => {
 
       if (updatedProduct.recordset.length > 0) {
         return res.status(200).json({
+          message: "Product updated",
           updateProduct: updatedProduct.recordset[0],
         });
       } else {
