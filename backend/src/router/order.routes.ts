@@ -2,10 +2,11 @@ import express from "express";
 import {
   createOrder,
   getOrderById,
-    updateOrderToPaid,
-    updateOrderToDelivered,
   getMyOrders,
   getOrders,
+  updateOrder,
+  // updateOrderToDelivered,
+  // paymentGatewayUpdateOrderToPaid,
 } from "../controllers/order.controller";
 import {
   authenticateUser,
@@ -22,9 +23,13 @@ orderRoutes
 orderRoutes.route("/myorders").get(authenticateUser, getMyOrders);
 
 orderRoutes.route("/:id").get(authenticateUser, getOrderById);
-orderRoutes.route("/:id/pay").put(authenticateUser, updateOrderToPaid);
-orderRoutes
-  .route("/:id/deliver")
-  .put(authenticateUser, authorizeAdmin, updateOrderToDelivered);
+
+orderRoutes.route("/:id").put(authenticateUser, authorizeAdmin, updateOrder);
+
+// TODO: Properly implement the following routes
+// orderRoutes.route("/:id/pay").put(authenticateUser, paymentGatewayUpdateOrderToPaid);
+// orderRoutes
+//   .route("/:id/deliver")
+//   .put(authenticateUser, authorizeAdmin, updateOrderToDelivered);
 
 export default orderRoutes;

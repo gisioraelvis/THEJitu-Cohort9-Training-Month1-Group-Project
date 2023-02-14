@@ -12,3 +12,9 @@ export const CreateOrderDTO = Joi.object({
   paymentMethod: Joi.string().required(),
   totalPrice: Joi.number().required(),
 });
+
+// Update order DTO
+export const UpdateOrderDTO = Joi.object({
+  isPaid: Joi.boolean().required(),
+  isDelivered: Joi.boolean().required(),
+});

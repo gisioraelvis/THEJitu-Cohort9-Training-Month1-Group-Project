@@ -3,7 +3,7 @@ import { IUser } from "../interfaces/user.interface";
 import { DatabaseUtils } from "../utils/db.util";
 import { CreateLog } from "../utils/logger.util";
 import { IRequestWithUser } from "../interfaces/request-with-user.interface";
-import { CreateOrderDTO } from "../dtos/order.dto";
+import { CreateOrderDTO, UpdateOrderDTO } from "../dtos/order.dto";
 import dotenv from "dotenv";
 dotenv.config({ path: __dirname + "/../../.env" });
 
@@ -96,56 +96,43 @@ export const getOrderById = async (req: IRequestWithUser, res: Response) => {
 };
 
 /**
- * @desc    Update order to paid
- * @route   GET /api/orders/:id/pay
- * @access  Private
- */
-export const updateOrderToPaid = async (req: Request, res: Response) => {
-  const { id } = req.params;
-  const {
-    id: paymentResultId,
-    status: paymentResultStatus,
-    update_time: paymentResultUpdateTime,
-    payer: { email_address: paymentResultEmailAddress },
-  } = req.body;
-
-  try {
-    const order = await dbUtils.query(`SELECT * FROM orders WHERE id=${id}`);
-
-    if (order.recordset.length > 0) {
-      await dbUtils.exec("usp_UpdateOrderToPaid", {
-        id,
-        paymentResultId,
-        paymentResultStatus,
-        paymentResultUpdateTime,
-        paymentResultEmailAddress,
-      });
-
-      return res.status(200).json({ message: "Order updated successfully" });
-    } else {
-      return res.status(404).json({ message: "Order not found" });
-    }
-  } catch (error: any) {
-    CreateLog.error(error);
-    return res.status(500).json({ message: error.message });
-  }
-};
-
-/**
- * @desc    Update order to delivered
- * @route   GET /api/orders/:id/deliver
+ * @desc    Update order
+ * @route   PUT /api/orders/:id
  * @access  Private/Admin
  */
-export const updateOrderToDelivered = async (req: Request, res: Response) => {
+export const updateOrder = async (req: Request, res: Response) => {
+  const { error } = UpdateOrderDTO.validate(req.body);
+  if (error) {
+    return res.status(422).json({ message: error.details[0].message });
+  }
+
   const { id } = req.params;
+  const { isPaid, isDelivered } = req.body;
 
   try {
     const order = await dbUtils.query(`SELECT * FROM orders WHERE id=${id}`);
 
     if (order.recordset.length > 0) {
-      await dbUtils.exec("usp_UpdateOrderToDelivered", { id });
-
-      return res.status(200).json({ message: "Order updated successfully" });
+      /* 
+       await dbUtils.query(
+        `UPDATE orders SET isPaid=${isPaid ? 1 : 0}, 
+         paidAt=${isPaid ? "GETDATE()" : null}, 
+         isDelivered=${isDelivered ? 1 : 0}, 
+         deliveredAt=${isDelivered ? "GETDATE()" : null} 
+         WHERE id=${id}
+         SELECT * FROM orders WHERE id=${id}
+         `
+      );
+      */
+      const updatedOrder = await dbUtils.exec("usp_UpdateOrder", {
+        id,
+        isPaid,
+        isDelivered,
+      });
+      return res.status(200).json({
+        message: "Order updated successfully",
+        updatedOrder: updatedOrder.recordset[0],
+      });
     } else {
       return res.status(404).json({ message: "Order not found" });
     }
@@ -198,3 +185,90 @@ export const getOrders = async (req: Request, res: Response) => {
     return res.status(500).json({ message: error.message });
   }
 };
+
+// /**
+//  * @desc    Update order to paid
+//  * @route   PUT /api/orders/:id/pay
+//  * @access  Private
+//  */
+// export const paymentGatewayUpdateOrderToPaid = async (req: Request, res: Response) => {
+//   const { id } = req.params;
+//   const {
+//     id: paymentResultId,
+//     status: paymentResultStatus,
+//     update_time: paymentResultUpdateTime,
+//     payer: { email_address: paymentResultEmailAddress },
+//   } = req.body;
+
+//   try {
+//     const order = await dbUtils.query(`SELECT * FROM orders WHERE id=${id}`);
+
+//     if (order.recordset.length > 0) {
+//       await dbUtils.exec("usp_UpdateOrderToPaid", {
+//         id,
+//         paymentResultId,
+//         paymentResultStatus,
+//         paymentResultUpdateTime,
+//         paymentResultEmailAddress,
+//       });
+
+//       return res.status(200).json({ message: "Order updated successfully" });
+//     } else {
+//       return res.status(404).json({ message: "Order not found" });
+//     }
+//   } catch (error: any) {
+//     CreateLog.error(error);
+//     return res.status(500).json({ message: error.message });
+//   }
+// };
+
+// /**
+//  * @desc    Update order to delivered
+//  * @route   PATCH /api/orders/:id
+//  * @access  Private/Admin
+//  */
+// export const updateOrderToDelivered = async (req: Request, res: Response) => {
+//   const { id } = req.params;
+
+//   try {
+//     const order = await dbUtils.query(`SELECT * FROM orders WHERE id=${id}`);
+
+//     if (order.recordset.length > 0) {
+//       await dbUtils.query(
+//         `UPDATE orders SET isDelivered=1, deliveredAt=GETDATE() WHERE id=${id}`
+//       );
+
+//       return res.status(200).json({ message: "Order updated successfully" });
+//     } else {
+//       return res.status(404).json({ message: "Order not found" });
+//     }
+//   } catch (error: any) {
+//     CreateLog.error(error);
+//     return res.status(500).json({ message: error.message });
+//   }
+// };
+
+// /**
+//  * @desc    Update order to paid
+//  * @route   PATCH /api/orders/:id/pay
+//  * @access  Private/Admin
+//  */
+// export const updateOrderToPaidAdmin = async (req: Request, res: Response) => {
+//   const { id } = req.params;
+
+//   try {
+//     const order = await dbUtils.query(`SELECT * FROM orders WHERE id=${id}`);
+
+//     if (order.recordset.length > 0) {
+//       await dbUtils.query(
+//         "UPDATE orders SET isPaid=1, paidAt=GETDATE() WHERE id=${id}"
+//       );
+//       return res.status(200).json({ message: "Order updated successfully" });
+//     } else {
+//       return res.status(404).json({ message: "Order not found" });
+//     }
+//   } catch (error: any) {
+//     CreateLog.error(error);
+//     return res.status(500).json({ message: error.message });
+//   }
+// };
