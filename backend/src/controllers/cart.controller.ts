@@ -123,7 +123,8 @@ export const removeFromCart = async (req: IRequestWithUser, res: Response) => {
         id,
         userId,
       });
-      if (cart.recordset.length > 0) {
+
+      if (cart.recordset.length > 0 || cart.recordset.length === 0) {
         return res.status(200).json({
           message: "Cart item removed successfully",
           cart: cart.recordset,
@@ -141,8 +142,8 @@ export const removeFromCart = async (req: IRequestWithUser, res: Response) => {
 };
 
 /**
- * @desc    Updates cart item
- * @route   PUT /api/cart/:id
+ * @desc    Checkout
+ * @route   GET /api/cart/checkout
  * @access  Private
  */
 export const checkout = async (req: IRequestWithUser, res: Response) => {
@@ -153,45 +154,46 @@ export const checkout = async (req: IRequestWithUser, res: Response) => {
       `SELECT * FROM cart WHERE userId=${userId}`
     );
     if (cartItems.recordset.length > 0) {
-      const order = await dbUtils.query(
-        `INSERT INTO orders (userId) VALUES (${userId}) SELECT * FROM orders WHERE userId=${userId}`
-      );
+      const orderItems = cartItems.recordset.map((item: any) => {
+        return {
+          productId: item.productId,
+          qty: item.qty,
+        };
+      });
+
+      const order = await dbUtils.exec("usp_CreateOrder", {
+        userId,
+        shippingAddress: "",
+        paymentMethod: "",
+        totalPrice: 0,
+      });
+
       if (order.recordset.length > 0) {
-        const orderId = order.recordset[0].id;
-        const orderItems = cartItems.recordset.map((cartItem: any) => {
-          return {
+        const { id: orderId } = order.recordset[0];
+        // insert order
+        orderItems.forEach(async (item: any) => {
+          await dbUtils.exec("usp_CreateOrderItem", {
             orderId,
-            productId: cartItem.productId,
-            qty: cartItem.qty,
-          };
+            productId: item.productId,
+            qty: item.qty,
+          });
+
+          const itemR = await dbUtils.exec("usp_RemoveFromCart", {
+            id: item.productId,
+            userId,
+          });
+          CreateLog.debug(itemR);
         });
-        const orderItemsQuery = orderItems
-          .map(
-            (orderItem: any) =>
-              `INSERT INTO orderItems (orderId, productId, qty) VALUES (${orderItem.orderId}, ${orderItem.productId}, ${orderItem.qty})`
-          )
-          .join(" ");
-        const createdOrderItems = await dbUtils.query(orderItemsQuery);
-        if (createdOrderItems.rowsAffected.length > 0) {
-          const deletedCartItems = await dbUtils.query(
-            `DELETE FROM cart WHERE userId=${userId}`
-          );
-          if (deletedCartItems.rowsAffected[0] > 0) {
-            return res.status(200).json({
-              message: "Order created successfully",
-              order: order.recordset[0],
-            });
-          } else {
-            return res.status(500).json({ message: "Order creation failed" });
-          }
-        } else {
-          return res.status(500).json({ message: "Order creation failed" });
-        }
-      } else {
-        return res.status(500).json({ message: "Order creation failed" });
+
+        return res.status(201).json({
+          message: "Order created successfully",
+          order: order.recordset,
+        });
       }
+
+      return res.status(500).json({ message: "Order creation failed" });
     } else {
-      return res.status(404).json({ message: "Cart items not found" });
+      return res.status(404).json({ message: "No items in cart" });
     }
   } catch (error: any) {
     CreateLog.error(error);

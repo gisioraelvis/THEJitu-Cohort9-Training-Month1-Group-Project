@@ -1,6 +1,7 @@
 import express from "express";
 import {
   addToCart,
+  checkout,
   getCart,
   removeFromCart,
 } from "../controllers/cart.controller";
@@ -17,5 +18,8 @@ cartRoutes.route("/").post(authenticateUser, addToCart);
 
 // removeFromCart
 cartRoutes.route("/:id").delete(authenticateUser, removeFromCart);
+
+// checkoutCart
+cartRoutes.route("/checkout").get(authenticateUser, checkout);
 
 export default cartRoutes;
