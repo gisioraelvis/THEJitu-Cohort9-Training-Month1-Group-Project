@@ -1,0 +1,77 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.main {
+    /* height: 98vh; */
+    width: 98vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    
+
+
+}
+
+form label {
+    font-size: 1.5em;
+
+
+}
+
+form {
+    width: 50%;
+    padding: 2%;
+  }
+
+::placeholder {
+    font-size: 2em;
+
+}
+
+input,textarea {
+    padding: 4%;
+    border: 2px solid gray;
+    box-sizing: border-box;
+    width: 100%;
+    background-color: rgba(217, 217, 217, 255);
+
+}
+
+ form button{
+    background-color: black;
+    padding: 3%;
+    color:rgba(255,255,255,255);
+    font-size: 1.5em;
+    font-weight: bold;
+    width: 25%;
+
+}
+.customer_enquiry{
+    font-size: 1.7em;
+    margin-top: 8%;
+}
+
+footer{
+    font-size: 1.7em;
+    text-align: center;
+    margin: 6%;
+}
+
+.proIntro{
+    font-size: 2.5em;
+    margin-top: 7%;
+    display: flex;
+    gap: 18%;
+}
+.goBack a{
+    text-decoration: none;
+    color: black;
+}
+.goBack{
+   margin-left: 5%;
+   padding-bottom: 3%;
+}
