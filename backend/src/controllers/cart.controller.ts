@@ -4,7 +4,7 @@ import { DatabaseUtils } from "../utils/db.util";
 import { CreateLog } from "../utils/logger.util";
 import { IRequestWithUser } from "../interfaces/request-with-user.interface";
 import dotenv from "dotenv";
-import { AddToCartDTO, UpdateCartItemDTO } from "../dtos/cart.dto";
+import { AddToCartDTO } from "../dtos/cart.dto";
 dotenv.config({ path: __dirname + "/../../.env" });
 
 const dbUtils = new DatabaseUtils();
