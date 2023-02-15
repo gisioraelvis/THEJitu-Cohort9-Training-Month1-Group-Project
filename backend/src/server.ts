@@ -6,6 +6,7 @@ import userRoutes from "./router/user.routes";
 import productRoutes from "./router/product.routes";
 import orderRoutes from "./router/order.routes";
 import dotenv from "dotenv";
+import cartRoutes from "./router/cart.routes";
 dotenv.config({ path: __dirname + "/../.env" });
 
 dotenv.config();
@@ -22,6 +23,7 @@ app.get("/", (req, res) => {
 app.use("/api/users", userRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);
+app.use("/api/cart", cartRoutes);
 
 // Global error handling middlewares
 app.use(notFound);

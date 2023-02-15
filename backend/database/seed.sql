@@ -185,3 +185,37 @@ USE GadgetHub;
 --     (3, 4, 1),
 --     (4, 5, 6),
 --     (5, 1, 1);
+
+
+
+/* 
+CREATE TABLE cart
+(
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    userId INT NOT NULL,
+    productId INT NOT NULL,
+    qty INT NOT NULL,
+    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (userId) REFERENCES users(id),
+    FOREIGN KEY (productId) REFERENCES products(id)
+);
+ */
+
+-- -- -- -- -- To be run after users, products, brands, categories , reviews, product_brand, product_category, product_review, orders, order_items -- -- -- -- -- --
+
+-- --  Cart
+DELETE FROM cart;
+INSERT INTO cart
+    (userId, productId, qty)
+VALUES
+    (1, 1, 5),
+    (2, 2, 3),
+    (3, 3, 1),
+    (4, 4, 2),
+    (5, 5, 1),
+    (1, 2, 1),
+    (2, 3, 7),
+    (3, 4, 1),
+    (4, 5, 6),
+    (5, 1, 1);
