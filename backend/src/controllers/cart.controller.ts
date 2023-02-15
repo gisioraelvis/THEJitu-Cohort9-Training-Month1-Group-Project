@@ -93,7 +93,10 @@ export const getCart = async (req: IRequestWithUser, res: Response) => {
     if (cartItems.recordset.length > 0) {
       return res.status(200).json(cartItems.recordset);
     } else {
-      return res.status(404).json({ message: "Cart items not found" });
+      return res.status(404).json({
+        message: "There are no items in the cart",
+        cart: cartItems.recordset,
+      });
     }
   } catch (error: any) {
     CreateLog.error(error);
@@ -177,13 +180,12 @@ export const checkout = async (req: IRequestWithUser, res: Response) => {
             productId: item.productId,
             qty: item.qty,
           });
-
-          const itemR = await dbUtils.exec("usp_RemoveFromCart", {
-            id: item.productId,
-            userId,
-          });
-          CreateLog.debug(itemR);
         });
+
+        // delete user cart checkout
+        await dbUtils.query(
+          `DELETE FROM cart WHERE userId=${userId} SELECT * FROM cart WHERE userId=${userId}`
+        );
 
         return res.status(201).json({
           message: "Order created successfully",
