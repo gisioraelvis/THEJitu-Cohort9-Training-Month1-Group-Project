@@ -208,6 +208,11 @@ dots.forEach((dot, index) => {
   });
 });
 
+productContainer.addEventListener("click", () => {
+  const productId = Products[carouselIndex].id as unknown as string;
+  window.location.href = `product.html?id=${productId}`;
+});
+
 window.document.addEventListener("DOMContentLoaded", () => {
   const renderProducts = async () => {
     await fetchProducts();

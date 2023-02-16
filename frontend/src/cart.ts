@@ -137,7 +137,7 @@ cartCheckoutBtn.addEventListener("click", async () => {
   });
   const data = await res.json();
   console.log(data);
-  //   window.location.href = "Order.html";
+  window.location.href = "Order.html";
 });
 
 // Event Listeners
