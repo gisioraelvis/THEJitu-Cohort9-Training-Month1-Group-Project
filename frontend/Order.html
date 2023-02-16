@@ -1,5 +1,4 @@
-
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -13,10 +12,13 @@
 </head>
 
 <body>
+    <!-- Nav bar -->
     <header>
         <div class="nav">
             <div class="logo">
-                <h1>Shop</h1>
+                <a href="/">
+                    <h1>GadgetHub</h1>
+                </a>
             </div>
             <div class="search">
                 <input type="text" placeholder="Search for a product...">
@@ -25,94 +27,88 @@
                 </button>
             </div>
             <div class="cart">
-                <button class="cart-btn" type="button"><span class="material-icons"
-                        title="cart">add_shopping_cart</span></button>
+                <button class="cart-btn" type="button">
+                    <span class="material-icons" title="cart">add_shopping_cart</span>
+                    Cart
+                </button>
             </div>
             <div class="sign">
-                <button class="sign-btn" type="button"><span class="material-icons"
-                        title="profile">person</span></button>
+                <button class="sign-btn" type="button">
+                    <span class="material-icons" title="profile">person</span>
+                    Sign In
+                </button>
             </div>
         </div>
     </header>
     <div class="container">
-        <div class="top">
+        <!-- <div class="top">
             <p>Sign In</h2>
             <p>Shipping</h3>
             <p>Payment Method</h3>
             <p>Place Order</h3>
-        </div>
+        </div> -->
         <div class="big">
-            <div class="twodivs" >
-                <!-- div one -->
-<div class="cartdetails">
+            <div class="twodivs">
+                <!-- 
+                <div class="cartdetails">
 
-    <p style="font-weight: bold;">Order ID: <p id="OrderId">6554HAS77UD38DJED8</p></p>
-<hr>
-    <p style="font-weight: bold;">Shipping To:</p>
-<p>Adderss: Nyeri Town,KDS Building</p>
-<p id="DeliveryState">Not Deliverd</p>
-<hr>
-<p style="font-weight: bold;">Payment Method:</p>
-<p>M-Pesa Xpress</p>
-<p id="PaymentState">Paid</p>
-<hr >
-<p style="font-weight: bold;">Order Items:</p>
-<div class="itemsorder">
-    <img src="./images/guillaume-bourdages-KcjFCsd1lyA-unsplash.jpg" alt="" srcset="">
-<p>simon muturi(white)</p>
-<p>1*5000000=5000000</p>
-</div>
+                    <p style="font-weight: bold;">Order ID:
+                    <p id="OrderId">${order.id}</p>
+                    </p>
+                    <hr>
+                    <p style="font-weight: bold;">Shipping To:</p>
+                    <p>${shippingAddress}</p>
+                    <p id="DeliveryState">${shippingState}</p>
+                    <hr>
+                    <p style="font-weight: bold;">Payment Method:</p>
+                    <p>${paymentMethod}</p>
+                    <p id="PaymentState">${paymentState}</p>
+                    <hr>
+                </div>
+                <div class="ordersummarry">
+                    <p style="font-weight: bold; align-self: center;">Order Summary</p>
+                    <hr>
+                    <div style="justify-content: space-around;">
+                        <p>Items:
+                            (3*KSH: 150,0000)</p>
+                    </div>
+                    <hr>
 
+                    <div style="justify-content: space-around;">
+                        <p>Shipping: ${shippingPrice}</p>
+                    </div>
+                    <hr>
 
-<div class="itemsorder">
-    <img src="./images/guillaume-bourdages-KcjFCsd1lyA-unsplash.jpg" alt="" srcset="">
-<p>simon muturi(white)</p>
-<p>1*5000000=5000000</p>
-</div>
+                    <div style="justify-content: space-around;">
+                        <p>Tax: Ksh ${taxPrice}</p>
+                    </div>
+                    <hr>
 
+                    <div style="justify-content: space-around;">
+                        <p>Total: Ksh: 150,0000</p>
+                    </div>
+                    <hr>
+                    <p>Pat With M-pesa Xpress</p>
+                    <input type="text" class="phonenumber"
+                        style="background-color: grey; width: 100%;  border-radius: 5px;"
+                        placeholder="Enter your M-Pesa ">
+                    <button class="placebutton"> Pay</button>
 
-</div>
+                </div>
 
-<!-- div two  -->
-<div class="ordersummarry">
-<p style="font-weight: bold; align-self: center;">Order Summary</p>
-<hr>
-<div style="justify-content: space-around;">
-    <p>Items:
-(3*KSH:  150,0000)</p></div>
-<hr>
+            </div>
+        </div>
+        copyright div -->
 
-<div style="justify-content: space-around;">
-    <p>Shipping:
-KSH:  150,0000</p></div>
-<hr>
+        <!-- <div class="copyright">
+            <p style="align-self: center;">Copyright &copy; 2023 - Shop</p>
 
-<div style="justify-content: space-around;">
-    <p>Tax:
-KSH:  150,0000</p></div>
-<hr>
-
-<div style="justify-content: space-around;">
-    <p>Total:
-KSH:  150,0000</p></div>
-<hr>
-<p>Pat With M-pesa Xpress</p>
-<input type="text" class="phonenumber" style="background-color: grey; width: 100%;  border-radius: 5px;" placeholder="Enter your M-Pesa ">
- <button class="placebutton" > Pay</button>
-
-</div>
-
-</div>
-</div>
-<!-- copyright div -->
-
-<div class="copyright">
-    <p style="align-self: center;">Copyright  &copy; 2023 - Shop</p>
-
-</div>
+        </div> -->
     </div>
+    <script type="module" src="./dist/order.js"></script>
 </body>
 
 </html>
 </body>
+
 </html>

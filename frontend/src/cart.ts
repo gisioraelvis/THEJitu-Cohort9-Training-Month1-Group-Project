@@ -57,7 +57,7 @@ const getCartItems = async () => {
     },
   });
   const data = await response.json();
-  // {message: 'There are no items in the cart', cart: Array(0)}
+
   if (data.cart) {
     productsContainer.innerHTML = `
         <div class="empty-cart">
@@ -140,7 +140,12 @@ productsContainer.addEventListener("click", (e) => {
   if (target.classList.contains("delete-btn")) {
     const cartProduct = target.parentElement?.parentElement?.parentElement;
     const id = cartProduct?.dataset.id as string;
-    deleteCartItem(id);
+
+    console.log(id);
+
+    if (id) {
+      deleteCartItem(id);
+    }
   }
 });
 
@@ -159,18 +164,57 @@ const deleteCartItem = async (id: string) => {
 
   // reload the page
   window.location.reload();
+  if (cartItems.length === 0) {
+    console.log("empty");
+    cartCheckoutBtn.style.display = "hidden";
+  }
 };
 
 // place order
 cartCheckoutBtn.addEventListener("click", async () => {
+  if (cartItems.length === 0) {
+    alert("Your cart is empty");
+    return;
+  }
   const jwt = localStorage.getItem("jwt") as string;
-  const res = await fetch(`${API_URL}/cart/checkout`, {
-    method: "GET",
-    headers: { Authorization: `Bearer ${jwt}` },
-  });
+  console.log(jwt);
+  const res = await fetch(
+    `${API_URL}/cart/checkout?totalPrice=${cartTotalPrice??500}`,
+    {
+      method: "GET",
+      headers: { Authorization: `Bearer ${jwt}` },
+    }
+  );
   const data = await res.json();
   console.log(data);
-  window.location.href = "Order.html";
+  /* 
+  {
+    "message": "Order created successfully",
+    "order": [
+        {
+            "id": 1006,
+            "userId": 1,
+            "shippingAddress": "",
+            "paymentMethod": "",
+            "paymentResultId": null,
+            "paymentResultStatus": "Pending",
+            "taxPrice": null,
+            "shippingPrice": null,
+            "totalPrice": 0,
+            "isPaid": false,
+            "paidAt": null,
+            "isDelivered": false,
+            "deliveredAt": null,
+            "createdAt": "2023-02-16T08:27:19.943Z",
+            "updatedAt": "2023-02-16T08:27:19.943Z"
+        }
+    ]
+}
+  */
+
+  // get the order id and redirect to e.g Order.html/?id=1006
+  const orderId = data.order[0].id;
+  window.location.href = `Order.html?id=${orderId}`;
 });
 
 // Event Listeners

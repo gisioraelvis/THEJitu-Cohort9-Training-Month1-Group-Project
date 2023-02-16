@@ -53,7 +53,6 @@ const getCartItems = () => __awaiter(void 0, void 0, void 0, function* () {
         },
     });
     const data = yield response.json();
-    // {message: 'There are no items in the cart', cart: Array(0)}
     if (data.cart) {
         productsContainer.innerHTML = `
         <div class="empty-cart">
@@ -130,7 +129,10 @@ productsContainer.addEventListener("click", (e) => {
     if (target.classList.contains("delete-btn")) {
         const cartProduct = (_b = (_a = target.parentElement) === null || _a === void 0 ? void 0 : _a.parentElement) === null || _b === void 0 ? void 0 : _b.parentElement;
         const id = cartProduct === null || cartProduct === void 0 ? void 0 : cartProduct.dataset.id;
-        deleteCartItem(id);
+        console.log(id);
+        if (id) {
+            deleteCartItem(id);
+        }
     }
 });
 const deleteCartItem = (id) => __awaiter(void 0, void 0, void 0, function* () {
@@ -147,17 +149,52 @@ const deleteCartItem = (id) => __awaiter(void 0, void 0, void 0, function* () {
     console.log(data);
     // reload the page
     window.location.reload();
+    if (cartItems.length === 0) {
+        console.log("empty");
+        cartCheckoutBtn.style.display = "hidden";
+    }
 });
 // place order
 cartCheckoutBtn.addEventListener("click", () => __awaiter(void 0, void 0, void 0, function* () {
+    if (cartItems.length === 0) {
+        alert("Your cart is empty");
+        return;
+    }
     const jwt = localStorage.getItem("jwt");
-    const res = yield fetch(`${API_URL}/cart/checkout`, {
+    console.log(jwt);
+    const res = yield fetch(`${API_URL}/cart/checkout?totalPrice=${cartTotalPrice !== null && cartTotalPrice !== void 0 ? cartTotalPrice : 500}`, {
         method: "GET",
         headers: { Authorization: `Bearer ${jwt}` },
     });
     const data = yield res.json();
     console.log(data);
-    window.location.href = "Order.html";
+    /*
+    {
+      "message": "Order created successfully",
+      "order": [
+          {
+              "id": 1006,
+              "userId": 1,
+              "shippingAddress": "",
+              "paymentMethod": "",
+              "paymentResultId": null,
+              "paymentResultStatus": "Pending",
+              "taxPrice": null,
+              "shippingPrice": null,
+              "totalPrice": 0,
+              "isPaid": false,
+              "paidAt": null,
+              "isDelivered": false,
+              "deliveredAt": null,
+              "createdAt": "2023-02-16T08:27:19.943Z",
+              "updatedAt": "2023-02-16T08:27:19.943Z"
+          }
+      ]
+  }
+    */
+    // get the order id and redirect to e.g Order.html/?id=1006
+    const orderId = data.order[0].id;
+    window.location.href = `Order.html?id=${orderId}`;
 }));
 // Event Listeners
 window.addEventListener("DOMContentLoaded", () => {
