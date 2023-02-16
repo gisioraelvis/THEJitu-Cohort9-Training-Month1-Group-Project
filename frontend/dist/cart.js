@@ -8,14 +8,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const API_URL = "http://localhost:5500/api";
+let API_URL = "http://localhost:5500/api";
+// Global Variables
+let cartItems = [];
+let cartTotalPrice = 0;
 const cartPageContainer = document.querySelector(".cart-page-container");
 const productsContainer = document.querySelector(".products-container");
 const cartTotalItems = document.querySelector(".cart-total-items");
 const cartCheckoutBtn = document.querySelector(".cart-checkout-btn");
-// Global Variables
-let cartItems = [];
-let cartTotalPrice = 0;
 const getCartItems = () => __awaiter(void 0, void 0, void 0, function* () {
     const jwt = localStorage.getItem("jwt");
     const response = yield fetch(`${API_URL}/cart`, {

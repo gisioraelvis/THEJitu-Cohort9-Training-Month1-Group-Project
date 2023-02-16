@@ -1,5 +1,5 @@
 import { Product } from "./interfaces";
-const API_URL = "http://localhost:5500/api" as string;
+let API_URL = "http://localhost:5500/api" as string;
 
 const productId = window.location.search.split("=")[1];
 

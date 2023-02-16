@@ -1,4 +1,8 @@
-const API_URL = "http://localhost:5500/api" as string;
+let API_URL = "http://localhost:5500/api" as string;
+
+// Global Variables
+let cartItems: any[] = [];
+let cartTotalPrice: number = 0;
 
 const cartPageContainer = document.querySelector(
   ".cart-page-container"
@@ -12,10 +16,6 @@ const cartTotalItems = document.querySelector(
 const cartCheckoutBtn = document.querySelector(
   ".cart-checkout-btn"
 ) as HTMLDivElement;
-
-// Global Variables
-let cartItems: any[] = [];
-let cartTotalPrice: number = 0;
 
 const getCartItems = async () => {
   const jwt = localStorage.getItem("jwt") as string;
@@ -140,8 +140,7 @@ cartCheckoutBtn.addEventListener("click", async () => {
   //   window.location.href = "Order.html";
 });
 
-
 // Event Listeners
 window.addEventListener("DOMContentLoaded", () => {
-    getCartItems();
-  });
+  getCartItems();
+});

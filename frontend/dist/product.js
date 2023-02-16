@@ -7,7 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const API_URL = "http://localhost:5500/api";
+let API_URL = "http://localhost:5500/api";
 const productId = window.location.search.split("=")[1];
 const fetchProduct = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const res = yield fetch(`${API_URL}/products/${id}`);

@@ -7,7 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const API_URL = "http://localhost:5500/api";
+let API_URL = "http://localhost:5500/api";
 /*
 To access the cart page the user should be logged in i.e jwt token should be present in the local storage
 When user clicks on sign in button, the user should be redirected to the login page if not logged in

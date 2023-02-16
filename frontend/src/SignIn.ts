@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:5500/api" as string;
+let API_URL = "http://localhost:5500/api" as string;
 
 const loginForm = document.querySelector("form") as HTMLFormElement;
 const loginEmail = document.querySelector("#loginEmail") as HTMLInputElement;

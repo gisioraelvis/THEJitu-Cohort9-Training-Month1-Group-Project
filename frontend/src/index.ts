@@ -1,5 +1,5 @@
 import { Product } from "./interfaces";
-const API_URL = "http://localhost:5500/api" as string;
+let API_URL = "http://localhost:5500/api" as string;
 
 /* 
 To access the cart page the user should be logged in i.e jwt token should be present in the local storage

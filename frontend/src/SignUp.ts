@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:5500/api" as string;
+let API_URL = "http://localhost:5500/api" as string;
 
 /* 
  <form action="">
