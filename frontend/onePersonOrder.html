@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,59 +8,37 @@
     <title>Person Orders</title>
     <link rel="stylesheet" href="./onePersonOrder.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" href="./style.css">
 </head>
+
 <body>
     <div class="main">
         <!-- Nav bar -->
-    <header>
-        <div class="nav">
-            <div class="logo">
-                <h1>Shop</h1>
+        <header>
+            <div class="nav">
+                <div class="logo">
+                    <h1>Shop</h1>
+                </div>
+                <div class="search">
+                    <input type="text" placeholder="Search for a product...">
+                    <button type="submit"><span class="material-icons" title="search product">search</span></button>
+                </div>
+                <div class="cart">
+                    <button class="cart-btn" type="button"><span class="material-icons"
+                            title="cart">add_shopping_cart</span></button>
+                </div>
+                <div class="sign">
+                    <button class="sign-btn" type="button">
+                        <span class="material-icons" title="profile">person</span>
+                    </button>
+                </div>
             </div>
-            <div class="search">
-                <input type="text" placeholder="Search for a product...">
-                <button type="submit"><span class="material-icons" title="search product">search</span></button>
-            </div>
-            <div class="cart">
-                <button class="cart-btn" type="button"><span class="material-icons"
-                        title="cart">add_shopping_cart</span></button>
-            </div>
-            <div class="sign">
-                <button class="sign-btn" type="button">
-                    <span class="material-icons"title="profile">person</span>
-                </button>
-            </div>
-        </div>
-    </header>
-     <!-- Body Content -->
+        </header>
+        <!-- Body Content -->
         <p id="myOrdersP">MY ORDERS</p>
-        <section>
-            <div class="statistics">
-                <div class="products">
-                    <span>Products</span>
-                    <span class="material-symbols-rounded">inventory_2</span>
-                    <span>5000</span>
-                </div>
-                <div class="orders">
-                    <span>Orders</span>
-                    <span class="material-symbols-rounded">order_approve</span>
-                    <span>25,000</span>
-                </div>
-                <div class="sales">
-                    <span>Sales</span>
-                    <span class="material-symbols-rounded">point_of_sale</span>
-                    <span>500,000</span>
-                </div>
-                <div class="customers">
-                    <span>Customers</span>
-                    <span class="material-symbols-rounded">person_add</span>
-                    <span>1,000,000</span>
-                </div>
-            </div>
-        </section>
-        
+
         <!--Table-->
         <table class="table">
             <thead>
@@ -83,7 +62,7 @@
                     </td>
                     <td>
                         <button>DETAILS</button>
-                    </td> 
+                    </td>
                 </tr>
                 <tr>
                     <td>783alsfl</td>
@@ -170,9 +149,10 @@
                     </td>
                 </tr>
             </tbody>
-            
-        </table>  
-        </div>  
-    </div>  
+
+        </table>
+    </div>
+    </div>
 </body>
+
 </html>

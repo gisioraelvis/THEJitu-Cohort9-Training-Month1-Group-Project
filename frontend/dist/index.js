@@ -8,14 +8,41 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 const API_URL = "http://localhost:5500/api";
+/*
+To access the cart page the user should be logged in i.e jwt token should be present in the local storage
+When user clicks on sign in button, the user should be redirected to the login page if not logged in
+else redirect to profile page
+ */
+const nav = document.querySelector(".nav");
+const cartBtn = document.querySelector(".cart-btn");
+const signBtn = document.querySelector(".sign-btn");
+const jwt = localStorage.getItem("jwt");
+if (jwt) {
+    signBtn.innerHTML = `
+        <span class="material-icons" title="profile">person</span>
+        Profile
+    `;
+}
+cartBtn.addEventListener("click", () => {
+    if (jwt) {
+        window.location.href = "cart.html";
+    }
+    else {
+        window.location.href = "SignIn.html";
+    }
+});
+signBtn.addEventListener("click", () => {
+    if (jwt) {
+        window.location.href = "onePersonOrder.html";
+    }
+    else {
+        window.location.href = "SignIn.html";
+    }
+});
 const productsContainer = document.querySelector(".products-container");
 const productsTitle = document.querySelector(".products-title");
 const products = document.querySelector(".products");
 const paginationContainer = document.querySelector(".pagination-container");
-const pagination = document.querySelector(".pagination");
-const prev = document.querySelector(".prev");
-const pages = document.querySelector(".pages");
-const next = document.querySelector(".next");
 const Products = [];
 const fetchProducts = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -56,11 +83,6 @@ const displayProducts = () => {
         products.appendChild(productEl);
     });
 };
-const renderProducts = () => __awaiter(void 0, void 0, void 0, function* () {
-    yield fetchProducts();
-    displayProducts();
-});
-renderProducts();
 // Product
 productsContainer.addEventListener("click", (e) => {
     var _a;
@@ -81,7 +103,7 @@ products.addEventListener("click", (e) => {
         addToCart(productId, qty);
     }
 });
-// add product to Cart
+// add product to cart
 export const addToCart = (productId, qty) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const jwt = localStorage.getItem("jwt");
@@ -106,4 +128,72 @@ export const addToCart = (productId, qty) => __awaiter(void 0, void 0, void 0, f
     catch (error) {
         console.log(error);
     }
+});
+// carousel
+const carousel = document.querySelector(".carousel");
+const leftArrow = document.querySelector(".left-arrow");
+const rightArrow = document.querySelector(".right-arrow");
+const dots = document.querySelectorAll(".dots span");
+const productContainer = document.querySelector(".product-container");
+const product = document.querySelector(".product");
+let carouselIndex = 0;
+const renderCarousel = () => {
+    product.innerHTML = `
+        <div class="title">
+            <h2>${Products[carouselIndex].name}</h2>
+        </div>
+        <div class="image">
+            <img src="${Products[carouselIndex].image}" alt="product image">
+        </div>
+        <div class="price">
+            <p>Price: ksh ${Products[carouselIndex].price}</p>
+        </div>
+    `;
+};
+const carouselSlide = () => {
+    carouselIndex++;
+    if (carouselIndex > Products.length - 1) {
+        carouselIndex = 0;
+    }
+    renderCarousel();
+};
+const carouselSlideBack = () => {
+    carouselIndex--;
+    if (carouselIndex < 0) {
+        carouselIndex = Products.length - 1;
+    }
+    renderCarousel();
+};
+const carouselDots = () => {
+    dots.forEach((dot, index) => {
+        if (index === carouselIndex) {
+            dot.classList.add("active");
+        }
+        else {
+            dot.classList.remove("active");
+        }
+    });
+};
+leftArrow.addEventListener("click", () => {
+    carouselSlideBack();
+    carouselDots();
+});
+rightArrow.addEventListener("click", () => {
+    carouselSlide();
+    carouselDots();
+});
+dots.forEach((dot, index) => {
+    dot.addEventListener("click", () => {
+        carouselIndex = index;
+        renderCarousel();
+        carouselDots();
+    });
+});
+window.document.addEventListener("DOMContentLoaded", () => {
+    const renderProducts = () => __awaiter(void 0, void 0, void 0, function* () {
+        yield fetchProducts();
+        displayProducts();
+    });
+    renderProducts();
+    renderCarousel();
 });

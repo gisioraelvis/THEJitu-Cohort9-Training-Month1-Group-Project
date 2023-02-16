@@ -1,6 +1,41 @@
 import { Product } from "./interfaces";
 const API_URL = "http://localhost:5500/api" as string;
 
+/* 
+To access the cart page the user should be logged in i.e jwt token should be present in the local storage
+When user clicks on sign in button, the user should be redirected to the login page if not logged in
+else redirect to profile page
+ */
+
+const nav = document.querySelector(".nav") as HTMLDivElement;
+const cartBtn = document.querySelector(".cart-btn") as HTMLButtonElement;
+const signBtn = document.querySelector(".sign-btn") as HTMLButtonElement;
+
+const jwt = localStorage.getItem("jwt") as string;
+
+if (jwt) {
+  signBtn.innerHTML = `
+        <span class="material-icons" title="profile">person</span>
+        Profile
+    `;
+}
+
+cartBtn.addEventListener("click", () => {
+  if (jwt) {
+    window.location.href = "cart.html";
+  } else {
+    window.location.href = "SignIn.html";
+  }
+});
+
+signBtn.addEventListener("click", () => {
+  if (jwt) {
+    window.location.href = "onePersonOrder.html";
+  } else {
+    window.location.href = "SignIn.html";
+  }
+});
+
 const productsContainer = document.querySelector(
   ".products-container"
 ) as HTMLDivElement;
@@ -11,10 +46,6 @@ const products = document.querySelector(".products") as HTMLDivElement;
 const paginationContainer = document.querySelector(
   ".pagination-container"
 ) as HTMLDivElement;
-const pagination = document.querySelector(".pagination") as HTMLDivElement;
-const prev = document.querySelector(".prev") as HTMLDivElement;
-const pages = document.querySelector(".pages") as HTMLDivElement;
-const next = document.querySelector(".next") as HTMLDivElement;
 
 const Products: Product[] = [];
 
@@ -59,12 +90,6 @@ const displayProducts = () => {
   });
 };
 
-const renderProducts = async () => {
-  await fetchProducts();
-  displayProducts();
-};
-renderProducts();
-
 // Product
 productsContainer.addEventListener("click", (e) => {
   const target = e.target as HTMLButtonElement;
@@ -85,7 +110,7 @@ products.addEventListener("click", (e) => {
   }
 });
 
-// add product to Cart
+// add product to cart
 export const addToCart = async (productId: string, qty: number) => {
   try {
     const jwt = localStorage.getItem("jwt");
@@ -110,3 +135,85 @@ export const addToCart = async (productId: string, qty: number) => {
     console.log(error);
   }
 };
+
+// carousel
+const carousel = document.querySelector(".carousel") as HTMLDivElement;
+const leftArrow = document.querySelector(".left-arrow") as HTMLDivElement;
+const rightArrow = document.querySelector(".right-arrow") as HTMLDivElement;
+const dots = document.querySelectorAll(
+  ".dots span"
+) as NodeListOf<HTMLSpanElement>;
+const productContainer = document.querySelector(
+  ".product-container"
+) as HTMLDivElement;
+const product = document.querySelector(".product") as HTMLDivElement;
+
+let carouselIndex = 0;
+
+const renderCarousel = () => {
+  product.innerHTML = `
+        <div class="title">
+            <h2>${Products[carouselIndex].name}</h2>
+        </div>
+        <div class="image">
+            <img src="${Products[carouselIndex].image}" alt="product image">
+        </div>
+        <div class="price">
+            <p>Price: ksh ${Products[carouselIndex].price}</p>
+        </div>
+    `;
+};
+
+const carouselSlide = () => {
+  carouselIndex++;
+  if (carouselIndex > Products.length - 1) {
+    carouselIndex = 0;
+  }
+  renderCarousel();
+};
+
+const carouselSlideBack = () => {
+  carouselIndex--;
+  if (carouselIndex < 0) {
+    carouselIndex = Products.length - 1;
+  }
+  renderCarousel();
+};
+
+const carouselDots = () => {
+  dots.forEach((dot, index) => {
+    if (index === carouselIndex) {
+      dot.classList.add("active");
+    } else {
+      dot.classList.remove("active");
+    }
+  });
+};
+
+leftArrow.addEventListener("click", () => {
+  carouselSlideBack();
+  carouselDots();
+});
+
+rightArrow.addEventListener("click", () => {
+  carouselSlide();
+  carouselDots();
+});
+
+dots.forEach((dot, index) => {
+  dot.addEventListener("click", () => {
+    carouselIndex = index;
+    renderCarousel();
+    carouselDots();
+  });
+});
+
+window.document.addEventListener("DOMContentLoaded", () => {
+  const renderProducts = async () => {
+    await fetchProducts();
+    displayProducts();
+  };
+  renderProducts();
+
+  renderCarousel();
+});
