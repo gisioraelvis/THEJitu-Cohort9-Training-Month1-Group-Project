@@ -1,0 +1,62 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.main {
+    /* height: 98vh; */
+    width: 98vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+}
+
+form label {
+    font-size: 1.5em;
+
+}
+
+form {
+    width: 30%;
+    border: 3px solid rgba(217, 217, 217, 255);
+    padding: 8%;
+    margin-top: 4%;
+}
+
+::placeholder {
+    color: black;
+    font-size: 17px;
+}
+
+input {
+    padding: 7%;
+    border: 2px solid gray;
+    box-sizing: border-box;
+    width: 100%;
+    background-color: rgba(217, 217, 217, 255);
+    border-radius: 10px;
+}
+
+ form button{
+    background-color:#1a0b41;
+    padding: 5%;
+    color:rgba(255,255,255,255);
+    font-size: 1.5em;
+    font-weight: bold;
+    width: 50%;
+    border-radius: 10px;
+}
+.customer_enquiry{
+    font-size: 1.7em;
+    margin-top: 8%;
+}
+
+footer{
+    font-size: 1.7em;
+    text-align: center;
+    margin: 6%;
+
+}
