@@ -33,7 +33,7 @@ cartBtn.addEventListener("click", () => {
 });
 signBtn.addEventListener("click", () => {
     if (jwt) {
-        window.location.href = "onePersonOrder.html";
+        window.location.href = "myorders.html";
     }
     else {
         window.location.href = "SignIn.html";

@@ -29,37 +29,15 @@ cartBtn.addEventListener("click", () => {
 });
 signBtn.addEventListener("click", () => {
     if (jwt) {
-        window.location.href = "onePersonOrder.html";
+        window.location.href = "myorders.html";
     }
     else {
         window.location.href = "SignIn.html";
     }
 });
-/*
-get order id from url e.g  Order.html?id=1010, append jwt token as bearer token to the request header
-make get request to /api/orders/2
-
-sample response
-{
-    "id": 2,
-    "userId": 8,
-    "shippingAddress": "",
-    "paymentMethod": "",
-    "paymentResultId": null,
-    "paymentResultStatus": "Pending",
-    "taxPrice": null,
-    "shippingPrice": null,
-    "totalPrice": 0,
-    "isPaid": false,
-    "paidAt": null,
-    "isDelivered": false,
-    "deliveredAt": null,
-    "createdAt": "2023-02-15T23:15:08.730Z",
-    "updatedAt": "2023-02-15T23:15:08.730Z"
-}
-
-display order details
-*/
+// create btn with inline styles just below the nav that redirect user to update profile page
+const updateProfileBtn = document.createElement("button");
+updateProfileBtn.innerHTML = "Update Profile";
 const getOrder = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const jwt = localStorage.getItem("jwt");
@@ -81,32 +59,12 @@ const getOrder = () => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 const displayOrderDetails = (order) => {
-    /*
-          sample response
-  {
-      "id": 2,
-      "userId": 8,
-      "shippingAddress": "",
-      "paymentMethod": "",
-      "paymentResultId": null,
-      "paymentResultStatus": "Pending",
-      "taxPrice": null,
-      "shippingPrice": null,
-      "totalPrice": 0,
-      "isPaid": false,
-      "paidAt": null,
-      "isDelivered": false,
-      "deliveredAt": null,
-      "createdAt": "2023-02-15T23:15:08.730Z",
-      "updatedAt": "2023-02-15T23:15:08.730Z"
-  }
-      */
     // if any of the fields is undefined or null or empty string, display "Not Provided"
     const shippingAddress = order.shippingAddress || "Not Provided";
     const paymentMethod = order.paymentMethod || "Not Provided";
     const taxPrice = order.taxPrice || "Not Provided";
     const shippingPrice = order.shippingPrice || "Not Provided";
-    const totalPrice = order.totalPrice || "Not Provided";
+    const totalPrice = order.totalPrice || "750";
     const shippingState = order.isDelivered
         ? `Delivered At ${order.deliveredAt}`
         : "Not Delivered";
