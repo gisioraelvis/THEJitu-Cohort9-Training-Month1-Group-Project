@@ -1,12 +1,6 @@
 import { Product } from "./interfaces";
 let API_URL = "http://localhost:5500/api" as string;
 
-/* 
-To access the cart page the user should be logged in i.e jwt token should be present in the local storage
-When user clicks on sign in button, the user should be redirected to the login page if not logged in
-else redirect to profile page
- */
-
 const nav = document.querySelector(".nav") as HTMLDivElement;
 const cartBtn = document.querySelector(".cart-btn") as HTMLButtonElement;
 const signBtn = document.querySelector(".sign-btn") as HTMLButtonElement;

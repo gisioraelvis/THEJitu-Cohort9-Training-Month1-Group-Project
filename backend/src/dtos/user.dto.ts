@@ -7,15 +7,14 @@ export const UserSignUpDto = Joi.object({
     "string.empty": "Please provide email",
     "string.email": "Invalid email",
   }),
-  password: Joi.string()
-    .required()
-    .pattern(
-      new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}$")
-    )
-    .messages({
-      "string.pattern.base":
-        "Password must contain at least 8 characters, one uppercase, one lowercase, one number and one special case character",
-    }),
+  password: Joi.string().required(),
+  // .pattern(
+  //   new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}$")
+  // )
+  // .messages({
+  //   "string.pattern.base":
+  //     "Password must contain at least 8 characters, one uppercase, one lowercase, one number and one special case character",
+  // }),
 
   confirmPassword: Joi.equal(ref("password")).required().messages({
     "any.only": "Passwords do not match",

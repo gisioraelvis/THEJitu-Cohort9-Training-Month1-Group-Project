@@ -187,30 +187,6 @@ cartCheckoutBtn.addEventListener("click", async () => {
   );
   const data = await res.json();
   console.log(data);
-  /* 
-  {
-    "message": "Order created successfully",
-    "order": [
-        {
-            "id": 1006,
-            "userId": 1,
-            "shippingAddress": "",
-            "paymentMethod": "",
-            "paymentResultId": null,
-            "paymentResultStatus": "Pending",
-            "taxPrice": null,
-            "shippingPrice": null,
-            "totalPrice": 0,
-            "isPaid": false,
-            "paidAt": null,
-            "isDelivered": false,
-            "deliveredAt": null,
-            "createdAt": "2023-02-16T08:27:19.943Z",
-            "updatedAt": "2023-02-16T08:27:19.943Z"
-        }
-    ]
-}
-  */
 
   // get the order id and redirect to e.g Order.html/?id=1006
   const orderId = data.order[0].id;

@@ -24,16 +24,16 @@ USE GadgetHub;
 -- INSERT INTO products
 --     (userId, name, image, description, price, countInStock)
 -- VALUES
---     (1, 'Product 1', 'https://example.com/product1.jpg', 'This is the description of Product 1', 19.99, 10),
---     (1, 'Product 2', 'https://example.com/product2.jpg', 'This is the description of Product 2', 29.99, 20),
---     (1, 'Product 3', 'https://example.com/product3.jpg', 'This is the description of Product 3', 39.99, 30),
---     (1, 'Product 4', 'https://example.com/product4.jpg', 'This is the description of Product 4', 49.99, 40),
---     (1, 'Product 5', 'https://example.com/product5.jpg', 'This is the description of Product 5', 59.99, 50),
---     (1, 'Product 6', 'https://example.com/product6.jpg', 'This is the description of Product 6', 69.99, 60),
---     (1, 'Product 7', 'https://example.com/product7.jpg', 'This is the description of Product 7', 79.99, 70),
---     (1, 'Product 8', 'https://example.com/product8.jpg', 'This is the description of Product 8', 89.99, 80),
---     (1, 'Product 9', 'https://example.com/product9.jpg', 'This is the description of Product 9', 99.99, 90),
---     (1, 'Product 10', 'https://example.com/product10.jpg', 'This is the description of Product 10', 109.99, 100);
+--     (1, 'Product 1', 'https://raw.githubusercontent.com/gisioraelvis/THEJitu-Cohort9-Training-Month1-Group-Project/intergration/frontend/assests/images/playstation.jpg', 'This is the description of Product 1', 19.99, 10),
+--     (1, 'Product 2', 'https://raw.githubusercontent.com/gisioraelvis/THEJitu-Cohort9-Training-Month1-Group-Project/intergration/frontend/assests/images/playstation.jpg', 'This is the description of Product 2', 29.99, 20),
+--     (1, 'Product 3', 'https://raw.githubusercontent.com/gisioraelvis/THEJitu-Cohort9-Training-Month1-Group-Project/intergration/frontend/assests/images/playstation.jpg', 'This is the description of Product 3', 39.99, 30),
+--     (1, 'Product 4', 'https://raw.githubusercontent.com/gisioraelvis/THEJitu-Cohort9-Training-Month1-Group-Project/intergration/frontend/assests/images/playstation.jpg', 'This is the description of Product 4', 49.99, 40),
+--     (1, 'Product 5', 'https://raw.githubusercontent.com/gisioraelvis/THEJitu-Cohort9-Training-Month1-Group-Project/intergration/frontend/assests/images/playstation.jpg', 'This is the description of Product 5', 59.99, 50),
+--     (1, 'Product 6', 'https://raw.githubusercontent.com/gisioraelvis/THEJitu-Cohort9-Training-Month1-Group-Project/intergration/frontend/assests/images/playstation.jpg', 'This is the description of Product 6', 69.99, 60),
+--     (1, 'Product 7', 'https://raw.githubusercontent.com/gisioraelvis/THEJitu-Cohort9-Training-Month1-Group-Project/intergration/frontend/assests/images/playstation.jpg', 'This is the description of Product 7', 79.99, 70),
+--     (1, 'Product 8', 'https://raw.githubusercontent.com/gisioraelvis/THEJitu-Cohort9-Training-Month1-Group-Project/intergration/frontend/assests/images/playstation.jpg', 'This is the description of Product 8', 89.99, 80),
+--     (1, 'Product 9', 'https://raw.githubusercontent.com/gisioraelvis/THEJitu-Cohort9-Training-Month1-Group-Project/intergration/frontend/assests/images/playstation.jpg', 'This is the description of Product 9', 99.99, 90),
+--     (1, 'Product 10', 'https://raw.githubusercontent.com/gisioraelvis/THEJitu-Cohort9-Training-Month1-Group-Project/intergration/frontend/assests/images/playstation.jpg', 'This is the description of Product 10', 109.99, 100);
 
 -- -- -- reviews
 -- DELETE FROM reviews;
@@ -77,83 +77,83 @@ USE GadgetHub;
 
 -- -- -- -- -- To be run after users, products, brands, categories , reviews -- -- -- -- -- --
 
--- -- product_brand
--- DELETE FROM product_brand;
--- INSERT INTO product_brand
---     (productId, brandId)
--- VALUES
---     (1, 1),
---     (2, 2),
---     (3, 3),
---     (4, 4),
---     (5, 5),
---     (6, 1),
---     (7, 2),
---     (8, 3),
---     (9, 4),
---     (10, 5),
---     (1, 2),
---     (2, 3),
---     (3, 4),
---     (4, 5),
---     (5, 1),
---     (6, 2),
---     (7, 3),
---     (8, 4),
---     (9, 5),
---     (10, 1);
+-- product_brand
+DELETE FROM product_brand;
+INSERT INTO product_brand
+    (productId, brandId)
+VALUES
+    (1, 1),
+    (2, 2),
+    (3, 3),
+    (4, 4),
+    (5, 5),
+    (6, 1),
+    (7, 2),
+    (8, 3),
+    (9, 4),
+    (10, 5),
+    (1, 2),
+    (2, 3),
+    (3, 4),
+    (4, 5),
+    (5, 1),
+    (6, 2),
+    (7, 3),
+    (8, 4),
+    (9, 5),
+    (10, 1);
 
--- -- product_category
--- DELETE FROM product_category;
--- INSERT INTO product_category
---     (productId, categoryId)
--- VALUES
---     (1, 1),
---     (2, 2),
---     (3, 3),
---     (4, 4),
---     (5, 5),
---     (6, 1),
---     (7, 2),
---     (8, 3),
---     (9, 4),
---     (10, 5),
---     (1, 2),
---     (2, 3),
---     (3, 4),
---     (4, 5),
---     (5, 1),
---     (6, 2),
---     (7, 3),
---     (8, 4),
---     (9, 5),
---     (10, 1);
+-- product_category
+DELETE FROM product_category;
+INSERT INTO product_category
+    (productId, categoryId)
+VALUES
+    (1, 1),
+    (2, 2),
+    (3, 3),
+    (4, 4),
+    (5, 5),
+    (6, 1),
+    (7, 2),
+    (8, 3),
+    (9, 4),
+    (10, 5),
+    (1, 2),
+    (2, 3),
+    (3, 4),
+    (4, 5),
+    (5, 1),
+    (6, 2),
+    (7, 3),
+    (8, 4),
+    (9, 5),
+    (10, 1);
 
--- -- product_review
--- DELETE FROM product_review;
--- INSERT INTO product_review
---     (productId, reviewId)
--- VALUES
---     (1, 1),
---     (2, 2),
---     (3, 3),
---     (4, 4),
---     (5, 5),
---     (6, 1),
---     (7, 2),
---     (8, 3),
---     (9, 4),
---     (10, 5),
---     (1, 2),
---     (2, 3),
---     (3, 4),
---     (4, 5),
---     (5, 1),
---     (6, 2),
---     (7, 3),
---     (8, 4),
---     (9, 5),
---     (10, 1);
+-- product_review
+DELETE FROM product_review;
+INSERT INTO product_review
+    (productId, reviewId)
+VALUES
+    (1, 1),
+    (2, 2),
+    (3, 3),
+    (4, 4),
+    (5, 5),
+    (6, 1),
+    (7, 2),
+    (8, 3),
+    (9, 4),
+    (10, 5),
+    (1, 2),
+    (2, 3),
+    (3, 4),
+    (4, 5),
+    (5, 1),
+    (6, 2),
+    (7, 3),
+    (8, 4),
+    (9, 5),
+    (10, 1);
 
 
 -- -- -- -- -- To be run after users, products, brands, categories , reviews, product_brand, product_category, product_review -- -- -- -- -- --
@@ -187,35 +187,20 @@ USE GadgetHub;
 --     (5, 1, 1);
 
 
+-- -- -- -- -- -- To be run after users, products, brands, categories , reviews, product_brand, product_category, product_review, orders, order_items -- -- -- -- -- --
 
-/* 
-CREATE TABLE cart
-(
-    id INT IDENTITY(1,1) PRIMARY KEY,
-    userId INT NOT NULL,
-    productId INT NOT NULL,
-    qty INT NOT NULL,
-    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
-    updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (userId) REFERENCES users(id),
-    FOREIGN KEY (productId) REFERENCES products(id)
-);
- */
-
--- -- -- -- -- To be run after users, products, brands, categories , reviews, product_brand, product_category, product_review, orders, order_items -- -- -- -- -- --
-
--- --  Cart
-DELETE FROM cart;
-INSERT INTO cart
-    (userId, productId, qty)
-VALUES
-    (1, 1, 5),
-    (2, 2, 3),
-    (3, 3, 1),
-    (4, 4, 2),
-    (5, 5, 1),
-    (1, 2, 1),
-    (2, 3, 7),
-    (3, 4, 1),
-    (4, 5, 6),
-    (5, 1, 1);
+-- -- --  Cart
+-- DELETE FROM cart;
+-- INSERT INTO cart
+--     (userId, productId, qty)
+-- VALUES
+--     (1, 1, 5),
+--     (2, 2, 3),
+--     (3, 3, 1),
+--     (4, 4, 2),
+--     (5, 5, 1),
+--     (1, 2, 1),
+--     (2, 3, 7),
+--     (3, 4, 1),
+--     (4, 5, 6),
+--     (5, 1, 1);

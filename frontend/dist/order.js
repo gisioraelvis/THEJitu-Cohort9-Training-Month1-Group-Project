@@ -111,7 +111,7 @@ const displayOrderDetails = (order) => {
                         KSH: ${totalPrice}</p>
                 </div>
                 <hr>
-                    <p>Pat With M-pesa Xpress</p>
+                    <p>Pay With M-pesa Xpress</p>
                     <input type="text" class="phonenumber"
                         style="background-color: grey; width: 100%;  border-radius: 5px;"
                         placeholder="Enter your M-Pesa ">

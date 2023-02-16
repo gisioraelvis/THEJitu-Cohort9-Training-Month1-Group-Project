@@ -49,25 +49,28 @@ signBtn.addEventListener("click", () => {
   }
 });
 
-// const profileBtn = document.createElement("button");
-// profileBtn.innerHTML = "Update Profile";
+const profileBtn = document.createElement("button");
+profileBtn.innerHTML = "Logout";
 
-// // located far right of the nav
-// profileBtn.style.position = "absolute";
-// profileBtn.style.right = "0";
-// profileBtn.style.top = "0";
-// profileBtn.style.margin = "2rem";
-// profileBtn.style.padding = "1rem";
-// profileBtn.style.borderRadius = "0.5rem";
-// profileBtn.style.backgroundColor = "grey";
-// profileBtn.style.color = "#fff";
-// profileBtn.style.cursor = "pointer";
+// located far right of the nav
+profileBtn.style.position = "absolute";
+profileBtn.style.right = "0";
+profileBtn.style.top = "0";
+profileBtn.style.margin = "2rem";
+profileBtn.style.padding = "1rem";
+profileBtn.style.borderRadius = "0.5rem";
+profileBtn.style.backgroundColor = "grey";
+profileBtn.style.color = "#fff";
+profileBtn.style.cursor = "pointer";
 
-// myOrdersP.parentElement?.insertBefore(profileBtn, myOrdersP);
+myOrdersP.parentElement?.insertBefore(profileBtn, myOrdersP);
 
-// profileBtn.addEventListener("click", () => {
-//   window.location.href = "UserProfile.html";
-// });
+profileBtn.addEventListener("click", () => {
+  // remove jwt from local storage
+  localStorage.removeItem("jwt");
+  // redirect to home page
+  window.location.href = "index.html";
+});
 
 // get orders
 const getOrders = async () => {

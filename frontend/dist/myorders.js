@@ -8,6 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var _a;
 let API_URL = "http://localhost:5500/api";
 const nav = document.querySelector(".nav");
 const cartBtn = document.querySelector(".cart-btn");
@@ -54,22 +55,25 @@ signBtn.addEventListener("click", () => {
         window.location.href = "SignIn.html";
     }
 });
-// const profileBtn = document.createElement("button");
-// profileBtn.innerHTML = "Update Profile";
-// // located far right of the nav
-// profileBtn.style.position = "absolute";
-// profileBtn.style.right = "0";
-// profileBtn.style.top = "0";
-// profileBtn.style.margin = "2rem";
-// profileBtn.style.padding = "1rem";
-// profileBtn.style.borderRadius = "0.5rem";
-// profileBtn.style.backgroundColor = "grey";
-// profileBtn.style.color = "#fff";
-// profileBtn.style.cursor = "pointer";
-// myOrdersP.parentElement?.insertBefore(profileBtn, myOrdersP);
-// profileBtn.addEventListener("click", () => {
-//   window.location.href = "UserProfile.html";
-// });
+const profileBtn = document.createElement("button");
+profileBtn.innerHTML = "Logout";
+// located far right of the nav
+profileBtn.style.position = "absolute";
+profileBtn.style.right = "0";
+profileBtn.style.top = "0";
+profileBtn.style.margin = "2rem";
+profileBtn.style.padding = "1rem";
+profileBtn.style.borderRadius = "0.5rem";
+profileBtn.style.backgroundColor = "grey";
+profileBtn.style.color = "#fff";
+profileBtn.style.cursor = "pointer";
+(_a = myOrdersP.parentElement) === null || _a === void 0 ? void 0 : _a.insertBefore(profileBtn, myOrdersP);
+profileBtn.addEventListener("click", () => {
+    // remove jwt from local storage
+    localStorage.removeItem("jwt");
+    // redirect to home page
+    window.location.href = "index.html";
+});
 // get orders
 const getOrders = () => __awaiter(void 0, void 0, void 0, function* () {
     try {

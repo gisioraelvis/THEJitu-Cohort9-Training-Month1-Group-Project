@@ -93,7 +93,7 @@ export const getCart = async (req: IRequestWithUser, res: Response) => {
     if (cartItems.recordset.length > 0) {
       return res.status(200).json(cartItems.recordset);
     } else {
-      return res.status(404).json({
+      return res.status(200).json({
         message: "There are no items in the cart",
         cart: cartItems.recordset,
       });
@@ -152,6 +152,8 @@ export const removeFromCart = async (req: IRequestWithUser, res: Response) => {
 export const checkout = async (req: IRequestWithUser, res: Response) => {
   const { id: userId } = req.user as IUser;
 
+  const { totalPrice } = req.query;
+
   try {
     const cartItems = await dbUtils.query(
       `SELECT * FROM cart WHERE userId=${userId}`
@@ -168,7 +170,7 @@ export const checkout = async (req: IRequestWithUser, res: Response) => {
         userId,
         shippingAddress: "",
         paymentMethod: "",
-        totalPrice: 0,
+        totalPrice: totalPrice??599,
       });
 
       if (order.recordset.length > 0) {

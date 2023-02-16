@@ -1,12 +1,6 @@
 import { Product } from "./interfaces";
 let API_URL = "http://localhost:5500/api" as string;
 
-/* 
-To access the cart page the user should be logged in i.e jwt token should be present in the local storage
-When user clicks on sign in button, the user should be redirected to the login page if not logged in
-else redirect to profile page
- */
-
 const nav = document.querySelector(".nav") as HTMLDivElement;
 const cartBtn = document.querySelector(".cart-btn") as HTMLButtonElement;
 const signBtn = document.querySelector(".sign-btn") as HTMLButtonElement;
@@ -89,45 +83,6 @@ const getOrders = async () => {
 
     const data = await res.json();
     console.log(data);
-
-    /* Sample response
-    [
-    {
-        "id": 1,
-        "userId": 8,
-        "shippingAddress": "",
-        "paymentMethod": "",
-        "paymentResultId": null,
-        "paymentResultStatus": "Pending",
-        "taxPrice": null,
-        "shippingPrice": null,
-        "totalPrice": 0,
-        "isPaid": false,
-        "paidAt": null,
-        "isDelivered": false,
-        "deliveredAt": null,
-        "createdAt": "2023-02-15T23:12:38.303Z",
-        "updatedAt": "2023-02-15T23:12:38.303Z"
-    },
-    {
-        "id": 2,
-        "userId": 8,
-        "shippingAddress": "",
-        "paymentMethod": "",
-        "paymentResultId": null,
-        "paymentResultStatus": "Pending",
-        "taxPrice": null,
-        "shippingPrice": null,
-        "totalPrice": 0,
-        "isPaid": false,
-        "paidAt": null,
-        "isDelivered": false,
-        "deliveredAt": null,
-        "createdAt": "2023-02-15T23:15:08.730Z",
-        "updatedAt": "2023-02-15T23:15:08.730Z"
-    }]
-    
-    */
 
     // display orders
     data.forEach((order: any) => {
