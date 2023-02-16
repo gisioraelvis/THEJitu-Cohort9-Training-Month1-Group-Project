@@ -4,6 +4,36 @@ let API_URL = "http://localhost:5500/api" as string;
 let cartItems: any[] = [];
 let cartTotalPrice: number = 0;
 
+// nav
+const nav = document.querySelector(".nav") as HTMLDivElement;
+const cartBtn = document.querySelector(".cart-btn") as HTMLButtonElement;
+const signBtn = document.querySelector(".sign-btn") as HTMLButtonElement;
+
+const jwt = localStorage.getItem("jwt") as string;
+
+if (jwt) {
+  signBtn.innerHTML = `
+        <span class="material-icons" title="profile">person</span>
+        Profile
+    `;
+}
+
+cartBtn.addEventListener("click", () => {
+  if (jwt) {
+    window.location.href = "cart.html";
+  } else {
+    window.location.href = "SignIn.html";
+  }
+});
+
+signBtn.addEventListener("click", () => {
+  if (jwt) {
+    window.location.href = "onePersonOrder.html";
+  } else {
+    window.location.href = "SignIn.html";
+  }
+});
+
 const cartPageContainer = document.querySelector(
   ".cart-page-container"
 ) as HTMLDivElement;
@@ -65,6 +95,9 @@ const displayCartItems = () => {
                     <div class="product-title-price">
                         <div>
                             <h2 class="product-title">${product.name}</h2>
+                        </div>
+                        <div>
+                            <p class="product-price">Qty: ${item.qty}</p>
                         </div>
                         <div>
                             <p class="product-price">Price: ksh ${product.price}</p>

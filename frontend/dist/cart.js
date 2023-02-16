@@ -12,6 +12,33 @@ let API_URL = "http://localhost:5500/api";
 // Global Variables
 let cartItems = [];
 let cartTotalPrice = 0;
+// nav
+const nav = document.querySelector(".nav");
+const cartBtn = document.querySelector(".cart-btn");
+const signBtn = document.querySelector(".sign-btn");
+const jwt = localStorage.getItem("jwt");
+if (jwt) {
+    signBtn.innerHTML = `
+        <span class="material-icons" title="profile">person</span>
+        Profile
+    `;
+}
+cartBtn.addEventListener("click", () => {
+    if (jwt) {
+        window.location.href = "cart.html";
+    }
+    else {
+        window.location.href = "SignIn.html";
+    }
+});
+signBtn.addEventListener("click", () => {
+    if (jwt) {
+        window.location.href = "onePersonOrder.html";
+    }
+    else {
+        window.location.href = "SignIn.html";
+    }
+});
 const cartPageContainer = document.querySelector(".cart-page-container");
 const productsContainer = document.querySelector(".products-container");
 const cartTotalItems = document.querySelector(".cart-total-items");
@@ -61,6 +88,9 @@ const displayCartItems = () => {
                     <div class="product-title-price">
                         <div>
                             <h2 class="product-title">${product.name}</h2>
+                        </div>
+                        <div>
+                            <p class="product-price">Qty: ${item.qty}</p>
                         </div>
                         <div>
                             <p class="product-price">Price: ksh ${product.price}</p>
