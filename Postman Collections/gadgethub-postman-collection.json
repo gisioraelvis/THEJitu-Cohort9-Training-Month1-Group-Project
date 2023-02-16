@@ -1,0 +1,827 @@
+{
+	"info": {
+		"_postman_id": "3f24b502-5c23-43b0-9f01-b10a04c5f8ad",
+		"name": "GadgetHub",
+		"description": "MERN ecommerce webapp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Poducts",
+			"item": [
+				{
+					"name": "AllProducts",
+					"_postman_id": "ae083f4a-e763-40d7-b0ef-99981ad5720f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{URL}}/api/products",
+						"description": "Fetch all products\nPublic"
+					},
+					"response": []
+				},
+				{
+					"name": "ProductById",
+					"_postman_id": "bc3c3a7c-1c99-4dbc-9da3-ec3a64948eab",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{URL}}/api/products/7"
+					},
+					"response": []
+				},
+				{
+					"name": "TODO :TopProductByRating",
+					"_postman_id": "8f1fd9ed-518f-4afe-b35d-f4c3f3574c4a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{URL}}/api/products/top-rated"
+					},
+					"response": []
+				},
+				{
+					"name": "TODO: CreateProductReview",
+					"_postman_id": "6e39fa43-83d4-4d76-a874-c31699956bce",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/api/products/:id/reviews",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"products",
+								":id",
+								"reviews"
+							],
+							"variable": [
+								{
+									"id": "5d49f979-1683-4910-ab14-d571b6938f7b",
+									"key": "id",
+									"value": "",
+									"type": "string"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ProductById",
+					"_postman_id": "6cc662a5-40dc-433b-9225-3e58765bbf89",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{JWT}}"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "{{URL}}/api/products/3"
+					},
+					"response": []
+				},
+				{
+					"name": "Product - Admin",
+					"_postman_id": "a2940959-4d09-40ab-851f-614990ad9e91",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{JWT}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": 1,\n    \"name\": \"iPhone 11\",\n    \"image\": \"https://www.example.com/iphone11.jpg\",\n    \"description\": \"The latest iPhone with a dual-camera system.\",\n    \"price\": 799,\n    \"countInStock\": 100\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{URL}}/api/products"
+					},
+					"response": []
+				},
+				{
+					"name": "Product - Admin",
+					"_postman_id": "a51cdb21-2ee2-4aff-8772-611d205a61c0",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{JWT}}"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"name\": \"Product 3\",\n        \"image\": \"https://raw.githubusercontent.com/gisioraelvis/THEJitu-Cohort9-Training-Month1-Group-Project/elvis/elvis-frontend/assests/images/alexa.jpg\",\n        \"description\": \"This is the description of Product 4\",\n        \"price\": 10000,\n        \"countInStock\": 40\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{URL}}/api/products/3"
+					},
+					"response": []
+				},
+				{
+					"name": "TODO: ProductImgUpload",
+					"_postman_id": "4f173aec-7a5f-4b6c-af98-72f8ff48a94b",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/home/ninja/Pictures/Tesla.jpeg"
+								}
+							],
+							"options": {}
+						},
+						"url": "{{URL}}/api/uploads"
+					},
+					"response": []
+				}
+			],
+			"_postman_id": "e96b5e04-6de5-4a36-9fe5-2d1474391bb0",
+			"description": "For all product routes"
+		},
+		{
+			"name": "Users & Auth",
+			"item": [
+				{
+					"name": "SignIn",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "692d387e-ae95-4a72-bd33-15376b38931d",
+								"exec": [
+									"pm.environment.set(\"JWT\", pm.response.json().JWT);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "c9db0687-da16-4589-82a3-d1fd01a3fafa",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n \"email\": \"admin@example.com\",\n \"password\": \"@AveryStrongPassword23*\"\n}\n\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{URL}}/api/users/signin"
+					},
+					"response": []
+				},
+				{
+					"name": "SignUp",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8104fbcf-433a-44d9-a542-f99f107e39d4",
+								"exec": [
+									"pm.environment.set(\"JWT\", pm.response.json().JWT);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "5a68334b-5a11-4b07-9cea-b9a1f39e67ce",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Elvis\",\n    \"email\": \"gisioraelvis2@gmail.com\",\n    \"password\": \"@Gisioraelvis21\",\n    \"confirmPassword\": \"@Gisioraelvis21\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{URL}}/api/users/signup"
+					},
+					"response": []
+				},
+				{
+					"name": "UserProfile",
+					"_postman_id": "88e6fb88-f3be-45f1-8ba9-bb50b508e6d9",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{JWT}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {}
+						},
+						"url": "{{URL}}/api/users/profile"
+					},
+					"response": []
+				},
+				{
+					"name": "UserProfile",
+					"_postman_id": "e4a9ebae-e9e1-44ff-ab3e-d085e256834a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{JWT}}"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin@example.com\",\n    \"password\": \"123456\",\n    \"confirmPassword\": \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{URL}}/api/users/profile"
+					},
+					"response": []
+				},
+				{
+					"name": "User - Admin",
+					"_postman_id": "2aa931f6-7baa-4b5a-9dd8-80453f1ee132",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{JWT}}"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "{{URL}}/api/users/1002"
+					},
+					"response": []
+				},
+				{
+					"name": "UserById - Admin",
+					"_postman_id": "0f4049d9-16d5-4b16-b1a4-0542097dad59",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{JWT}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{URL}}/api/users/2"
+					},
+					"response": []
+				},
+				{
+					"name": "UserProfile - Admin",
+					"_postman_id": "59ce288b-8e68-48e8-be23-821d28afd82d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{JWT}}"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "   {\n        \"name\": \"Obed\",\n        \"email\": \"kipsangkertich@gmail.com\",\n        \"isAdmin\": false,\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{URL}}/api/users/1007"
+					},
+					"response": []
+				},
+				{
+					"name": "AllUsers - Admin",
+					"_postman_id": "b3dd4747-03ad-4218-83e5-3cbd126d6ba6",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{JWT}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{URL}}/api/users"
+					},
+					"response": []
+				},
+				{
+					"name": "ForgotPassword",
+					"_postman_id": "822b32f1-d2ff-4a82-9e32-de574229cf5c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n \"email\": \"kipsangkertich1@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{URL}}/api/users/forgot-password"
+					},
+					"response": []
+				},
+				{
+					"name": "PasswordReset",
+					"_postman_id": "872fd4db-ed10-4e17-8be0-36eda1a7750a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"password\": \"@AveryStrongPassword23*\",\n    \"confirmPassword\": \"@AveryStrongPassword23*\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/users/reset-password?resetToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkFkbWluIFVzZXIiLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNjc2Mjg4MzQ5LCJleHAiOjE2NzYyOTE5NDl9.KsBQAAl3UWzyY8_RtZ8-tHYk19BLVPKq3Qva39FtmK8",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"reset-password"
+							],
+							"query": [
+								{
+									"key": "resetToken",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkFkbWluIFVzZXIiLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNjc2Mjg4MzQ5LCJleHAiOjE2NzYyOTE5NDl9.KsBQAAl3UWzyY8_RtZ8-tHYk19BLVPKq3Qva39FtmK8"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"_postman_id": "885a37fa-a2c1-4a22-933a-f67f71d48c83"
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "Order",
+					"_postman_id": "e3e8b62a-bd66-4b1d-ae03-f4f2313fafe2",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{JWT}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"orderItems\": [\n    {\n      \"qty\": 2,\n      \"productId\": \"2\"\n    },\n    {\n      \"qty\": 1,\n      \"productId\": \"1\"\n    }\n  ],\n  \"shippingAddress\": \"123 Main St, Anytown, USA\",\n  \"paymentMethod\": \"credit card\",\n  \"totalPrice\": 100.00\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{URL}}/api/orders"
+					},
+					"response": []
+				},
+				{
+					"name": "OrderById",
+					"_postman_id": "766620f1-5a06-44c5-a114-90be7c36014a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{JWT}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{URL}}/api/orders/2"
+					},
+					"response": []
+				},
+				{
+					"name": "TODO: ToPaid - PaymentGateway",
+					"_postman_id": "87816a6b-247d-4abe-950d-2e9dc47e1fe4",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/orders/:id/pay",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"orders",
+								":id",
+								"pay"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"type": "text",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": null,
+									"type": "any"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TODO: ToDelivered - Admin:GET",
+					"_postman_id": "f3a81e41-4b38-4a57-845a-b1c73727fb7e",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/orders/:id/deliver",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"orders",
+								":id",
+								"deliver"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": null,
+									"type": "any"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "MyOrders",
+					"_postman_id": "e754e626-8f9d-4741-ab18-d24954755eb2",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{JWT}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{URL}}/api/orders/myorders"
+					},
+					"response": []
+				},
+				{
+					"name": "AllOrders - Admin",
+					"_postman_id": "5498ee99-be29-4efd-a955-34219518883a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{JWT}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{URL}}/api/orders"
+					},
+					"response": []
+				},
+				{
+					"name": "Order - Admin",
+					"_postman_id": "0669da58-f503-4b4d-b76c-6e6354063516",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{JWT}}"
+							}
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n \"isPaid\": true,\n \"isDelivered\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{URL}}/api/orders/1"
+					},
+					"response": []
+				}
+			],
+			"_postman_id": "7024c582-c4c8-4a0f-899a-b31609e3caab"
+		},
+		{
+			"name": "TODO: M-PESA Xpress",
+			"item": [
+				{
+					"name": "MPesaExpress",
+					"_postman_id": "9c50b238-a8eb-4597-a815-b6cf0b7d3872",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "{{URL}}/api/mpesa-express"
+					},
+					"response": []
+				}
+			],
+			"_postman_id": "0f58c30d-9eba-4237-8223-162c3da5d537"
+		},
+		{
+			"name": "Cart",
+			"item": [
+				{
+					"name": "Cart",
+					"_postman_id": "302a0987-cf7f-4aed-b730-f594bd718020",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{JWT}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{URL}}/api/cart"
+					},
+					"response": []
+				},
+				{
+					"name": "AddToCart",
+					"_postman_id": "b7501c11-52cb-4823-b5e2-7af737ff79db",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{JWT}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"productId\": 3,\n        \"qty\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{URL}}/api/cart"
+					},
+					"response": []
+				},
+				{
+					"name": "FromCart",
+					"_postman_id": "49c26ee3-fa30-47c7-b339-5b0f72f8de90",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{JWT}}"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "{{URL}}/api/cart/21"
+					},
+					"response": []
+				},
+				{
+					"name": "Checkout",
+					"_postman_id": "d6adb416-3a8c-4fac-ac0a-47770b2ef9ad",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{JWT}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/cart/checkout?totalPrice=19.99",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"cart",
+								"checkout"
+							],
+							"query": [
+								{
+									"key": "totalPrice",
+									"value": "19.99"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"_postman_id": "5d5839d0-7311-4dab-94ab-cc6da426947d"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "f395637d-7c2c-47da-899e-d7ea0a400e65",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "3f495f1a-aa56-44c4-8882-48c44a25cebd",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "6fa419a7-adfe-4efa-987f-d766c950ba6e",
+			"key": "URL",
+			"value": "localhost:5500",
+			"type": "string"
+		}
+	]
+}
