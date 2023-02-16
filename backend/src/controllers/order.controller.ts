@@ -186,6 +186,7 @@ export const getOrders = async (req: Request, res: Response) => {
   }
 };
 
+// TODO: Implement payments
 // /**
 //  * @desc    Update order to paid
 //  * @route   PUT /api/orders/:id/pay

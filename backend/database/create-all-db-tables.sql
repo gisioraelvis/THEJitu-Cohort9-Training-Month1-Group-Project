@@ -117,8 +117,6 @@ CREATE TABLE orders
     FOREIGN KEY (userId) REFERENCES users(id)
 );
 
--- order_items table is used to store the products that are in the order
--- i.e m:m mapping between orders and products
 CREATE TABLE order_items
 (
     orderId INT NOT NULL,

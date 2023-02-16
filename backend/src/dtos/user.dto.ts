@@ -93,7 +93,6 @@ export const UserUpdatePasswordDto = Joi.object({
   }),
 });
 
-// update user profile dto UserUpdateProfileByAdminDto i.e all fields except password
 export const UserUpdateProfileByAdminDto = Joi.object({
   name: Joi.string().required(),
   email: Joi.string().required().email().messages({
