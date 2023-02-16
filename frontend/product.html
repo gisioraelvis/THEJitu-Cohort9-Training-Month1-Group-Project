@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Product</title>
+</head>
+
+<body>
+    <!-- Nav bar -->
+    <header>
+        <div class="nav">
+            <div class="logo">
+                <a href="/">
+                    <h1>GadgetHub</h1>
+                </a>
+            </div>
+            <div class="search">
+                <input type="text" placeholder="Search for a product...">
+                <button type="submit">
+                    <span class="material-icons" title="search product">search</span>
+                </button>
+            </div>
+            <div class="cart">
+                <button class="cart-btn" type="button">
+                    <span class="material-icons" title="cart">add_shopping_cart</span>
+                    Cart
+                </button>
+            </div>
+            <div class="sign">
+                <button class="sign-btn" type="button">
+                    <span class="material-icons" title="profile">person</span>
+                    Sign In
+                </button>
+            </div>
+        </div>
+    </header>
+    <!-- Product page -->
+    <div class="product-page-container">
+        <div class="back-btn-container">
+            <button class="back-btn" type="button">
+                <a href="/">
+                    <span class="material-icons" title="back">arrow_back</span>Go Back
+                </a>
+            </button>
+        </div>
+        <div class="product-cart-container">
+            <div class="product">
+                <div class="product-image">
+                    <img src="./assests/images/playstation.jpg" alt="product image">
+                </div>
+                <div class="product-details">
+                    <div class="product-title price">
+                        <h2 class="product-title">Play Station 4</h2>
+                        <div class="line-separator"></div>
+                        <p class="product-price">Price: ksh 40,000</p>
+                    </div>
+                    <div class="line-separator"></div>
+                    <div class="product-description">
+                        <h3>Description:</h3>
+                        <p>
+                            The ultimate home entertainment center starts with
+                            PlayStation. Whether you are into gaming, HD movies,
+                            television, music
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="product-page-cart">
+                <div class="product-page-add-to-cart">
+                    <div class="product-page-price">
+                        <h3>Price: ksh 40,000</h3>
+                    </div>
+                    <div class="line-separator"></div>
+                    <div class="product-page-status">
+                        <h3>Status: <span class="status">In Stock</span></h3>
+                    </div>
+                    <div class="line-separator"></div>
+                    <div class="product-page-qty">
+                        <label for="qty">Qty:</label>
+                        <input type="number" name="qty" id="qty" value="1" min="1">
+                    </div>
+                    <div class="line-separator"></div>
+                    <button class="add-to-cart-btn" type="button">
+                        <span class="material-icons" title="add to cart">add_shopping_cart</span>
+                        Add To Cart
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+    <footer>
+        <p>Copyright &copy;
+            <script>document.write(new Date().getFullYear())</script> - GadgetHub
+        </p>
+    </footer>
+    <script type="module" src="./dist/product.js"></script>
+</body>
+
+</html>

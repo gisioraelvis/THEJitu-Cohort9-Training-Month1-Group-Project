@@ -1,0 +1,67 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.main {
+    display: flex;
+    justify-content: center;
+
+}
+
+.userProfile {
+    background-color: #1a0b41;
+    color: white;
+    width: 60%;
+    padding: 2%;
+    margin: auto;
+    margin-top: 8%;
+
+}
+
+.userProfile h2 {
+    text-align: center;
+}
+
+
+form label {
+    font-size: 2em;
+}
+
+form {
+    width: 60%;
+    padding: 2%;
+    margin-top: 4%;
+
+}
+
+
+input {
+    padding: 2%;
+    border: 2px solid gray;
+    box-sizing: border-box;
+    width: 60%;
+    margin-left: 44%;
+    background-color: rgba(217, 217, 217, 255);
+
+
+}
+
+
+form button {
+    background-color: #1a0b41;
+    padding: 2%;
+    color: rgba(255, 255, 255, 255);
+    font-size: 1.5em;
+    font-weight: bold;
+    width: 20%;
+    margin-left: 84%;
+}
+
+footer {
+    font-size: 1.7em;
+    text-align: center;
+    margin: 6%;
+
+}
