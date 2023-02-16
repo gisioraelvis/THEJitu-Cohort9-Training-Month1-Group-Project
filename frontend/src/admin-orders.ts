@@ -1,4 +1,11 @@
+import { Product } from "./interfaces";
 let API_URL = "http://localhost:5500/api" as string;
+
+/* 
+To access the cart page the user should be logged in i.e jwt token should be present in the local storage
+When user clicks on sign in button, the user should be redirected to the login page if not logged in
+else redirect to profile page
+ */
 
 const nav = document.querySelector(".nav") as HTMLDivElement;
 const cartBtn = document.querySelector(".cart-btn") as HTMLButtonElement;
@@ -9,7 +16,7 @@ const jwt = localStorage.getItem("jwt") as string;
 if (jwt) {
   signBtn.innerHTML = `
         <span class="material-icons" title="profile">person</span>
-        Profile
+        Admin
     `;
 }
 
@@ -49,30 +56,30 @@ signBtn.addEventListener("click", () => {
   }
 });
 
-// const profileBtn = document.createElement("button");
-// profileBtn.innerHTML = "Update Profile";
+const profileBtn = document.createElement("button");
+profileBtn.innerHTML = "Update Profile";
 
-// // located far right of the nav
-// profileBtn.style.position = "absolute";
-// profileBtn.style.right = "0";
-// profileBtn.style.top = "0";
-// profileBtn.style.margin = "2rem";
-// profileBtn.style.padding = "1rem";
-// profileBtn.style.borderRadius = "0.5rem";
-// profileBtn.style.backgroundColor = "grey";
-// profileBtn.style.color = "#fff";
-// profileBtn.style.cursor = "pointer";
+// located far right of the nav
+profileBtn.style.position = "absolute";
+profileBtn.style.right = "0";
+profileBtn.style.top = "0";
+profileBtn.style.margin = "2rem";
+profileBtn.style.padding = "1rem";
+profileBtn.style.borderRadius = "0.5rem";
+profileBtn.style.backgroundColor = "grey";
+profileBtn.style.color = "#fff";
+profileBtn.style.cursor = "pointer";
 
-// myOrdersP.parentElement?.insertBefore(profileBtn, myOrdersP);
+myOrdersP.parentElement?.insertBefore(profileBtn, myOrdersP);
 
-// profileBtn.addEventListener("click", () => {
-//   window.location.href = "UserProfile.html";
-// });
+profileBtn.addEventListener("click", () => {
+  window.location.href = "UserProfile.html";
+});
 
 // get orders
 const getOrders = async () => {
   try {
-    const res = await fetch(`${API_URL}/orders/myorders`, {
+    const res = await fetch(`${API_URL}/orders`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -82,6 +89,45 @@ const getOrders = async () => {
 
     const data = await res.json();
     console.log(data);
+
+    /* Sample response
+    [
+    {
+        "id": 1,
+        "userId": 8,
+        "shippingAddress": "",
+        "paymentMethod": "",
+        "paymentResultId": null,
+        "paymentResultStatus": "Pending",
+        "taxPrice": null,
+        "shippingPrice": null,
+        "totalPrice": 0,
+        "isPaid": false,
+        "paidAt": null,
+        "isDelivered": false,
+        "deliveredAt": null,
+        "createdAt": "2023-02-15T23:12:38.303Z",
+        "updatedAt": "2023-02-15T23:12:38.303Z"
+    },
+    {
+        "id": 2,
+        "userId": 8,
+        "shippingAddress": "",
+        "paymentMethod": "",
+        "paymentResultId": null,
+        "paymentResultStatus": "Pending",
+        "taxPrice": null,
+        "shippingPrice": null,
+        "totalPrice": 0,
+        "isPaid": false,
+        "paidAt": null,
+        "isDelivered": false,
+        "deliveredAt": null,
+        "createdAt": "2023-02-15T23:15:08.730Z",
+        "updatedAt": "2023-02-15T23:15:08.730Z"
+    }]
+    
+    */
 
     // display orders
     data.forEach((order: any) => {
@@ -99,26 +145,21 @@ const getOrders = async () => {
       } as Intl.DateTimeFormatOptions);
 
       row.innerHTML = `
-            <td>${order.id}</td>
-            <td>${orderDate}</td>
-            <td>${order.totalPrice}</td>
-            <td>
-                ${
-                  order.isPaid
-                    ? `<span class="material-symbols-rounded check">check</span>`
-                    : `<span class="material-symbols-rounded close">close</span>`
-                }
-            </td>
-            <td>
-                ${
-                  order.isDelivered
-                    ? `<span class="material-symbols-rounded check">check</span>`
-                    : `<span class="material-symbols-rounded close">close</span>`
-                }
-            </td>
-            <td>
-                <button>DETAILS</button>
-            </td>
+        <td>${order.id}</td>
+        <td>${order.userId}</td>
+        <td>${orderDate}</td>
+        <td>${order.totalPrice}</td>
+        <td class="${
+          order.isPaid ? "check" : "close"
+        }"><span class="material-symbols-rounded">${
+        order.isPaid ? "check" : "close"
+      }</span></td>
+        <td class="${
+          order.isDelivered ? "check" : "close"
+        }"><span class="material-symbols-rounded">${
+        order.isDelivered ? "check" : "close"
+      }</span></td>
+        <td><button>DETAILS</button></td>
         `;
 
       tableBody.appendChild(row);

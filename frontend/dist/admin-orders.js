@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -8,7 +7,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var _a;
 let API_URL = "http://localhost:5500/api";
+/*
+To access the cart page the user should be logged in i.e jwt token should be present in the local storage
+When user clicks on sign in button, the user should be redirected to the login page if not logged in
+else redirect to profile page
+ */
 const nav = document.querySelector(".nav");
 const cartBtn = document.querySelector(".cart-btn");
 const signBtn = document.querySelector(".sign-btn");
@@ -16,7 +21,7 @@ const jwt = localStorage.getItem("jwt");
 if (jwt) {
     signBtn.innerHTML = `
         <span class="material-icons" title="profile">person</span>
-        Profile
+        Admin
     `;
 }
 cartBtn.addEventListener("click", () => {
@@ -54,26 +59,26 @@ signBtn.addEventListener("click", () => {
         window.location.href = "SignIn.html";
     }
 });
-// const profileBtn = document.createElement("button");
-// profileBtn.innerHTML = "Update Profile";
-// // located far right of the nav
-// profileBtn.style.position = "absolute";
-// profileBtn.style.right = "0";
-// profileBtn.style.top = "0";
-// profileBtn.style.margin = "2rem";
-// profileBtn.style.padding = "1rem";
-// profileBtn.style.borderRadius = "0.5rem";
-// profileBtn.style.backgroundColor = "grey";
-// profileBtn.style.color = "#fff";
-// profileBtn.style.cursor = "pointer";
-// myOrdersP.parentElement?.insertBefore(profileBtn, myOrdersP);
-// profileBtn.addEventListener("click", () => {
-//   window.location.href = "UserProfile.html";
-// });
+const profileBtn = document.createElement("button");
+profileBtn.innerHTML = "Update Profile";
+// located far right of the nav
+profileBtn.style.position = "absolute";
+profileBtn.style.right = "0";
+profileBtn.style.top = "0";
+profileBtn.style.margin = "2rem";
+profileBtn.style.padding = "1rem";
+profileBtn.style.borderRadius = "0.5rem";
+profileBtn.style.backgroundColor = "grey";
+profileBtn.style.color = "#fff";
+profileBtn.style.cursor = "pointer";
+(_a = myOrdersP.parentElement) === null || _a === void 0 ? void 0 : _a.insertBefore(profileBtn, myOrdersP);
+profileBtn.addEventListener("click", () => {
+    window.location.href = "UserProfile.html";
+});
 // get orders
 const getOrders = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const res = yield fetch(`${API_URL}/orders/myorders`, {
+        const res = yield fetch(`${API_URL}/orders`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -82,6 +87,44 @@ const getOrders = () => __awaiter(void 0, void 0, void 0, function* () {
         });
         const data = yield res.json();
         console.log(data);
+        /* Sample response
+        [
+        {
+            "id": 1,
+            "userId": 8,
+            "shippingAddress": "",
+            "paymentMethod": "",
+            "paymentResultId": null,
+            "paymentResultStatus": "Pending",
+            "taxPrice": null,
+            "shippingPrice": null,
+            "totalPrice": 0,
+            "isPaid": false,
+            "paidAt": null,
+            "isDelivered": false,
+            "deliveredAt": null,
+            "createdAt": "2023-02-15T23:12:38.303Z",
+            "updatedAt": "2023-02-15T23:12:38.303Z"
+        },
+        {
+            "id": 2,
+            "userId": 8,
+            "shippingAddress": "",
+            "paymentMethod": "",
+            "paymentResultId": null,
+            "paymentResultStatus": "Pending",
+            "taxPrice": null,
+            "shippingPrice": null,
+            "totalPrice": 0,
+            "isPaid": false,
+            "paidAt": null,
+            "isDelivered": false,
+            "deliveredAt": null,
+            "createdAt": "2023-02-15T23:15:08.730Z",
+            "updatedAt": "2023-02-15T23:15:08.730Z"
+        }]
+        
+        */
         // display orders
         data.forEach((order) => {
             const row = document.createElement("tr");
@@ -96,22 +139,13 @@ const getOrders = () => __awaiter(void 0, void 0, void 0, function* () {
                 timeZone: "Africa/Nairobi",
             });
             row.innerHTML = `
-            <td>${order.id}</td>
-            <td>${orderDate}</td>
-            <td>${order.totalPrice}</td>
-            <td>
-                ${order.isPaid
-                ? `<span class="material-symbols-rounded check">check</span>`
-                : `<span class="material-symbols-rounded close">close</span>`}
-            </td>
-            <td>
-                ${order.isDelivered
-                ? `<span class="material-symbols-rounded check">check</span>`
-                : `<span class="material-symbols-rounded close">close</span>`}
-            </td>
-            <td>
-                <button>DETAILS</button>
-            </td>
+        <td>${order.id}</td>
+        <td>${order.userId}</td>
+        <td>${orderDate}</td>
+        <td>${order.totalPrice}</td>
+        <td class="${order.isPaid ? "check" : "close"}"><span class="material-symbols-rounded">${order.isPaid ? "check" : "close"}</span></td>
+        <td class="${order.isDelivered ? "check" : "close"}"><span class="material-symbols-rounded">${order.isDelivered ? "check" : "close"}</span></td>
+        <td><button>DETAILS</button></td>
         `;
             tableBody.appendChild(row);
         });
@@ -131,3 +165,4 @@ tableBody.addEventListener("click", (e) => {
 window.addEventListener("DOMContentLoaded", () => {
     getOrders();
 });
+export {};
