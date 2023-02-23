@@ -470,8 +470,15 @@
 						"disableBodyPruning": true
 					},
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{JWT}}"
+							}
+						},
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": "{{URL}}/api/users/soft-deleted"
 					},
 					"response": []
 				}
@@ -825,7 +832,7 @@
 	],
 	"variable": [
 		{
-			"id": "aeee2636-9266-4044-b2a8-f23083ab930c",
+			"id": "f6d62b85-f167-430a-9df9-fa507c6fce08",
 			"key": "URL",
 			"value": "localhost:5500"
 		}
