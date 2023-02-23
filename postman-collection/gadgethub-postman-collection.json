@@ -333,7 +333,7 @@
 						},
 						"method": "DELETE",
 						"header": [],
-						"url": "{{URL}}/api/users/1002"
+						"url": "{{URL}}/api/users/8"
 					},
 					"response": []
 				},
@@ -825,7 +825,7 @@
 	],
 	"variable": [
 		{
-			"id": "2304a8bd-fa08-4db0-b47b-13d4f9142b01",
+			"id": "aeee2636-9266-4044-b2a8-f23083ab930c",
 			"key": "URL",
 			"value": "localhost:5500"
 		}
