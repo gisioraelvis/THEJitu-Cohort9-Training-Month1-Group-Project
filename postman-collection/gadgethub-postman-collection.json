@@ -373,14 +373,14 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "   {\n        \"name\": \"Obed\",\n        \"email\": \"kipsangkertich@gmail.com\",\n        \"isAdmin\": false,\n    }",
+							"raw": "   {\n        \"name\": \"John Doe\",\n        \"email\": \"johndoee@example.com\",\n        \"isDeleted\": true,\n        \"isAdmin\": false\n    }",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": "{{URL}}/api/users/1007"
+						"url": "{{URL}}/api/users/9"
 					},
 					"response": []
 				},
@@ -832,7 +832,7 @@
 	],
 	"variable": [
 		{
-			"id": "0d53db9c-6253-487d-8fb2-bbf28d8a77f5",
+			"id": "874b36cc-97a4-4b48-b7d3-07396ed3e167",
 			"key": "URL",
 			"value": "localhost:5500"
 		}
