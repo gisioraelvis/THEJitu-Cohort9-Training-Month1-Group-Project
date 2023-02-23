@@ -462,6 +462,18 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "New Request",
+					"id": "b16445db-d7f5-4a56-9536-b865a8897831",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
 				}
 			],
 			"id": "885a37fa-a2c1-4a22-933a-f67f71d48c83"
@@ -813,7 +825,7 @@
 	],
 	"variable": [
 		{
-			"id": "0449ef23-6863-4b3d-8496-20ad43f5b5f1",
+			"id": "76e62331-6b0a-4371-b1b9-1fb5c5dd0321",
 			"key": "URL",
 			"value": "localhost:5500"
 		}
