@@ -214,7 +214,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n \"email\": \"admin@example.com\",\n \"password\": \"@AveryStrongPassword23*\"\n}\n\n",
+							"raw": "{\n \"email\": \"admin@example.com\",\n \"password\": \"@AveryStrongPassword23*\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -832,7 +832,7 @@
 	],
 	"variable": [
 		{
-			"id": "1312efd7-2f3d-4e6e-8e79-6ff7cae48e7a",
+			"id": "04fb5343-df0c-4bc3-88a9-bbc0377b09e1",
 			"key": "URL",
 			"value": "localhost:5500"
 		}
