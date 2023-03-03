@@ -32,7 +32,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "{{URL}}/api/products/7"
+						"url": "{{URL}}/api/products/1"
 					},
 					"response": []
 				},
@@ -832,7 +832,7 @@
 	],
 	"variable": [
 		{
-			"id": "874b36cc-97a4-4b48-b7d3-07396ed3e167",
+			"id": "0b9e5453-48bb-40db-9c26-84da8288e21f",
 			"key": "URL",
 			"value": "localhost:5500"
 		}
