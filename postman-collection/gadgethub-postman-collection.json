@@ -249,7 +249,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"johndoe\",\n    \"email\": \"gisioraelvis20@gmail.com\",\n    \"password\": \"johndoe\",\n    \"confirmPassword\": \"johndoe\"\n}",
+							"raw": "{\n    \"name\": \"johndoe\",\n    \"email\": \"mainajesse@gmail.com\",\n    \"password\": \"johndoe\",\n    \"confirmPassword\": \"johndoe\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -832,7 +832,7 @@
 	],
 	"variable": [
 		{
-			"id": "4f16c356-f578-47e3-adae-1d1f216e2661",
+			"id": "1312efd7-2f3d-4e6e-8e79-6ff7cae48e7a",
 			"key": "URL",
 			"value": "localhost:5500"
 		}
