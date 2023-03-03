@@ -414,7 +414,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n \"email\": \"kipsangkertich1@gmail.com\"\n}",
+							"raw": "{\n \"email\": \"mainajesse169@gmail.com\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -832,7 +832,7 @@
 	],
 	"variable": [
 		{
-			"id": "0b9e5453-48bb-40db-9c26-84da8288e21f",
+			"id": "4f16c356-f578-47e3-adae-1d1f216e2661",
 			"key": "URL",
 			"value": "localhost:5500"
 		}
